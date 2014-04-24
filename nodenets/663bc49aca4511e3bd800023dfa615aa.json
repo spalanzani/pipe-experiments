@@ -1,6 +1,17 @@
 {
     "filename": "/Users/rvuine/micropsi2/resources/nodenets/663bc49aca4511e3bd800023dfa615aa.json",
     "links": {
+        "0c573df4-a18f-4fc5-af1c-9c721f72d014": {
+            "certainty": 1,
+            "source_gate_name": "sub",
+            "source_node": "d67d9cee-7a48-434e-93ba-776a1c9149c4",
+            "source_node_uid": "d67d9cee-7a48-434e-93ba-776a1c9149c4",
+            "target_node": "8862e115-e4c1-4e34-983d-4250b7d1f194",
+            "target_node_uid": "8862e115-e4c1-4e34-983d-4250b7d1f194",
+            "target_slot_name": "sub",
+            "uid": "0c573df4-a18f-4fc5-af1c-9c721f72d014",
+            "weight": 1
+        },
         "2a74bf5b-821f-4547-a781-8989295d6e4a": {
             "certainty": 1,
             "source_gate_name": "cat",
@@ -56,6 +67,17 @@
             "uid": "55aaa763-4860-450d-a12b-67ee22cf6b84",
             "weight": 1
         },
+        "56ba6f14-46e8-496c-8b18-f9fe5c47b798": {
+            "certainty": 1,
+            "source_gate_name": "sur",
+            "source_node": "6fe410cb-bd07-45b5-aefc-1aa0999dff62",
+            "source_node_uid": "6fe410cb-bd07-45b5-aefc-1aa0999dff62",
+            "target_node": "50fad620-e317-4a6d-9a75-17370743f314",
+            "target_node_uid": "50fad620-e317-4a6d-9a75-17370743f314",
+            "target_slot_name": "sur",
+            "uid": "56ba6f14-46e8-496c-8b18-f9fe5c47b798",
+            "weight": 1
+        },
         "5a70c1a7-edab-463c-8d29-9825cd82619f": {
             "certainty": 1,
             "source_gate_name": "sur",
@@ -100,6 +122,17 @@
             "uid": "746adf9b-501d-42bd-8c97-d8249f36e241",
             "weight": 1
         },
+        "801817c7-84ce-4bd4-a1a3-99d13f65efca": {
+            "certainty": 1,
+            "source_gate_name": "sur",
+            "source_node": "8862e115-e4c1-4e34-983d-4250b7d1f194",
+            "source_node_uid": "8862e115-e4c1-4e34-983d-4250b7d1f194",
+            "target_node": "d67d9cee-7a48-434e-93ba-776a1c9149c4",
+            "target_node_uid": "d67d9cee-7a48-434e-93ba-776a1c9149c4",
+            "target_slot_name": "sur",
+            "uid": "801817c7-84ce-4bd4-a1a3-99d13f65efca",
+            "weight": 1
+        },
         "8937cf65-a0a3-4f21-bb1d-b8b59937591e": {
             "certainty": 1,
             "source_gate_name": "sub",
@@ -109,6 +142,17 @@
             "target_node_uid": "d67d9cee-7a48-434e-93ba-776a1c9149c4",
             "target_slot_name": "sub",
             "uid": "8937cf65-a0a3-4f21-bb1d-b8b59937591e",
+            "weight": 1
+        },
+        "90d1e686-e56a-4e1e-bb14-9a9f08677b77": {
+            "certainty": 1,
+            "source_gate_name": "sub",
+            "source_node": "50fad620-e317-4a6d-9a75-17370743f314",
+            "source_node_uid": "50fad620-e317-4a6d-9a75-17370743f314",
+            "target_node": "6fe410cb-bd07-45b5-aefc-1aa0999dff62",
+            "target_node_uid": "6fe410cb-bd07-45b5-aefc-1aa0999dff62",
+            "target_slot_name": "sub",
+            "uid": "90d1e686-e56a-4e1e-bb14-9a9f08677b77",
             "weight": 1
         },
         "9e184ce7-b66e-4a32-a4c5-1b64b251168c": {
@@ -473,11 +517,151 @@
             "type": "Register",
             "uid": "59cf40fb-4f48-4d2f-a480-eebbe024cb12"
         },
+        "6fe410cb-bd07-45b5-aefc-1aa0999dff62": {
+            "gate_activations": {
+                "cat": {
+                    "default": {
+                        "activation": 0.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "exp": {
+                    "default": {
+                        "activation": 0.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "gen": {
+                    "default": {
+                        "activation": 0.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "por": {
+                    "default": {
+                        "activation": -1.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "ret": {
+                    "default": {
+                        "activation": -1.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "sub": {
+                    "default": {
+                        "activation": 0.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "sur": {
+                    "default": {
+                        "activation": 0.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 11,
+            "name": "TwigSensorProxy",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                579,
+                483
+            ],
+            "sheaves": {
+                "default": {
+                    "activation": 0.0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
+            "type": "Pipe",
+            "uid": "6fe410cb-bd07-45b5-aefc-1aa0999dff62"
+        },
+        "8862e115-e4c1-4e34-983d-4250b7d1f194": {
+            "gate_activations": {
+                "cat": {
+                    "default": {
+                        "activation": 0.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "exp": {
+                    "default": {
+                        "activation": 0.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "gen": {
+                    "default": {
+                        "activation": 0.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "por": {
+                    "default": {
+                        "activation": -1.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "ret": {
+                    "default": {
+                        "activation": -1.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "sub": {
+                    "default": {
+                        "activation": -1.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "sur": {
+                    "default": {
+                        "activation": 0.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 12,
+            "name": "TwigSensorProxy",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                729,
+                482
+            ],
+            "sheaves": {
+                "default": {
+                    "activation": 0.0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
+            "type": "Pipe",
+            "uid": "8862e115-e4c1-4e34-983d-4250b7d1f194"
+        },
         "a9654ce4-3cb8-4694-8790-8f9fbe74e3cd": {
             "gate_activations": {
                 "cat": {
                     "default": {
-                        "activation": -1.0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -617,7 +801,7 @@
             "gate_activations": {
                 "cat": {
                     "default": {
-                        "activation": -1.0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -687,7 +871,7 @@
             "gate_activations": {
                 "cat": {
                     "default": {
-                        "activation": -1.0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -837,7 +1021,7 @@
         }
     },
     "owner": "admin",
-    "step": 8,
+    "step": 10,
     "uid": "663bc49aca4511e3bd800023dfa615aa",
     "version": 1,
     "world": "",
