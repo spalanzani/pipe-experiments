@@ -1,0 +1,8 @@
+{
+    "SceneImporter": {
+        "name": "SceneImporter",
+        "slottypes": ["trigger"],
+        "nodefunction_name": "scene_importer",
+        "gatetypes": ["success","fail"]
+    }
+}
