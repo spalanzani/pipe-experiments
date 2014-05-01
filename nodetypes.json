@@ -1,8 +1,25 @@
 {
     "SceneImporter": {
         "name": "SceneImporter",
-        "slottypes": ["trigger"],
+        "slottypes": [],
         "nodefunction_name": "scene_importer",
-        "gatetypes": ["success","fail"]
+        "gatetypes": ["reset", "fov_x", "fov_y"],
+        "gate_defaults": {
+            "reset": {
+                "minimum": -100,
+                "maximum": 100,
+                "threshold": -100
+            },
+            "fov_x": {
+                "minimum": -100,
+                "maximum": 100,
+                "threshold": -100
+            },
+            "fov_y": {
+                "minimum": -100,
+                "maximum": 100,
+                "threshold": -100
+            }
+        }
     }
 }
