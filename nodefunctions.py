@@ -83,7 +83,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                     previousproxy = proxy
 
         # finally some fovea randomisation for the next round
-        fovea_position_candidate = (x ,y)
+        fovea_position_candidate = (randint(0, 4), randint(0, 4))
         i = 10
         while fovea_position_candidate not in fovea_positions and i < 10:
             i += 1
