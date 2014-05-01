@@ -65,9 +65,9 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 netapi.link(act, 'por', sense, 'por')
                 netapi.link(sense, 'ret', act, 'ret')
 
-                netapi.link_actor(act, 'fovea_reset')
-                netapi.link_actor(act, 'fovea_x', x)
-                netapi.link_actor(act, 'fovea_y', y)
+                netapi.link_actor(act, 'fov_reset')
+                netapi.link_actor(act, 'fov_x', x)
+                netapi.link_actor(act, 'fov_y', y)
 
                 previousproxy = None
                 for sensor in sensor_for_new_feature:
