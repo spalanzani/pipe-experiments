@@ -21,8 +21,8 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
     for sub_node in sub_field:
         if sub_node.activation <= 0:
             all_subs_active = False
-        actor_proxy = netapi.get_nodes_field(sub_node, 'sub', ['ret'])[0]
-        fovea_positions.append((actor_proxy.data['x'], actor_proxy.data['y']))
+        act = netapi.get_nodes_field(sub_node, 'sub', ['ret'])[0]
+        fovea_positions.append((act.get_state('x'), act.get_state('y')))
 
     # if the scene is fully recognized, check if there's something we can add to it in the world
     if all_subs_active:
@@ -46,50 +46,60 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
 
             # and build the schema for them
             if len(sensor_for_new_feature) > 0:
+                previousfeature = netapi.get_nodes_field(scene, 'sub', 'ret')
+
                 feature = netapi.create_node("Pipe", node.parent_nodespace, featurename)
-                act = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Act")
-                sense = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Sense")
-
-                act.data['x'] = x
-                act.data['y'] = y
-
+                feature.set_parameter('sublock', 'fovea')
                 netapi.link(scene, 'sub', feature, 'sub')
                 netapi.link(feature, 'sur', scene, 'sur')
 
+                if len(previousfeature) == 1:
+                    netapi.link(previousfeature[0], 'por', feature, 'por')
+                    netapi.link(feature, 'ret', previousfeature[0], 'ret')
+
+                act = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Act")
+                act.set_state('x', x)
+                act.set_state('y', y)
                 netapi.link(feature, 'sub', act, 'sub')
                 netapi.link(act, 'sur', feature, 'sur')
 
+                sense = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Sense")
                 netapi.link(feature, 'sub', sense, 'sub')
                 netapi.link(sense, 'sur', feature, 'sur')
 
                 netapi.link(act, 'por', sense, 'por')
                 netapi.link(sense, 'ret', act, 'ret')
 
-                netapi.link_actor(act, 'fov_reset')
-                netapi.link_actor(act, 'fov_x', x)
-                netapi.link_actor(act, 'fov_y', y)
+                actproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Prox-fovea")
+                netapi.link(act, 'sub', actproxy, 'sub')
+                netapi.link(actproxy, 'sur', act, 'sur')
 
-                previousproxy = None
+                netapi.link_actor(actproxy, 'fov_reset')
+                netapi.link_actor(actproxy, 'fov_x', x)
+                netapi.link_actor(actproxy, 'fov_y', y)
+
+                previous_senseproxy = None
                 for sensor in sensor_for_new_feature:
-                    proxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Prox-"+sensor.name)
-                    netapi.link(sense, 'sub', proxy, 'sub')
-                    netapi.link(proxy, 'sur', sense, 'sur')
+                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Prox-"+sensor.name)
+                    netapi.link(sense, 'sub', senseproxy, 'sub')
+                    netapi.link(senseproxy, 'sur', sense, 'sur')
 
-                    netapi.link_sensor(proxy, sensor.name)
+                    netapi.link_sensor(senseproxy, sensor.name)
 
-                    if previousproxy is not None:
-                        netapi.link(previousproxy, 'por', proxy, 'por')
-                        netapi.link(proxy, 'ret', previousproxy, 'ret')
-                    previousproxy = proxy
+                    if previous_senseproxy is not None:
+                        netapi.link(previous_senseproxy, 'por', senseproxy, 'por')
+                        netapi.link(senseproxy, 'ret', previous_senseproxy, 'ret')
+                    previous_senseproxy = senseproxy
 
-        # finally some fovea randomisation for the next round
-        fovea_position_candidate = (randint(0, 4), randint(0, 4))
-        i = 10
-        while fovea_position_candidate not in fovea_positions and i < 10:
-            i += 1
-            fovea_position_candidate = (randint(0, 4), randint(0, 4))
+        # finally some fovea randomisation for the next round if no schema is accessing the fovea right now
+        if not netapi.is_locked('fovea'):
+            fovea_position_candidate = (randint(-2, 2), randint(-2, 2))
+            i = 10
+            while fovea_position_candidate not in fovea_positions and i < 10:
+                i += 1
+                fovea_position_candidate = (randint(-2, 2), randint(-2, 2))
 
-        if fovea_position_candidate not in fovea_positions:
-            node.get_gate("reset").gate_function(1)
-            node.get_gate("fov_x").gate_function(fovea_position_candidate[0])
-            node.get_gate("fov_y").gate_function(fovea_position_candidate[1])
+            if fovea_position_candidate not in fovea_positions:
+                node.get_gate("reset").gate_function(1)
+                node.get_gate("fov_x").gate_function(fovea_position_candidate[0])
+                node.get_gate("fov_y").gate_function(fovea_position_candidate[1])
