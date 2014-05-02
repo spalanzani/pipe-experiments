@@ -46,12 +46,14 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
 
             # and build the schema for them
             if len(sensor_for_new_feature) > 0:
-                previousfeature = netapi.get_nodes_field(scene, 'sub', 'ret')
+                previousfeature = netapi.get_nodes_field(scene, 'sub', ['por'])
 
                 feature = netapi.create_node("Pipe", node.parent_nodespace, featurename)
                 feature.set_parameter('sublock', 'fovea')
                 netapi.link(scene, 'sub', feature, 'sub')
                 netapi.link(feature, 'sur', scene, 'sur')
+
+                netapi.link(feature, 'gen', feature, 'gen', 0.95) # slowly fading confirmation loop
 
                 if len(previousfeature) == 1:
                     netapi.link(previousfeature[0], 'por', feature, 'por')
@@ -75,8 +77,10 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 netapi.link(actproxy, 'sur', act, 'sur')
 
                 netapi.link_actor(actproxy, 'fov_reset')
-                netapi.link_actor(actproxy, 'fov_x', x)
-                netapi.link_actor(actproxy, 'fov_y', y)
+                if x != 0:
+                    netapi.link_actor(actproxy, 'fov_x', x)
+                if y != 0:
+                    netapi.link_actor(actproxy, 'fov_y', y)
 
                 previous_senseproxy = None
                 for sensor in sensor_for_new_feature:
