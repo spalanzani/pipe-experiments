@@ -19,10 +19,9 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
     all_subs_active = True
     fovea_positions = []
     for sub_node in sub_field:
-        if sub_node.activation <= 0:
+        if sub_node.activation <= 0.5:
             all_subs_active = False
-        act = netapi.get_nodes_field(sub_node, 'sub', ['ret'])[0]
-        fovea_positions.append((act.get_state('x'), act.get_state('y')))
+        fovea_positions.append((sub_node.get_state('x'), sub_node.get_state('y')))
 
     # if the scene is fully recognized, check if there's something we can add to it in the world
     if all_subs_active:
@@ -39,42 +38,68 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
 
             # find the sensors to link
             active_sensors = netapi.get_nodes_active(node.parent_nodespace, 'Sensor', 1, 'gen')
-            sensor_for_new_feature = []
+            fovea_sensors_for_new_feature = []
+            presence_sensors_for_new_feature = []
             for sensor in active_sensors:
                 if sensor.name.startswith("fovea"):
-                    sensor_for_new_feature.append(sensor)
+                    fovea_sensors_for_new_feature.append(sensor)
+                if sensor.name.startswith("presence"):
+                    presence_sensors_for_new_feature.append(sensor)
 
             # and build the schema for them
-            if len(sensor_for_new_feature) > 0:
+            if len(fovea_sensors_for_new_feature) > 0:
                 previousfeature = netapi.get_nodes_field(scene, 'sub', ['por'])
 
                 feature = netapi.create_node("Pipe", node.parent_nodespace, featurename)
-                feature.set_parameter('sublock', 'fovea')
+                feature.set_state('x', x)
+                feature.set_state('y', y)
+                #feature.set_parameter('sublock', 'fovea')
                 netapi.link(scene, 'sub', feature, 'sub')
                 netapi.link(feature, 'sur', scene, 'sur')
 
-                netapi.link(feature, 'gen', feature, 'gen', 0.95) # slowly fading confirmation loop
+                #netapi.link(feature, 'gen', feature, 'gen', 0.95) # slowly fading confirmation loop
 
                 if len(previousfeature) == 1:
                     netapi.link(previousfeature[0], 'por', feature, 'por')
                     netapi.link(feature, 'ret', previousfeature[0], 'ret')
 
+                precondition = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Prec")
+                netapi.link(feature, 'sub', precondition, 'sub')
+                netapi.link(precondition, 'sur', feature, 'sur')
+
+                previous_senseproxy = None
+                for sensor in presence_sensors_for_new_feature:
+                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Prox-"+sensor.name)
+                    netapi.link(precondition, 'sub', senseproxy, 'sub')
+                    netapi.link(senseproxy, 'sur', precondition, 'sur')
+
+                    netapi.link(senseproxy, 'gen', senseproxy, 'gen', 0.95)
+
+                    netapi.link_sensor(senseproxy, sensor.name)
+
+                    if previous_senseproxy is not None:
+                        netapi.link(previous_senseproxy, 'por', senseproxy, 'por')
+                        netapi.link(senseproxy, 'ret', previous_senseproxy, 'ret')
+                    previous_senseproxy = senseproxy
+
                 act = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Act")
-                act.set_state('x', x)
-                act.set_state('y', y)
                 netapi.link(feature, 'sub', act, 'sub')
                 netapi.link(act, 'sur', feature, 'sur')
+                netapi.link(precondition, 'por', act, 'por')
+                netapi.link(act, 'ret', precondition, 'ret')
 
                 sense = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Sense")
                 netapi.link(feature, 'sub', sense, 'sub')
                 netapi.link(sense, 'sur', feature, 'sur')
-
                 netapi.link(act, 'por', sense, 'por')
                 netapi.link(sense, 'ret', act, 'ret')
 
                 actproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Prox-fovea")
                 netapi.link(act, 'sub', actproxy, 'sub')
                 netapi.link(actproxy, 'sur', act, 'sur')
+
+                netapi.link(actproxy, 'gen', actproxy, 'gen', 0.95)
+                netapi.link(actproxy, 'sub', actproxy, 'sur')
 
                 netapi.link_actor(actproxy, 'fov_reset')
                 if x != 0:
@@ -83,10 +108,12 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                     netapi.link_actor(actproxy, 'fov_y', y)
 
                 previous_senseproxy = None
-                for sensor in sensor_for_new_feature:
+                for sensor in fovea_sensors_for_new_feature:
                     senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Prox-"+sensor.name)
                     netapi.link(sense, 'sub', senseproxy, 'sub')
                     netapi.link(senseproxy, 'sur', sense, 'sur')
+
+                    netapi.link(senseproxy, 'gen', senseproxy, 'gen', 0.95)
 
                     netapi.link_sensor(senseproxy, sensor.name)
 
