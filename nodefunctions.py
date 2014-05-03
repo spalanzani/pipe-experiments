@@ -31,7 +31,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
         # current fovea position and resulting feature name
         x = int(node.get_slot("fov-x").activation)
         y = int(node.get_slot("fov-y").activation)
-        featurename = "F-" + str(x) + "-" + str(y)
+        featurename = "F(" + str(x) + "/" + str(y)+")"
 
         # now, do we have a feature for the current sensor situation?
         if (x, y) not in fovea_positions:
@@ -63,13 +63,13 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                     netapi.link(previousfeature[0], 'por', feature, 'por')
                     netapi.link(feature, 'ret', previousfeature[0], 'ret')
 
-                precondition = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Prec")
+                precondition = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prec")
                 netapi.link(feature, 'sub', precondition, 'sub')
                 netapi.link(precondition, 'sur', feature, 'sur')
 
                 previous_senseproxy = None
                 for sensor in presence_sensors_for_new_feature:
-                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Prox-"+sensor.name)
+                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prx."+sensor.name)
                     netapi.link(precondition, 'sub', senseproxy, 'sub')
                     netapi.link(senseproxy, 'sur', precondition, 'sur')
 
@@ -82,19 +82,19 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                         netapi.link(senseproxy, 'ret', previous_senseproxy, 'ret')
                     previous_senseproxy = senseproxy
 
-                act = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Act")
+                act = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Act")
                 netapi.link(feature, 'sub', act, 'sub')
                 netapi.link(act, 'sur', feature, 'sur')
                 netapi.link(precondition, 'por', act, 'por')
                 netapi.link(act, 'ret', precondition, 'ret')
 
-                sense = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Sense")
+                sense = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Sense")
                 netapi.link(feature, 'sub', sense, 'sub')
                 netapi.link(sense, 'sur', feature, 'sur')
                 netapi.link(act, 'por', sense, 'por')
                 netapi.link(sense, 'ret', act, 'ret')
 
-                actproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Prox-fovea")
+                actproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prx.fovea")
                 netapi.link(act, 'sub', actproxy, 'sub')
                 netapi.link(actproxy, 'sur', act, 'sur')
 
@@ -109,7 +109,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
 
                 previous_senseproxy = None
                 for sensor in fovea_sensors_for_new_feature:
-                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"-Prox-"+sensor.name)
+                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prx."+sensor.name)
                     netapi.link(sense, 'sub', senseproxy, 'sub')
                     netapi.link(senseproxy, 'sur', sense, 'sur')
 
