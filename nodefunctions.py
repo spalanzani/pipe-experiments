@@ -19,12 +19,12 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
     all_subs_active = True
     fovea_positions = []
     for sub_node in sub_field:
-        if sub_node.activation <= 0.5:
+        if sub_node.activation <= 0.75:
             all_subs_active = False
         fovea_positions.append((sub_node.get_state('x'), sub_node.get_state('y')))
 
     # if the scene is fully recognized, check if there's something we can add to it in the world
-    if all_subs_active:
+    if all_subs_active and node.get_slot("inh-grow").activation < 0.1:
         # what we're looking for: a feature that is active but hasn't been linked
         # for this, we move the fovea to a position we haven't looked at yet
 
