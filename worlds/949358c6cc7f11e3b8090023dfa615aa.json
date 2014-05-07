@@ -1,0 +1,53 @@
+{
+    "agents": {},
+    "assets": {
+        "background": "island/psi_1.png",
+        "icons": {
+            "Braitenberg": "island/braitenberg.png",
+            "Lightsource": "island/lamp.png"
+        },
+        "js": "island/island.js",
+        "x": 2048,
+        "y": 2048
+    },
+    "filename": "/Users/rvuine/micropsi2_data/worlds/949358c6cc7f11e3b8090023dfa615aa.json",
+    "name": "B\u00c3\u00a4ume",
+    "objects": {
+        "24457c6ecca911e3bfef0023dfa615aa": {
+            "name": "Der Baum",
+            "orientation": 0.0,
+            "parameters": {},
+            "position": [
+                757,
+                640.5
+            ],
+            "type": "Tree",
+            "uid": "24457c6ecca911e3bfef0023dfa615aa"
+        }
+    },
+    "owner": "admin",
+    "step": 0,
+    "uid": "949358c6cc7f11e3b8090023dfa615aa",
+    "version": 1,
+    "world_type": "Island",
+    "worldadapters": {
+        "Braitenberg": {
+            "datasources": [
+                "brightness_r",
+                "brightness_l"
+            ],
+            "datatargets": [
+                "engine_l",
+                "engine_r"
+            ]
+        },
+        "StructuredObjects": {
+            "datasources": [],
+            "datatargets": [
+                "fovea_y",
+                "fovea_reset",
+                "fovea_x"
+            ]
+        }
+    }
+}
