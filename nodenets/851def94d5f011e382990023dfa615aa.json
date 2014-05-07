@@ -1,26 +1,99 @@
 {
-    "links": {},
+    "links": {
+        "06946281-cd3b-4832-97ce-300a712c4314": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae",
+            "target_node_uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae",
+            "target_slot_name": "gen",
+            "uid": "06946281-cd3b-4832-97ce-300a712c4314",
+            "weight": 0.95
+        },
+        "1bdfb811-9b63-425a-96af-b607e2f70866": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "075b1ad4d5f111e3b8210023dfa615aa",
+            "target_node_uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae",
+            "target_slot_name": "gen",
+            "uid": "1bdfb811-9b63-425a-96af-b607e2f70866",
+            "weight": 1
+        },
+        "3929de13-6707-4387-addb-94e2fa43e85d": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae",
+            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_slot_name": "inh-grow",
+            "uid": "3929de13-6707-4387-addb-94e2fa43e85d",
+            "weight": 1
+        },
+        "84269994-96ed-497d-abf3-5ff14e7d268f": {
+            "certainty": 1,
+            "source_gate_name": "fov_y",
+            "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_node_uid": "075a0b6ed5f111e39ff70023dfa615aa",
+            "target_slot_name": "gen",
+            "uid": "84269994-96ed-497d-abf3-5ff14e7d268f",
+            "weight": 1
+        },
+        "b846ded4-ed19-4c3e-ac82-d6923c60bdee": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "075abe12d5f111e3a7900023dfa615aa",
+            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_slot_name": "fov-y",
+            "uid": "b846ded4-ed19-4c3e-ac82-d6923c60bdee",
+            "weight": 1
+        },
+        "cd741372-d592-4967-a461-cb77155af670": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "075d3492d5f111e3bae80023dfa615aa",
+            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_slot_name": "fov-x",
+            "uid": "cd741372-d592-4967-a461-cb77155af670",
+            "weight": 1
+        },
+        "f172be2c-0138-4721-a2c3-7efaceea6706": {
+            "certainty": 1,
+            "source_gate_name": "reset",
+            "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_node_uid": "0759b71ad5f111e3ad850023dfa615aa",
+            "target_slot_name": "gen",
+            "uid": "f172be2c-0138-4721-a2c3-7efaceea6706",
+            "weight": 1
+        },
+        "f7203b7d-3395-4d56-af34-dbaf602ec153": {
+            "certainty": 1,
+            "source_gate_name": "fov_x",
+            "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_node_uid": "07596664d5f111e3a1db0023dfa615aa",
+            "target_slot_name": "gen",
+            "uid": "f7203b7d-3395-4d56-af34-dbaf602ec153",
+            "weight": 1
+        }
+    },
     "name": "TestSceneImport",
     "nodes": {
         "042693b9-35c6-4fc8-b12c-fa7071691fb0": {
             "gate_activations": {
                 "fov_x": {
                     "default": {
-                        "activation": 0,
+                        "activation": 2.0,
                         "name": "default",
                         "uid": "default"
                     }
                 },
                 "fov_y": {
                     "default": {
-                        "activation": 0,
+                        "activation": -1.0,
                         "name": "default",
                         "uid": "default"
                     }
                 },
                 "reset": {
                     "default": {
-                        "activation": 0,
+                        "activation": 1.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -31,11 +104,424 @@
             "parameters": {},
             "parent_nodespace": "Root",
             "position": [
-                182,
-                110
+                135.0,
+                135.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "SceneImporter",
             "uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0"
+        },
+        "07596664d5f111e3a1db0023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 3,
+            "name": "fov_x",
+            "parameters": {
+                "datatarget": "fov_x"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                2005.0,
+                645.0
+            ],
+            "type": "Actor",
+            "uid": "07596664d5f111e3a1db0023dfa615aa"
+        },
+        "0759b71ad5f111e3ad850023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 4,
+            "name": "fov_reset",
+            "parameters": {
+                "datatarget": "fov_reset"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                2175.0,
+                645.0
+            ],
+            "type": "Actor",
+            "uid": "0759b71ad5f111e3ad850023dfa615aa"
+        },
+        "075a0b6ed5f111e39ff70023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 5,
+            "name": "fov_y",
+            "parameters": {
+                "datatarget": "fov_y"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                2345.0,
+                645.0
+            ],
+            "type": "Actor",
+            "uid": "075a0b6ed5f111e39ff70023dfa615aa"
+        },
+        "075a662ed5f111e3a5e50023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 6,
+            "name": "fovea-green",
+            "parameters": {
+                "datasource": "fovea-green"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                135.0,
+                645.0
+            ],
+            "type": "Sensor",
+            "uid": "075a662ed5f111e3a5e50023dfa615aa"
+        },
+        "075abe12d5f111e3a7900023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 7,
+            "name": "fov-y",
+            "parameters": {
+                "datasource": "fov-y"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                305.0,
+                645.0
+            ],
+            "type": "Sensor",
+            "uid": "075abe12d5f111e3a7900023dfa615aa"
+        },
+        "075b1ad4d5f111e3b8210023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 8,
+            "name": "major-newscene",
+            "parameters": {
+                "datasource": "major-newscene"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                475.0,
+                645.0
+            ],
+            "type": "Sensor",
+            "uid": "075b1ad4d5f111e3b8210023dfa615aa"
+        },
+        "075b7c54d5f111e3aa5e0023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 9,
+            "name": "presence-brown",
+            "parameters": {
+                "datasource": "presence-brown"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                645.0,
+                645.0
+            ],
+            "type": "Sensor",
+            "uid": "075b7c54d5f111e3aa5e0023dfa615aa"
+        },
+        "075be35ad5f111e39ebe0023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 10,
+            "name": "fovea-brown",
+            "parameters": {
+                "datasource": "fovea-brown"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                815.0,
+                645.0
+            ],
+            "type": "Sensor",
+            "uid": "075be35ad5f111e39ebe0023dfa615aa"
+        },
+        "075c4eecd5f111e3a26b0023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 11,
+            "name": "presence-com",
+            "parameters": {
+                "datasource": "presence-com"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                985.0,
+                645.0
+            ],
+            "type": "Sensor",
+            "uid": "075c4eecd5f111e3a26b0023dfa615aa"
+        },
+        "075cbf9cd5f111e3906a0023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 12,
+            "name": "fovea-ver",
+            "parameters": {
+                "datasource": "fovea-ver"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                1155.0,
+                645.0
+            ],
+            "type": "Sensor",
+            "uid": "075cbf9cd5f111e3906a0023dfa615aa"
+        },
+        "075d3492d5f111e3bae80023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 13,
+            "name": "fov-x",
+            "parameters": {
+                "datasource": "fov-x"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                1325.0,
+                645.0
+            ],
+            "type": "Sensor",
+            "uid": "075d3492d5f111e3bae80023dfa615aa"
+        },
+        "075daf8ad5f111e391790023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 14,
+            "name": "presence-ver",
+            "parameters": {
+                "datasource": "presence-ver"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                1495.0,
+                645.0
+            ],
+            "type": "Sensor",
+            "uid": "075daf8ad5f111e391790023dfa615aa"
+        },
+        "075e2e6cd5f111e3b39c0023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 15,
+            "name": "fovea-com",
+            "parameters": {
+                "datasource": "fovea-com"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                1665.0,
+                645.0
+            ],
+            "type": "Sensor",
+            "uid": "075e2e6cd5f111e3b39c0023dfa615aa"
+        },
+        "075eb2ecd5f111e3beec0023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 16,
+            "name": "presence-green",
+            "parameters": {
+                "datasource": "presence-green"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                1835.0,
+                645.0
+            ],
+            "type": "Sensor",
+            "uid": "075eb2ecd5f111e3beec0023dfa615aa"
+        },
+        "075f31d4d5f111e3a62d0023dfa615aa": {
+            "gate_activations": {
+                "cat": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "exp": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "por": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "ret": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "sub": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "sur": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 17,
+            "name": "Scene",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                135.0,
+                305.0
+            ],
+            "type": "Pipe",
+            "uid": "075f31d4d5f111e3a62d0023dfa615aa"
+        },
+        "6986fa5c-d6f9-4573-8441-9063de4a6dae": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 18,
+            "name": "inhibit-scene-growth",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                135.0,
+                475.0
+            ],
+            "type": "Register",
+            "uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae"
         }
     },
     "nodespaces": {
@@ -51,7 +537,7 @@
         }
     },
     "owner": "admin",
-    "step": 0,
+    "step": 1,
     "uid": "851def94d5f011e382990023dfa615aa",
     "version": 1,
     "world": "749bae36d5f011e3904e0023dfa615aa",
