@@ -7,12 +7,49 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
     netapi.import_actors(node.parent_nodespace)
     netapi.import_sensors(node.parent_nodespace)
 
-    # make sure we have a scene node
-    scene_nodes = netapi.get_nodes(node.parent_nodespace, "Scene")
-    if len(scene_nodes) is 0:
-        scene = netapi.create_node("Pipe", node.parent_nodespace, "Scene")
+    # make sure we have a current scene register
+    current_scene_registers = netapi.get_nodes(node.parent_nodespace, "CurrentScene")
+    if len(current_scene_registers) is 0:
+        current_scene_register = netapi.create_node("Register", node.parent_nodespace, "CurrentScene")
+        netapi.link(current_scene_register, 'gen', current_scene_register, 'gen')
+        #TODO: inject activation
     else:
-        scene = scene_nodes[0]
+        current_scene_register = current_scene_registers[0]
+
+    # make sure we have a scene node
+    scene = None
+    for linkid, link in current_scene_register.get_gate('gen').outgoing.items():
+        if link.target_node.name.startswith("Scene"):
+            scene = link.target_node
+
+    # if we have a current scene node, but it's not active any more, we drop the current scene link, assuming we
+    # have moved elsewhere and some other scene has become active
+    if scene is not None and scene.activation < 0.5 and len(scene.get_gate('sub').outgoing) > 0:
+        netapi.unlink(current_scene_register, 'gen', scene, 'sub')
+        scene = None
+
+    # if we do not have a current scene node and haven't had a major scene change in a while, we're
+    # in a new situation and should create a new scene node
+    if scene is None and node.get_slot("inh-grow").activation < 0.1:
+        scene = netapi.create_node("Pipe", node.parent_nodespace, "Scene-"+"XXX") #TODO: create ID
+        netapi.link(current_scene_register, 'gen', scene, 'sub')
+
+    # if we do not have a current scene node now, we should find the most active scene
+    if scene is None:
+        bestcandidate = None
+        bestactivation = 0
+        candidates = netapi.get_nodes_active(node.parent_nodespace, "Pipe", 0.8)
+        for candidate in candidates:
+            if candidate.name.startswith("Scene") and candidate.activation > bestactivation:
+                bestactivation = candidate.activation
+                bestcandidate = candidate
+        scene = bestcandidate
+        if scene is not None:
+            netapi.link(current_scene_register, 'gen', scene, 'sub')
+
+    # if the current scene is still none, we will have to wait for activation to reach a scene node
+    if scene is None:
+        return
 
     # check if the scene has been fully recognized, build a list of fovea positions that are taken care of
     sub_field = netapi.get_nodes_field(scene, 'sub')

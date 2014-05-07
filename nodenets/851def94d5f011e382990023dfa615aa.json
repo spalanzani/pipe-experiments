@@ -18,6 +18,15 @@
             "uid": "1bdfb811-9b63-425a-96af-b607e2f70866",
             "weight": 1
         },
+        "38859dded5fb11e39b9c0023dfa615aa": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "38825638d5fb11e3aae60023dfa615aa",
+            "target_node_uid": "38825638d5fb11e3aae60023dfa615aa",
+            "target_slot_name": "gen",
+            "uid": "38859dded5fb11e39b9c0023dfa615aa",
+            "weight": 1
+        },
         "3929de13-6707-4387-addb-94e2fa43e85d": {
             "certainty": 1,
             "source_gate_name": "gen",
@@ -79,21 +88,21 @@
             "gate_activations": {
                 "fov_x": {
                     "default": {
-                        "activation": 2.0,
+                        "activation": 0,
                         "name": "default",
                         "uid": "default"
                     }
                 },
                 "fov_y": {
                     "default": {
-                        "activation": -1.0,
+                        "activation": 0,
                         "name": "default",
                         "uid": "default"
                     }
                 },
                 "reset": {
                     "default": {
-                        "activation": 1.0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -121,7 +130,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 1.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -135,8 +144,15 @@
             "parent_nodespace": "Root",
             "position": [
                 2005.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 1,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Actor",
             "uid": "07596664d5f111e3a1db0023dfa615aa"
         },
@@ -144,7 +160,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 1.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -158,8 +174,15 @@
             "parent_nodespace": "Root",
             "position": [
                 2175.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 1,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Actor",
             "uid": "0759b71ad5f111e3ad850023dfa615aa"
         },
@@ -167,7 +190,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -181,8 +204,15 @@
             "parent_nodespace": "Root",
             "position": [
                 2345.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Actor",
             "uid": "075a0b6ed5f111e39ff70023dfa615aa"
         },
@@ -190,7 +220,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -204,8 +234,15 @@
             "parent_nodespace": "Root",
             "position": [
                 135.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Sensor",
             "uid": "075a662ed5f111e3a5e50023dfa615aa"
         },
@@ -213,7 +250,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -227,8 +264,15 @@
             "parent_nodespace": "Root",
             "position": [
                 305.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Sensor",
             "uid": "075abe12d5f111e3a7900023dfa615aa"
         },
@@ -236,7 +280,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -250,8 +294,15 @@
             "parent_nodespace": "Root",
             "position": [
                 475.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Sensor",
             "uid": "075b1ad4d5f111e3b8210023dfa615aa"
         },
@@ -259,7 +310,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -273,8 +324,15 @@
             "parent_nodespace": "Root",
             "position": [
                 645.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Sensor",
             "uid": "075b7c54d5f111e3aa5e0023dfa615aa"
         },
@@ -282,7 +340,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -296,8 +354,15 @@
             "parent_nodespace": "Root",
             "position": [
                 815.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Sensor",
             "uid": "075be35ad5f111e39ebe0023dfa615aa"
         },
@@ -305,7 +370,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -319,8 +384,15 @@
             "parent_nodespace": "Root",
             "position": [
                 985.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Sensor",
             "uid": "075c4eecd5f111e3a26b0023dfa615aa"
         },
@@ -328,7 +400,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -342,8 +414,15 @@
             "parent_nodespace": "Root",
             "position": [
                 1155.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Sensor",
             "uid": "075cbf9cd5f111e3906a0023dfa615aa"
         },
@@ -351,7 +430,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -365,8 +444,15 @@
             "parent_nodespace": "Root",
             "position": [
                 1325.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Sensor",
             "uid": "075d3492d5f111e3bae80023dfa615aa"
         },
@@ -374,7 +460,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -388,8 +474,15 @@
             "parent_nodespace": "Root",
             "position": [
                 1495.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Sensor",
             "uid": "075daf8ad5f111e391790023dfa615aa"
         },
@@ -397,7 +490,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -411,8 +504,15 @@
             "parent_nodespace": "Root",
             "position": [
                 1665.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Sensor",
             "uid": "075e2e6cd5f111e3b39c0023dfa615aa"
         },
@@ -420,7 +520,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -434,12 +534,47 @@
             "parent_nodespace": "Root",
             "position": [
                 1835.0,
-                645.0
+                815.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Sensor",
             "uid": "075eb2ecd5f111e3beec0023dfa615aa"
         },
-        "075f31d4d5f111e3a62d0023dfa615aa": {
+        "38825638d5fb11e3aae60023dfa615aa": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 1.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 18,
+            "name": "CurrentScene",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                135.0,
+                475.0
+            ],
+            "sheaves": {
+                "default": {
+                    "activation": "1",
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
+            "type": "Register",
+            "uid": "38825638d5fb11e3aae60023dfa615aa"
+        },
+        "3885d5c6d5fb11e382e40023dfa615aa": {
             "gate_activations": {
                 "cat": {
                     "default": {
@@ -491,22 +626,22 @@
                     }
                 }
             },
-            "index": 17,
-            "name": "Scene",
+            "index": 19,
+            "name": "Scene-XXX",
             "parameters": {},
             "parent_nodespace": "Root",
             "position": [
                 135.0,
-                305.0
+                645.0
             ],
             "type": "Pipe",
-            "uid": "075f31d4d5f111e3a62d0023dfa615aa"
+            "uid": "3885d5c6d5fb11e382e40023dfa615aa"
         },
         "6986fa5c-d6f9-4573-8441-9063de4a6dae": {
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -518,8 +653,15 @@
             "parent_nodespace": "Root",
             "position": [
                 135.0,
-                475.0
+                305.0
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0.0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
             "type": "Register",
             "uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae"
         }
@@ -537,7 +679,7 @@
         }
     },
     "owner": "admin",
-    "step": 1,
+    "step": 2,
     "uid": "851def94d5f011e382990023dfa615aa",
     "version": 1,
     "world": "749bae36d5f011e3904e0023dfa615aa",
