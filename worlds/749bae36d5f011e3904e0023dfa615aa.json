@@ -1,0 +1,151 @@
+{
+    "agents": {
+        "851def94d5f011e382990023dfa615aa": {
+            "name": "TestSceneImport",
+            "position": [
+                720,
+                420
+            ],
+            "scene": {
+                "fovea_x": 0,
+                "fovea_y": 0,
+                "shape_grid": [
+                    [
+                        null,
+                        null,
+                        {
+                            "color": "green",
+                            "type": "com"
+                        },
+                        null,
+                        null
+                    ],
+                    [
+                        null,
+                        {
+                            "color": "green",
+                            "type": "com"
+                        },
+                        {
+                            "color": "green",
+                            "type": "com"
+                        },
+                        {
+                            "color": "green",
+                            "type": "com"
+                        },
+                        null
+                    ],
+                    [
+                        null,
+                        null,
+                        {
+                            "color": "green",
+                            "type": "com"
+                        },
+                        null,
+                        null
+                    ],
+                    [
+                        null,
+                        null,
+                        {
+                            "color": "brown",
+                            "type": "ver"
+                        },
+                        null,
+                        null
+                    ],
+                    [
+                        null,
+                        null,
+                        {
+                            "color": "brown",
+                            "type": "ver"
+                        },
+                        null,
+                        null
+                    ]
+                ],
+                "shape_name": "Tree",
+                "type": "structured_object"
+            },
+            "type": "StructuredObjects",
+            "uid": "851def94d5f011e382990023dfa615aa"
+        }
+    },
+    "assets": {
+        "background": "island/psi_1.png",
+        "icons": {
+            "Braitenberg": "island/braitenberg.png",
+            "Lightsource": "island/lamp.png",
+            "Tree": "island/tree_small.png"
+        },
+        "js": "island/island.js",
+        "x": 2048,
+        "y": 2048
+    },
+    "filename": "/Users/rvuine/micropsi2_data/worlds/749bae36d5f011e3904e0023dfa615aa.json",
+    "name": "TestStructuredObjects",
+    "objects": {
+        "9c4c298ad5f011e3b06a0023dfa615aa": {
+            "name": "Tree",
+            "orientation": 0.0,
+            "parameters": {},
+            "position": [
+                606,
+                659.5
+            ],
+            "type": "Tree",
+            "uid": "9c4c298ad5f011e3b06a0023dfa615aa"
+        },
+        "a3d55a62d5f011e3ae9b0023dfa615aa": {
+            "name": "Pole",
+            "orientation": 0.0,
+            "parameters": {},
+            "position": [
+                1045,
+                708.5
+            ],
+            "type": "Pole",
+            "uid": "a3d55a62d5f011e3ae9b0023dfa615aa"
+        }
+    },
+    "owner": "admin",
+    "step": 1,
+    "uid": "749bae36d5f011e3904e0023dfa615aa",
+    "version": 1,
+    "world_type": "Island",
+    "worldadapters": {
+        "Braitenberg": {
+            "datasources": [
+                "brightness_l",
+                "brightness_r"
+            ],
+            "datatargets": [
+                "engine_l",
+                "engine_r"
+            ]
+        },
+        "StructuredObjects": {
+            "datasources": [
+                "fovea-green",
+                "fov-y",
+                "major-newscene",
+                "presence-brown",
+                "fovea-brown",
+                "presence-com",
+                "fovea-ver",
+                "fov-x",
+                "presence-ver",
+                "fovea-com",
+                "presence-green"
+            ],
+            "datatargets": [
+                "fov_x",
+                "fov_reset",
+                "fov_y"
+            ]
+        }
+    }
+}

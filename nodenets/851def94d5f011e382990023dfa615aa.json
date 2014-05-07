@@ -1,0 +1,59 @@
+{
+    "links": {},
+    "name": "TestSceneImport",
+    "nodes": {
+        "042693b9-35c6-4fc8-b12c-fa7071691fb0": {
+            "gate_activations": {
+                "fov_x": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "fov_y": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "reset": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 2,
+            "name": "Importer",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                182,
+                110
+            ],
+            "type": "SceneImporter",
+            "uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0"
+        }
+    },
+    "nodespaces": {
+        "Root": {
+            "index": 1,
+            "name": "Root",
+            "parent_nodespace": null,
+            "position": [
+                0,
+                0
+            ],
+            "uid": "Root"
+        }
+    },
+    "owner": "admin",
+    "step": 0,
+    "uid": "851def94d5f011e382990023dfa615aa",
+    "version": 1,
+    "world": "749bae36d5f011e3904e0023dfa615aa",
+    "worldadapter": "StructuredObjects"
+}
