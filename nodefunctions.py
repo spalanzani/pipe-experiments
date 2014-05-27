@@ -21,6 +21,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
     for linkid, link in current_scene_register.get_gate('gen').outgoing.items():
         if link.target_node.name.startswith("Scene"):
             scene = link.target_node
+            break
 
     # if we have a current scene node, but it's not active any more, we drop the current scene link, assuming we
     # have moved elsewhere and some other scene has become active
@@ -30,9 +31,12 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
 
     # if we do not have a current scene node and haven't had a major scene change in a while, we're
     # in a new situation and should create a new scene node
-    if scene is None and node.get_slot("inh-grow").activation < 0.1:
+    if scene is None and node.get_slot("inh-grow").activation < 0.1 and node.get_slot('scene-inact').activation > 0.95:
         scene = netapi.create_node("Pipe", node.parent_nodespace, "Scene-"+"XXX") #TODO: create ID
         netapi.link(current_scene_register, 'gen', scene, 'sub')
+        # signal we have been importing
+        node.get_gate("import").gate_function(1)
+
 
     # if we do not have a current scene node now, we should find the most active scene
     if scene is None:
@@ -85,6 +89,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
 
             # and build the schema for them
             if len(fovea_sensors_for_new_feature) > 0:
+
                 previousfeature = netapi.get_nodes_field(scene, 'sub', ['por'])
 
                 feature = netapi.create_node("Pipe", node.parent_nodespace, featurename)
@@ -171,3 +176,31 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 node.get_gate("reset").gate_function(1)
                 node.get_gate("fov_x").gate_function(fovea_position_candidate[0])
                 node.get_gate("fov_y").gate_function(fovea_position_candidate[1])
+
+
+def inactivity_monitor(netapi, node=None, sheaf='default', **params):
+
+    inact = node.get_slot('inact').activation
+    reset = node.get_slot('reset').activation
+
+    if reset > 0:
+        inact = 0;
+    else:
+        name_prefix = node.get_parameter('name')
+        if name_prefix is None or len(name_prefix) == 0 or name_prefix == '*':
+            node.set_parameter('name', 'Scene')  # TODO: replace 'Scene' with '*' to make the module generic
+            name_prefix = 'Scene'  # TODO: same here, once TOL-18 is resolved
+
+        is_one_of_them_active = False
+        nodes = netapi.get_nodes(node.parent_nodespace, name_prefix)
+        for candidate in nodes:
+            if candidate.activation > 0.5:
+                is_one_of_them_active = True
+                break
+
+        if not is_one_of_them_active:
+            inact += 0.1
+        else:
+            inact = 0
+
+    node.get_gate('inact').gate_function(inact)

@@ -9,6 +9,15 @@
             "uid": "06946281-cd3b-4832-97ce-300a712c4314",
             "weight": 0.95
         },
+        "0ab4b370-e36c-40cd-901d-b5af4964e08f": {
+            "certainty": 1,
+            "source_gate_name": "inact",
+            "source_node_uid": "a5c90b2e-666c-4320-aa57-423554d0cc59",
+            "target_node_uid": "a5c90b2e-666c-4320-aa57-423554d0cc59",
+            "target_slot_name": "inact",
+            "uid": "0ab4b370-e36c-40cd-901d-b5af4964e08f",
+            "weight": 1
+        },
         "1bdfb811-9b63-425a-96af-b607e2f70866": {
             "certainty": 1,
             "source_gate_name": "gen",
@@ -34,6 +43,33 @@
             "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
             "target_slot_name": "inh-grow",
             "uid": "3929de13-6707-4387-addb-94e2fa43e85d",
+            "weight": 1
+        },
+        "3a0edb92-e698-41a5-91fd-bec4154b01ed": {
+            "certainty": 1,
+            "source_gate_name": "import",
+            "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_node_uid": "a5c90b2e-666c-4320-aa57-423554d0cc59",
+            "target_slot_name": "reset",
+            "uid": "3a0edb92-e698-41a5-91fd-bec4154b01ed",
+            "weight": 1
+        },
+        "4a2a596b-6a7a-413a-b3e3-6a01e644cd0c": {
+            "certainty": 1,
+            "source_gate_name": "import",
+            "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_slot_name": "inh-grow",
+            "uid": "4a2a596b-6a7a-413a-b3e3-6a01e644cd0c",
+            "weight": 1
+        },
+        "81d9697f-8b3f-4fe6-9399-f2b3447a1089": {
+            "certainty": 1,
+            "source_gate_name": "inact",
+            "source_node_uid": "a5c90b2e-666c-4320-aa57-423554d0cc59",
+            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_slot_name": "scene-inact",
+            "uid": "81d9697f-8b3f-4fe6-9399-f2b3447a1089",
             "weight": 1
         },
         "84269994-96ed-497d-abf3-5ff14e7d268f": {
@@ -100,6 +136,13 @@
                         "uid": "default"
                     }
                 },
+                "import": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
                 "reset": {
                     "default": {
                         "activation": 0.0,
@@ -118,7 +161,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
@@ -130,7 +173,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 1.0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -148,7 +191,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 1,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
@@ -160,7 +203,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 1.0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -178,7 +221,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 1,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
@@ -208,7 +251,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
@@ -220,7 +263,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0.0,
+                        "activation": 1,
                         "name": "default",
                         "uid": "default"
                     }
@@ -238,7 +281,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 1,
                     "name": "default",
                     "uid": "default"
                 }
@@ -310,7 +353,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0.0,
+                        "activation": 1,
                         "name": "default",
                         "uid": "default"
                     }
@@ -328,7 +371,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 1,
                     "name": "default",
                     "uid": "default"
                 }
@@ -370,7 +413,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0.0,
+                        "activation": 1,
                         "name": "default",
                         "uid": "default"
                     }
@@ -388,7 +431,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 1,
                     "name": "default",
                     "uid": "default"
                 }
@@ -460,7 +503,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0.0,
+                        "activation": 1,
                         "name": "default",
                         "uid": "default"
                     }
@@ -478,7 +521,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 1,
                     "name": "default",
                     "uid": "default"
                 }
@@ -490,7 +533,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0.0,
+                        "activation": 1,
                         "name": "default",
                         "uid": "default"
                     }
@@ -508,7 +551,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 1,
                     "name": "default",
                     "uid": "default"
                 }
@@ -520,7 +563,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0.0,
+                        "activation": 1,
                         "name": "default",
                         "uid": "default"
                     }
@@ -538,7 +581,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 1,
                     "name": "default",
                     "uid": "default"
                 }
@@ -550,7 +593,7 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 1.0,
+                        "activation": 1,
                         "name": "default",
                         "uid": "default"
                     }
@@ -562,80 +605,17 @@
             "parent_nodespace": "Root",
             "position": [
                 135.0,
-                475.0
+                305.0
             ],
             "sheaves": {
                 "default": {
-                    "activation": "1",
+                    "activation": 1.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
             "type": "Register",
             "uid": "38825638d5fb11e3aae60023dfa615aa"
-        },
-        "3885d5c6d5fb11e382e40023dfa615aa": {
-            "gate_activations": {
-                "cat": {
-                    "default": {
-                        "activation": 0,
-                        "name": "default",
-                        "uid": "default"
-                    }
-                },
-                "exp": {
-                    "default": {
-                        "activation": 0,
-                        "name": "default",
-                        "uid": "default"
-                    }
-                },
-                "gen": {
-                    "default": {
-                        "activation": 0,
-                        "name": "default",
-                        "uid": "default"
-                    }
-                },
-                "por": {
-                    "default": {
-                        "activation": 0,
-                        "name": "default",
-                        "uid": "default"
-                    }
-                },
-                "ret": {
-                    "default": {
-                        "activation": 0,
-                        "name": "default",
-                        "uid": "default"
-                    }
-                },
-                "sub": {
-                    "default": {
-                        "activation": 0,
-                        "name": "default",
-                        "uid": "default"
-                    }
-                },
-                "sur": {
-                    "default": {
-                        "activation": 0,
-                        "name": "default",
-                        "uid": "default"
-                    }
-                }
-            },
-            "index": 19,
-            "name": "Scene-XXX",
-            "parameters": {},
-            "parent_nodespace": "Root",
-            "position": [
-                135.0,
-                645.0
-            ],
-            "type": "Pipe",
-            "uid": "3885d5c6d5fb11e382e40023dfa615aa"
         },
         "6986fa5c-d6f9-4573-8441-9063de4a6dae": {
             "gate_activations": {
@@ -653,7 +633,7 @@
             "parent_nodespace": "Root",
             "position": [
                 135.0,
-                305.0
+                475.0
             ],
             "sheaves": {
                 "default": {
@@ -664,6 +644,37 @@
             },
             "type": "Register",
             "uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae"
+        },
+        "a5c90b2e-666c-4320-aa57-423554d0cc59": {
+            "activation": 0,
+            "gate_activations": {
+                "inact": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "index": 20,
+            "name": "InactivityMonitor-Scenes",
+            "parameters": {
+                "name": "Scene"
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                135.0,
+                645.0
+            ],
+            "sheaves": {
+                "default": {
+                    "activation": 0.0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
+            "type": "InactivityMonitor",
+            "uid": "a5c90b2e-666c-4320-aa57-423554d0cc59"
         }
     },
     "nodespaces": {
@@ -679,7 +690,7 @@
         }
     },
     "owner": "admin",
-    "step": 2,
+    "step": 25,
     "uid": "851def94d5f011e382990023dfa615aa",
     "version": 1,
     "world": "749bae36d5f011e3904e0023dfa615aa",

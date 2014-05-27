@@ -1,9 +1,9 @@
 {
     "SceneImporter": {
         "name": "SceneImporter",
-        "slottypes": ["fov-x", "fov-y", "inh-grow"],
+        "slottypes": ["fov-x", "fov-y", "inh-grow", "scene-inact"],
         "nodefunction_name": "scene_importer",
-        "gatetypes": ["reset", "fov_x", "fov_y"],
+        "gatetypes": ["reset", "fov_x", "fov_y", "import"],
         "gate_defaults": {
             "reset": {
                 "minimum": -100,
@@ -19,6 +19,24 @@
                 "minimum": -100,
                 "maximum": 100,
                 "threshold": -100
+            },
+            "import": {
+                "minimum": -100,
+                "maximum": 100,
+                "threshold": -100
+            }
+        }
+    },
+    "InactivityMonitor": {
+        "name": "InactivityMonitor",
+        "slottypes": ["inact", "reset"],
+        "nodefunction_name": "inactivity_monitor",
+        "gatetypes": ["inact"],
+        "gate_defaults": {
+            "inact": {
+                "minimum": 0,
+                "maximum": 1,
+                "threshold": 0
             }
         }
     }
