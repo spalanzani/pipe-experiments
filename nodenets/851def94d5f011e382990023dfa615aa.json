@@ -299,6 +299,16 @@
                     }
                 }
             },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 10,
+                    "minimum": -10,
+                    "threshold": -10
+                }
+            },
             "index": 7,
             "name": "fov-y",
             "parameters": {
@@ -477,6 +487,16 @@
                         "name": "default",
                         "uid": "default"
                     }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 10,
+                    "minimum": -10,
+                    "threshold": -10
                 }
             },
             "index": 13,
