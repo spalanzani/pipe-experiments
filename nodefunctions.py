@@ -16,18 +16,20 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
     else:
         current_scene_register = current_scene_registers[0]
 
+    # unlink scene nodes that aren't active any more, except for empty ones
+    for linkid, link in current_scene_register.get_gate('gen').outgoing.copy().items():
+        if link.target_node.name.startswith("Scene") and \
+                link.target_node.activation < 0.5 and \
+                len(link.target_node.get_gate('sub').outgoing) > 0:
+            netapi.logger.debug("SceneImporter dropping current scene %s.", link.target_node.name)
+            netapi.unlink(current_scene_register, 'gen', link.target_node, 'sub')
+
     # make sure we have a scene node
     scene = None
     for linkid, link in current_scene_register.get_gate('gen').outgoing.items():
         if link.target_node.name.startswith("Scene"):
             scene = link.target_node
             break
-
-    # if we have a current scene node, but it's not active any more, we drop the current scene link, assuming we
-    # have moved elsewhere and some other scene has become active
-    if scene is not None and scene.activation < 0.5 and len(scene.get_gate('sub').outgoing) > 0:
-        netapi.unlink(current_scene_register, 'gen', scene, 'sub')
-        scene = None
 
     # if we do not have a current scene node and haven't had a major scene change in a while, we're
     # in a new situation and should create a new scene node
@@ -36,7 +38,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
         netapi.link(current_scene_register, 'gen', scene, 'sub')
         # signal we have been importing
         node.get_gate("import").gate_function(1)
-
+        netapi.logger.debug("SceneImporter created new scene node %s.", scene.name)
 
     # if we do not have a current scene node now, we should find the most active scene
     if scene is None:
@@ -49,6 +51,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 bestcandidate = candidate
         scene = bestcandidate
         if scene is not None:
+            netapi.logger.debug("SceneImporter selecting new current scene %s.", scene.name)
             netapi.link(current_scene_register, 'gen', scene, 'sub')
 
     # if the current scene is still none, we will have to wait for activation to reach a scene node
@@ -74,8 +77,12 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
         y = int(node.get_slot("fov-y").activation)
         featurename = "F(" + str(x) + "/" + str(y)+")"
 
+        netapi.logger.debug("SceneImporter has stable scene, checking if current feature %s is imported.", featurename)
+
         # now, do we have a feature for the current sensor situation?
         if (x, y) not in fovea_positions:
+
+            netapi.logger.debug("SceneImporter attempting to import %s.", featurename)
 
             # find the sensors to link
             active_sensors = netapi.get_nodes_active(node.parent_nodespace, 'Sensor', 1, 'gen')
@@ -119,9 +126,10 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
 
                     netapi.link_sensor(senseproxy, sensor.name)
 
-                    if previous_senseproxy is not None:
-                        netapi.link(previous_senseproxy, 'por', senseproxy, 'por')
-                        netapi.link(senseproxy, 'ret', previous_senseproxy, 'ret')
+                    # omit por/ret, presence isn't ordered
+                    #if previous_senseproxy is not None:
+                    #    netapi.link(previous_senseproxy, 'por', senseproxy, 'por')
+                    #    netapi.link(senseproxy, 'ret', previous_senseproxy, 'ret')
                     previous_senseproxy = senseproxy
 
                 act = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Act")
@@ -164,6 +172,8 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                         netapi.link(senseproxy, 'ret', previous_senseproxy, 'ret')
                     previous_senseproxy = senseproxy
 
+                netapi.logger.debug("SceneImporter imported %s.", featurename)
+
         # finally some fovea randomisation for the next round if no schema is accessing the fovea right now
         if not netapi.is_locked('fovea'):
             fovea_position_candidate = (randint(-2, 2), randint(-2, 2))
@@ -173,6 +183,9 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 fovea_position_candidate = (randint(-2, 2), randint(-2, 2))
 
             if fovea_position_candidate not in fovea_positions:
+
+                netapi.logger.debug("Randomizing fovea to %i/%i", fovea_position_candidate[0], fovea_position_candidate[1])
+
                 node.get_gate("reset").gate_function(1)
                 node.get_gate("fov_x").gate_function(fovea_position_candidate[0])
                 node.get_gate("fov_y").gate_function(fovea_position_candidate[1])
