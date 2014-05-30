@@ -134,7 +134,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
 
                 act = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Act")
                 netapi.link(feature, 'sub', act, 'sub')
-                netapi.link(act, 'sur', feature, 'sur')
+                netapi.link(act, 'sur', feature, 'sur', 0.1)  # fovea action success contribution isn't relevant
                 netapi.link(precondition, 'por', act, 'por')
                 netapi.link(act, 'ret', precondition, 'ret')
 
@@ -148,8 +148,8 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 netapi.link(act, 'sub', actproxy, 'sub')
                 netapi.link(actproxy, 'sur', act, 'sur')
 
-                netapi.link(actproxy, 'gen', actproxy, 'gen', 0.95)
-                netapi.link(actproxy, 'sub', actproxy, 'sur')
+                netapi.link(actproxy, 'gen', actproxy, 'gen', 0.95)     # gen loop
+                netapi.link(actproxy, 'sub', actproxy, 'sur')           # fovea act proxies confirm themselves
 
                 netapi.link_actor(actproxy, 'fov_reset')
                 if x != 0:
