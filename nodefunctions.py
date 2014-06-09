@@ -103,50 +103,46 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 feature.set_state('x', x)
                 feature.set_state('y', y)
                 #feature.set_parameter('sublock', 'fovea')
-                netapi.link(scene, 'sub', feature, 'sub')
-                netapi.link(feature, 'sur', scene, 'sur')
-
-                #netapi.link(feature, 'gen', feature, 'gen', 0.95) # slowly fading confirmation loop
+                netapi.link_with_reciprocal(scene, feature, "subsur")
 
                 if len(previousfeature) == 1:
-                    netapi.link(previousfeature[0], 'por', feature, 'por')
-                    netapi.link(feature, 'ret', previousfeature[0], 'ret')
+                    netapi.link_with_reciprocal(previousfeature[0], feature, "porret")
 
                 precondition = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prec")
-                netapi.link(feature, 'sub', precondition, 'sub')
-                netapi.link(precondition, 'sur', feature, 'sur')
+                netapi.link_with_reciprocal(feature, precondition, "subsur")
 
-                previous_senseproxy = None
+                recognition = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Rec")
+                netapi.link_with_reciprocal(feature, recognition, "subsur")
+
+                netapi.link_full([precondition, recognition])
+
+                #create precondition classificator
+                prec_features = []
                 for sensor in presence_sensors_for_new_feature:
-                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prx."+sensor.name)
-                    netapi.link(precondition, 'sub', senseproxy, 'sub')
-                    netapi.link(senseproxy, 'sur', precondition, 'sur')
+                    prec_feature = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name)
+                    prec_features.append(prec_feature)
+                    netapi.link_with_reciprocal(precondition, prec_feature, "subsur")
+
+                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name+".Prx")
+                    netapi.link_with_reciprocal(prec_feature, senseproxy, "subsur")
 
                     netapi.link(senseproxy, 'gen', senseproxy, 'gen', 0.95)
 
                     netapi.link_sensor(senseproxy, sensor.name)
 
-                    # omit por/ret, presence isn't ordered
-                    #if previous_senseproxy is not None:
-                    #    netapi.link(previous_senseproxy, 'por', senseproxy, 'por')
-                    #    netapi.link(senseproxy, 'ret', previous_senseproxy, 'ret')
-                    previous_senseproxy = senseproxy
+                netapi.link_full(prec_features)
 
+                # create recognition script
                 act = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Act")
-                netapi.link(feature, 'sub', act, 'sub')
-                netapi.link(act, 'sur', feature, 'sur', 0.1)  # fovea action success contribution isn't relevant
-                netapi.link(precondition, 'por', act, 'por')
-                netapi.link(act, 'ret', precondition, 'ret')
+                netapi.link_with_reciprocal(recognition, act, "subsur")
 
                 sense = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Sense")
-                netapi.link(feature, 'sub', sense, 'sub')
-                netapi.link(sense, 'sur', feature, 'sur')
-                netapi.link(act, 'por', sense, 'por')
-                netapi.link(sense, 'ret', act, 'ret')
+                netapi.link_with_reciprocal(recognition, sense, "subsur")
+
+                netapi.link_with_reciprocal(act, sense, "porret")
 
                 actproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prx.fovea")
-                netapi.link(act, 'sub', actproxy, 'sub')
-                netapi.link(actproxy, 'sur', act, 'sur')
+                netapi.link_with_reciprocal(act, actproxy, "subsur")
 
                 netapi.link(actproxy, 'gen', actproxy, 'gen', 0.95)     # gen loop
                 netapi.link(actproxy, 'sub', actproxy, 'sur')           # fovea act proxies confirm themselves
@@ -157,20 +153,19 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 if y != 0:
                     netapi.link_actor(actproxy, 'fov_y', y)
 
-                previous_senseproxy = None
+                # create conditional sensor classificator
+                sense_features = []
                 for sensor in fovea_sensors_for_new_feature:
-                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prx."+sensor.name)
-                    netapi.link(sense, 'sub', senseproxy, 'sub')
-                    netapi.link(senseproxy, 'sur', sense, 'sur')
+                    sense_feature = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name)
+                    sense_features.append(sense_feature)
+                    netapi.link_with_reciprocal(sense, sense_feature, "subsur")
+
+                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name+".Prx")
+                    netapi.link_with_reciprocal(sense_feature, senseproxy, "subsur")
 
                     netapi.link(senseproxy, 'gen', senseproxy, 'gen', 0.95)
-
                     netapi.link_sensor(senseproxy, sensor.name)
-
-                    if previous_senseproxy is not None:
-                        netapi.link(previous_senseproxy, 'por', senseproxy, 'por')
-                        netapi.link(senseproxy, 'ret', previous_senseproxy, 'ret')
-                    previous_senseproxy = senseproxy
+                netapi.link_full(sense_features)
 
                 netapi.logger.debug("SceneImporter imported %s.", featurename)
 
