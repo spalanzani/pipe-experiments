@@ -1,6 +1,6 @@
 __author__ = 'rvuine'
 
-from random import *
+import random
 
 def scene_importer(netapi, node=None, sheaf='default', **params):
 
@@ -232,6 +232,11 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
 
     learning_constant = 0.6
 
+    if node.get_slot("trigger").activation < 1:
+        return
+
+    global_error = 0
+
     all_nodes = []
 
     # find the output layer neurons
@@ -255,6 +260,7 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
         delta = is_value * (1-is_value) * target_value
 
         ol_node.parameters['error'] = delta
+        global_error += delta
 
     # calculate the errors for hidden layers
     layer = netapi.get_nodes_feed(ol_neurons[0], "gen", None, node.parent_nodespace)
@@ -268,10 +274,13 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
 
             delta = layer_node_value * (1-layer_node_value) * higher_layer_error_sum
             layer_node.parameters['error'] = delta
+            global_error += delta
 
         if len(layer[0].get_slot("gen").incoming) > 0 and \
                 layer[0].get_slot("gen").incoming[0].source_node.name.startwith("ILN_"):
             next_layer = netapi.get_nodes_feed(next_layer[0], "gen", None, node.parent_nodespace)
+
+    node.get_gate("error").activation = global_error
 
     # adjust link weights and thetas (apply delta rule)
     for node in all_nodes:
@@ -285,3 +294,52 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
         for link in node.get_slot("gen").incoming:
             new_weight = link.weight + (learning_constant * error * link.sorce_gate.activation)
             netapi.link(link.source_node, "gen", link.target_node, "gen", new_weight)
+
+
+def feedforward_generator(netapi, node=None, sheaf='default', **params):
+
+    LAYERS = 2
+    NODES_PER_LAYER = 10
+    OUTPUT_NODES = 1
+
+    # input layer
+    sensor_layer = netapi.import_sensors(node.parent_nodespace, "pxl")
+
+    # hidden layers
+    hidden_layers = []
+    for i in range(0, LAYERS):
+        hidden_layers.append([])
+        for j in range(0, NODES_PER_LAYER):
+            register = netapi.create_node("Register", node.parent_nodespace)
+            hidden_layers[i].append(register)
+
+    # output layer
+    output_layer = []
+    for i in range(0, OUTPUT_NODES):
+        register = netapi.create_node("Register", node.parent_nodespace, "OLN_"+str(i))
+        output_layer.append(register)
+
+    # wire it all up
+    layer_counter = 0
+    down_layer = sensor_layer
+    up_layer = hidden_layers[layer_counter]
+    while not up_layer is None:
+        for down in down_layer:
+            for up in up_layer:
+                netapi.link(down, "gen", up, "gen", random.random())
+        down_layer = up_layer
+        if up_layer is not output_layer:
+            if layer_counter < LAYERS-1:
+                layer_counter += 1
+                up_layer = hidden_layers[layer_counter]
+            else:
+                up_layer = output_layer
+        else:
+            up_layer = None
+
+
+
+
+
+
+
