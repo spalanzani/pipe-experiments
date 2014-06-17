@@ -291,8 +291,8 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
         node.get_gate("gen").parameters['threshold'] -= (learning_constant * error)
 
         # adjust link weights
-        for link in node.get_slot("gen").incoming:
-            new_weight = link.weight + (learning_constant * error * link.sorce_gate.activation)
+        for linkid, link in node.get_slot("gen").incoming.items():
+            new_weight = link.weight + (learning_constant * error * link.source_gate.activation)
             netapi.link(link.source_node, "gen", link.target_node, "gen", new_weight)
 
 
