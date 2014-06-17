@@ -1,0 +1,939 @@
+{
+    "links": {
+        "0c198b62-09c8-4e97-bdeb-5c46e9328b8c": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "6f552e70-fbf3-44c5-9897-bacc61bf59fc",
+            "target_node_uid": "8299ac8b-025f-4e04-bd64-84f2741ba870",
+            "target_slot_name": "gen",
+            "uid": "0c198b62-09c8-4e97-bdeb-5c46e9328b8c",
+            "weight": 1
+        },
+        "0c456259-12ba-4f81-8afc-a14131b764aa": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "af6429af-ea20-4c9a-b2fa-fbd9a1694099",
+            "target_node_uid": "8299ac8b-025f-4e04-bd64-84f2741ba870",
+            "target_slot_name": "gen",
+            "uid": "0c456259-12ba-4f81-8afc-a14131b764aa",
+            "weight": 1
+        },
+        "17fe2491-5c01-4b15-87ef-892a47acbcb8": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "0e9bd35a-dd9e-4d08-a890-17906a1f60c9",
+            "target_node_uid": "2b8da4d2-0f04-4b97-90ad-3ecb5550eb21",
+            "target_slot_name": "gen",
+            "uid": "17fe2491-5c01-4b15-87ef-892a47acbcb8",
+            "weight": 1
+        },
+        "19768168-5b10-4276-9db2-91d8d4b89479": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "af6429af-ea20-4c9a-b2fa-fbd9a1694099",
+            "target_node_uid": "4552ea1e-aa60-4f12-bd9c-3b90ab659652",
+            "target_slot_name": "gen",
+            "uid": "19768168-5b10-4276-9db2-91d8d4b89479",
+            "weight": 1
+        },
+        "1c5b9337-e240-49e9-b532-9f1df970fb51": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "37d0feb7-5515-46b7-80bf-6f80a21e7a5d",
+            "target_node_uid": "ef7b6d66-144d-4912-a3f4-6be1a7f8258c",
+            "target_slot_name": "gen",
+            "uid": "1c5b9337-e240-49e9-b532-9f1df970fb51",
+            "weight": 1
+        },
+        "1ca0d957-e075-4be1-925f-9157f6d962af": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "95932551-a91e-4bf1-b615-b0087e61a649",
+            "target_node_uid": "66c17950-2e1f-472c-8154-916423e6f0eb",
+            "target_slot_name": "gen",
+            "uid": "1ca0d957-e075-4be1-925f-9157f6d962af",
+            "weight": 1
+        },
+        "1cedd0a5-81cb-4e03-a2e4-abaf321bdcd1": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "95932551-a91e-4bf1-b615-b0087e61a649",
+            "target_node_uid": "37d0feb7-5515-46b7-80bf-6f80a21e7a5d",
+            "target_slot_name": "gen",
+            "uid": "1cedd0a5-81cb-4e03-a2e4-abaf321bdcd1",
+            "weight": 1
+        },
+        "232e41cf-a982-4580-a584-e47a9c0b26b1": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "4c6332ed-6103-4c1b-b4f0-332f01b4e1cf",
+            "target_node_uid": "2b8da4d2-0f04-4b97-90ad-3ecb5550eb21",
+            "target_slot_name": "gen",
+            "uid": "232e41cf-a982-4580-a584-e47a9c0b26b1",
+            "weight": 1
+        },
+        "2b650eba-8285-49bf-bf3e-d93adfb0d793": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "0e9bd35a-dd9e-4d08-a890-17906a1f60c9",
+            "target_node_uid": "f18b0613-2bbd-478d-b1a0-edfb97d619b1",
+            "target_slot_name": "gen",
+            "uid": "2b650eba-8285-49bf-bf3e-d93adfb0d793",
+            "weight": 1
+        },
+        "2eca85f1-adc4-4136-8cc4-d0f18d9c15e0": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "6f552e70-fbf3-44c5-9897-bacc61bf59fc",
+            "target_node_uid": "4552ea1e-aa60-4f12-bd9c-3b90ab659652",
+            "target_slot_name": "gen",
+            "uid": "2eca85f1-adc4-4136-8cc4-d0f18d9c15e0",
+            "weight": 1
+        },
+        "303b3d61-dcab-4569-90a2-d6706dd8547f": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "faaae0f3-035a-461b-a00f-6ed3fc906802",
+            "target_node_uid": "2b8da4d2-0f04-4b97-90ad-3ecb5550eb21",
+            "target_slot_name": "gen",
+            "uid": "303b3d61-dcab-4569-90a2-d6706dd8547f",
+            "weight": 1
+        },
+        "3f7e525b-414a-4a10-a51a-465e88d65a8a": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "faaae0f3-035a-461b-a00f-6ed3fc906802",
+            "target_node_uid": "f18b0613-2bbd-478d-b1a0-edfb97d619b1",
+            "target_slot_name": "gen",
+            "uid": "3f7e525b-414a-4a10-a51a-465e88d65a8a",
+            "weight": 1
+        },
+        "3f8a3c74-ec68-43ef-8218-bd9938283cd2": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "af6429af-ea20-4c9a-b2fa-fbd9a1694099",
+            "target_node_uid": "f18b0613-2bbd-478d-b1a0-edfb97d619b1",
+            "target_slot_name": "gen",
+            "uid": "3f8a3c74-ec68-43ef-8218-bd9938283cd2",
+            "weight": 1
+        },
+        "485e76be-496e-4895-84c3-e4460a6f9d2c": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "4c6332ed-6103-4c1b-b4f0-332f01b4e1cf",
+            "target_node_uid": "37d0feb7-5515-46b7-80bf-6f80a21e7a5d",
+            "target_slot_name": "gen",
+            "uid": "485e76be-496e-4895-84c3-e4460a6f9d2c",
+            "weight": 1
+        },
+        "4bd84cb4-d76e-4bd5-b5df-dba2ee4618cb": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "95932551-a91e-4bf1-b615-b0087e61a649",
+            "target_node_uid": "2b8da4d2-0f04-4b97-90ad-3ecb5550eb21",
+            "target_slot_name": "gen",
+            "uid": "4bd84cb4-d76e-4bd5-b5df-dba2ee4618cb",
+            "weight": 1
+        },
+        "50ebc6a9-6770-43b9-b90c-7cc6879099e1": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "4c6332ed-6103-4c1b-b4f0-332f01b4e1cf",
+            "target_node_uid": "8299ac8b-025f-4e04-bd64-84f2741ba870",
+            "target_slot_name": "gen",
+            "uid": "50ebc6a9-6770-43b9-b90c-7cc6879099e1",
+            "weight": 1
+        },
+        "57cbd179-d8df-4081-8897-45c49560ea85": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "4c6332ed-6103-4c1b-b4f0-332f01b4e1cf",
+            "target_node_uid": "66c17950-2e1f-472c-8154-916423e6f0eb",
+            "target_slot_name": "gen",
+            "uid": "57cbd179-d8df-4081-8897-45c49560ea85",
+            "weight": 1
+        },
+        "61701a8e-bd6c-4176-93ce-f8705e11ef23": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "0e9bd35a-dd9e-4d08-a890-17906a1f60c9",
+            "target_node_uid": "8299ac8b-025f-4e04-bd64-84f2741ba870",
+            "target_slot_name": "gen",
+            "uid": "61701a8e-bd6c-4176-93ce-f8705e11ef23",
+            "weight": 1
+        },
+        "62179c8b-efe0-404f-8453-aad0abe88717": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "6f552e70-fbf3-44c5-9897-bacc61bf59fc",
+            "target_node_uid": "f18b0613-2bbd-478d-b1a0-edfb97d619b1",
+            "target_slot_name": "gen",
+            "uid": "62179c8b-efe0-404f-8453-aad0abe88717",
+            "weight": 1
+        },
+        "675ec5a7-949f-4fc0-a399-ff1bd02e6ca5": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "6f552e70-fbf3-44c5-9897-bacc61bf59fc",
+            "target_node_uid": "2b8da4d2-0f04-4b97-90ad-3ecb5550eb21",
+            "target_slot_name": "gen",
+            "uid": "675ec5a7-949f-4fc0-a399-ff1bd02e6ca5",
+            "weight": 1
+        },
+        "6b78696f-0918-42a2-acfb-a072cb3da50e": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "faaae0f3-035a-461b-a00f-6ed3fc906802",
+            "target_node_uid": "4552ea1e-aa60-4f12-bd9c-3b90ab659652",
+            "target_slot_name": "gen",
+            "uid": "6b78696f-0918-42a2-acfb-a072cb3da50e",
+            "weight": 1
+        },
+        "6f182f2f-5d4d-41e1-bdc4-7a788b75465f": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "af6429af-ea20-4c9a-b2fa-fbd9a1694099",
+            "target_node_uid": "2b8da4d2-0f04-4b97-90ad-3ecb5550eb21",
+            "target_slot_name": "gen",
+            "uid": "6f182f2f-5d4d-41e1-bdc4-7a788b75465f",
+            "weight": 1
+        },
+        "7207fa3d-24de-4ab8-9525-2dd8aec5a566": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "0e9bd35a-dd9e-4d08-a890-17906a1f60c9",
+            "target_node_uid": "66c17950-2e1f-472c-8154-916423e6f0eb",
+            "target_slot_name": "gen",
+            "uid": "7207fa3d-24de-4ab8-9525-2dd8aec5a566",
+            "weight": 1
+        },
+        "78107be1-1128-4590-a3b3-f1079451aaab": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "8142de2d-d80c-44d4-92f7-fa0d6ac062fb",
+            "target_node_uid": "af6429af-ea20-4c9a-b2fa-fbd9a1694099",
+            "target_slot_name": "gen",
+            "uid": "78107be1-1128-4590-a3b3-f1079451aaab",
+            "weight": 1
+        },
+        "854af559-121f-4224-80bf-44f265da0e9a": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "8142de2d-d80c-44d4-92f7-fa0d6ac062fb",
+            "target_node_uid": "95932551-a91e-4bf1-b615-b0087e61a649",
+            "target_slot_name": "gen",
+            "uid": "854af559-121f-4224-80bf-44f265da0e9a",
+            "weight": 1
+        },
+        "866b7fa1-fe31-49ca-b21e-7ab7333ece50": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "8142de2d-d80c-44d4-92f7-fa0d6ac062fb",
+            "target_node_uid": "6f552e70-fbf3-44c5-9897-bacc61bf59fc",
+            "target_slot_name": "gen",
+            "uid": "866b7fa1-fe31-49ca-b21e-7ab7333ece50",
+            "weight": 1
+        },
+        "8db24769-5529-4033-864f-900f183a062e": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "6f552e70-fbf3-44c5-9897-bacc61bf59fc",
+            "target_node_uid": "37d0feb7-5515-46b7-80bf-6f80a21e7a5d",
+            "target_slot_name": "gen",
+            "uid": "8db24769-5529-4033-864f-900f183a062e",
+            "weight": 1
+        },
+        "8f044e89-1bd1-4506-9adb-ae467009c68b": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "0e9bd35a-dd9e-4d08-a890-17906a1f60c9",
+            "target_node_uid": "4552ea1e-aa60-4f12-bd9c-3b90ab659652",
+            "target_slot_name": "gen",
+            "uid": "8f044e89-1bd1-4506-9adb-ae467009c68b",
+            "weight": 1
+        },
+        "92d3d7c1-a0a9-4742-9c3c-68d0086091dc": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "4552ea1e-aa60-4f12-bd9c-3b90ab659652",
+            "target_node_uid": "ef7b6d66-144d-4912-a3f4-6be1a7f8258c",
+            "target_slot_name": "gen",
+            "uid": "92d3d7c1-a0a9-4742-9c3c-68d0086091dc",
+            "weight": 1
+        },
+        "9ca439be-c863-4d37-b2e1-60967b2f50b8": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "faaae0f3-035a-461b-a00f-6ed3fc906802",
+            "target_node_uid": "37d0feb7-5515-46b7-80bf-6f80a21e7a5d",
+            "target_slot_name": "gen",
+            "uid": "9ca439be-c863-4d37-b2e1-60967b2f50b8",
+            "weight": 1
+        },
+        "9d08e0dc-f1b5-4226-8755-816e849d4d6e": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "2b8da4d2-0f04-4b97-90ad-3ecb5550eb21",
+            "target_node_uid": "ef7b6d66-144d-4912-a3f4-6be1a7f8258c",
+            "target_slot_name": "gen",
+            "uid": "9d08e0dc-f1b5-4226-8755-816e849d4d6e",
+            "weight": 1
+        },
+        "a4b70f9a-fed7-434f-892a-b1e64befd37d": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "0e9bd35a-dd9e-4d08-a890-17906a1f60c9",
+            "target_node_uid": "37d0feb7-5515-46b7-80bf-6f80a21e7a5d",
+            "target_slot_name": "gen",
+            "uid": "a4b70f9a-fed7-434f-892a-b1e64befd37d",
+            "weight": 1
+        },
+        "a679b0c6-5783-4cdb-9dfa-82dbad76175b": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "8142de2d-d80c-44d4-92f7-fa0d6ac062fb",
+            "target_node_uid": "0e9bd35a-dd9e-4d08-a890-17906a1f60c9",
+            "target_slot_name": "gen",
+            "uid": "a679b0c6-5783-4cdb-9dfa-82dbad76175b",
+            "weight": 1
+        },
+        "a7e56a36-8d8a-4bd6-bbb5-145de3183175": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "af6429af-ea20-4c9a-b2fa-fbd9a1694099",
+            "target_node_uid": "37d0feb7-5515-46b7-80bf-6f80a21e7a5d",
+            "target_slot_name": "gen",
+            "uid": "a7e56a36-8d8a-4bd6-bbb5-145de3183175",
+            "weight": 1
+        },
+        "b325a480-b635-428e-be93-6fbe0229b9fe": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "f18b0613-2bbd-478d-b1a0-edfb97d619b1",
+            "target_node_uid": "ef7b6d66-144d-4912-a3f4-6be1a7f8258c",
+            "target_slot_name": "gen",
+            "uid": "b325a480-b635-428e-be93-6fbe0229b9fe",
+            "weight": 1
+        },
+        "b4ab951e-1d33-4ea6-9ae7-e617f1aefce7": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "8142de2d-d80c-44d4-92f7-fa0d6ac062fb",
+            "target_node_uid": "4c6332ed-6103-4c1b-b4f0-332f01b4e1cf",
+            "target_slot_name": "gen",
+            "uid": "b4ab951e-1d33-4ea6-9ae7-e617f1aefce7",
+            "weight": 1
+        },
+        "bda56404-5202-4afd-92c3-b2c0d0e280ac": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "4c6332ed-6103-4c1b-b4f0-332f01b4e1cf",
+            "target_node_uid": "f18b0613-2bbd-478d-b1a0-edfb97d619b1",
+            "target_slot_name": "gen",
+            "uid": "bda56404-5202-4afd-92c3-b2c0d0e280ac",
+            "weight": 1
+        },
+        "c5a26d72-8058-4a8d-83e2-1c9c15b28783": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "6f552e70-fbf3-44c5-9897-bacc61bf59fc",
+            "target_node_uid": "66c17950-2e1f-472c-8154-916423e6f0eb",
+            "target_slot_name": "gen",
+            "uid": "c5a26d72-8058-4a8d-83e2-1c9c15b28783",
+            "weight": 1
+        },
+        "ce2be0a4-b535-4621-b108-4ed19004ead0": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "8142de2d-d80c-44d4-92f7-fa0d6ac062fb",
+            "target_node_uid": "faaae0f3-035a-461b-a00f-6ed3fc906802",
+            "target_slot_name": "gen",
+            "uid": "ce2be0a4-b535-4621-b108-4ed19004ead0",
+            "weight": 1
+        },
+        "ce75db36-5d98-4313-baea-7c6ed6468f1f": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "af6429af-ea20-4c9a-b2fa-fbd9a1694099",
+            "target_node_uid": "66c17950-2e1f-472c-8154-916423e6f0eb",
+            "target_slot_name": "gen",
+            "uid": "ce75db36-5d98-4313-baea-7c6ed6468f1f",
+            "weight": 1
+        },
+        "d79a571d-4d31-4ffe-9192-0bfa1a5dad85": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "95932551-a91e-4bf1-b615-b0087e61a649",
+            "target_node_uid": "4552ea1e-aa60-4f12-bd9c-3b90ab659652",
+            "target_slot_name": "gen",
+            "uid": "d79a571d-4d31-4ffe-9192-0bfa1a5dad85",
+            "weight": 1
+        },
+        "ddcdec76-cd18-4d9a-b868-a438e17338d1": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "8299ac8b-025f-4e04-bd64-84f2741ba870",
+            "target_node_uid": "ef7b6d66-144d-4912-a3f4-6be1a7f8258c",
+            "target_slot_name": "gen",
+            "uid": "ddcdec76-cd18-4d9a-b868-a438e17338d1",
+            "weight": 1
+        },
+        "e37dbf4b-ec55-46bf-a8d7-54b83237c7ad": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "95932551-a91e-4bf1-b615-b0087e61a649",
+            "target_node_uid": "8299ac8b-025f-4e04-bd64-84f2741ba870",
+            "target_slot_name": "gen",
+            "uid": "e37dbf4b-ec55-46bf-a8d7-54b83237c7ad",
+            "weight": 1
+        },
+        "f0045065-0358-4b5d-a38c-8c05aea76b34": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "4c6332ed-6103-4c1b-b4f0-332f01b4e1cf",
+            "target_node_uid": "4552ea1e-aa60-4f12-bd9c-3b90ab659652",
+            "target_slot_name": "gen",
+            "uid": "f0045065-0358-4b5d-a38c-8c05aea76b34",
+            "weight": 1
+        },
+        "f0a11f56-52ef-4ba1-868c-00974e74ad67": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "faaae0f3-035a-461b-a00f-6ed3fc906802",
+            "target_node_uid": "66c17950-2e1f-472c-8154-916423e6f0eb",
+            "target_slot_name": "gen",
+            "uid": "f0a11f56-52ef-4ba1-868c-00974e74ad67",
+            "weight": 1
+        },
+        "f144c01d-364c-469f-b8ff-9bed70e6a2d5": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "faaae0f3-035a-461b-a00f-6ed3fc906802",
+            "target_node_uid": "8299ac8b-025f-4e04-bd64-84f2741ba870",
+            "target_slot_name": "gen",
+            "uid": "f144c01d-364c-469f-b8ff-9bed70e6a2d5",
+            "weight": 1
+        },
+        "f702cd0f-4521-4a01-b236-4a963f139fda": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "95932551-a91e-4bf1-b615-b0087e61a649",
+            "target_node_uid": "f18b0613-2bbd-478d-b1a0-edfb97d619b1",
+            "target_slot_name": "gen",
+            "uid": "f702cd0f-4521-4a01-b236-4a963f139fda",
+            "weight": 1
+        },
+        "fa412ea0-1200-43e5-81de-87385609941c": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "66c17950-2e1f-472c-8154-916423e6f0eb",
+            "target_node_uid": "ef7b6d66-144d-4912-a3f4-6be1a7f8258c",
+            "target_slot_name": "gen",
+            "uid": "fa412ea0-1200-43e5-81de-87385609941c",
+            "weight": 1
+        }
+    },
+    "name": "TestBackpropagation",
+    "nodes": {
+        "0e9bd35a-dd9e-4d08-a890-17906a1f60c9": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 13,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                961.9999999999998,
+                407.9999999999999
+            ],
+            "type": "Register",
+            "uid": "0e9bd35a-dd9e-4d08-a890-17906a1f60c9"
+        },
+        "2b8da4d2-0f04-4b97-90ad-3ecb5550eb21": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 4,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                599,
+                275
+            ],
+            "type": "Register",
+            "uid": "2b8da4d2-0f04-4b97-90ad-3ecb5550eb21"
+        },
+        "37d0feb7-5515-46b7-80bf-6f80a21e7a5d": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 5,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                683,
+                277
+            ],
+            "type": "Register",
+            "uid": "37d0feb7-5515-46b7-80bf-6f80a21e7a5d"
+        },
+        "4552ea1e-aa60-4f12-bd9c-3b90ab659652": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 7,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                955,
+                277
+            ],
+            "type": "Register",
+            "uid": "4552ea1e-aa60-4f12-bd9c-3b90ab659652"
+        },
+        "4c6332ed-6103-4c1b-b4f0-332f01b4e1cf": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 14,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                1045.9999999999998,
+                411.9999999999999
+            ],
+            "type": "Register",
+            "uid": "4c6332ed-6103-4c1b-b4f0-332f01b4e1cf"
+        },
+        "66c17950-2e1f-472c-8154-916423e6f0eb": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 6,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                767,
+                285
+            ],
+            "type": "Register",
+            "uid": "66c17950-2e1f-472c-8154-916423e6f0eb"
+        },
+        "6f552e70-fbf3-44c5-9897-bacc61bf59fc": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 12,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                863.9999999999998,
+                413.9999999999999
+            ],
+            "type": "Register",
+            "uid": "6f552e70-fbf3-44c5-9897-bacc61bf59fc"
+        },
+        "8142de2d-d80c-44d4-92f7-fa0d6ac062fb": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 16,
+            "name": "",
+            "parameters": {
+                "datasource": null
+            },
+            "parent_nodespace": "Root",
+            "position": [
+                827.9999999999998,
+                583.9999999999999
+            ],
+            "type": "Sensor",
+            "uid": "8142de2d-d80c-44d4-92f7-fa0d6ac062fb"
+        },
+        "8299ac8b-025f-4e04-bd64-84f2741ba870": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 8,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                1039,
+                281
+            ],
+            "type": "Register",
+            "uid": "8299ac8b-025f-4e04-bd64-84f2741ba870"
+        },
+        "95932551-a91e-4bf1-b615-b0087e61a649": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 10,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                675.9999999999999,
+                407.9999999999999
+            ],
+            "type": "Register",
+            "uid": "95932551-a91e-4bf1-b615-b0087e61a649"
+        },
+        "af6429af-ea20-4c9a-b2fa-fbd9a1694099": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 11,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                771.9999999999999,
+                415.9999999999999
+            ],
+            "type": "Register",
+            "uid": "af6429af-ea20-4c9a-b2fa-fbd9a1694099"
+        },
+        "edf0d57f-023e-4e6c-8db2-36b5958e13a5": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 15,
+            "name": "TVN_Tree",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                1167.9999999999998,
+                171.99999999999997
+            ],
+            "type": "Register",
+            "uid": "edf0d57f-023e-4e6c-8db2-36b5958e13a5"
+        },
+        "ef7b6d66-144d-4912-a3f4-6be1a7f8258c": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 8,
+            "name": "OLN_Tree",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                843,
+                169
+            ],
+            "type": "Register",
+            "uid": "ef7b6d66-144d-4912-a3f4-6be1a7f8258c"
+        },
+        "f18b0613-2bbd-478d-b1a0-edfb97d619b1": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 3,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                861,
+                279
+            ],
+            "type": "Register",
+            "uid": "f18b0613-2bbd-478d-b1a0-edfb97d619b1"
+        },
+        "faaae0f3-035a-461b-a00f-6ed3fc906802": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "spreadsheaves": false,
+                    "threshold": 0
+                }
+            },
+            "index": 9,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                587.9999999999999,
+                411.9999999999999
+            ],
+            "type": "Register",
+            "uid": "faaae0f3-035a-461b-a00f-6ed3fc906802"
+        }
+    },
+    "nodespaces": {
+        "Root": {
+            "index": 1,
+            "name": "Root",
+            "parent_nodespace": null,
+            "position": [
+                0,
+                0
+            ],
+            "uid": "Root"
+        }
+    },
+    "owner": "admin",
+    "step": 0,
+    "uid": "785d2780f5b411e383ee0023dfa615aa",
+    "version": 1,
+    "world": "",
+    "worldadapter": ""
+}
