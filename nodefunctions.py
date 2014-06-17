@@ -126,8 +126,6 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                     senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name+".Prx")
                     netapi.link_with_reciprocal(prec_feature, senseproxy, "subsur")
 
-                    netapi.link(senseproxy, 'gen', senseproxy, 'gen', 0.95)
-
                     netapi.link_sensor(senseproxy, sensor.name)
 
                 netapi.link_full(prec_features)
@@ -166,6 +164,10 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                     netapi.link(senseproxy, 'gen', senseproxy, 'gen', 0.95)
                     netapi.link_sensor(senseproxy, sensor.name)
                 netapi.link_full(sense_features)
+
+                sub_field = netapi.get_nodes_field(scene, 'sub')
+                if len(sub_field) > 1:
+                    netapi.link_full(sub_field)
 
                 netapi.logger.debug("SceneImporter imported %s.", featurename)
 
@@ -207,8 +209,79 @@ def inactivity_monitor(netapi, node=None, sheaf='default', **params):
                 break
 
         if not is_one_of_them_active:
-            inact += 0.1
+            inact += 0.05
         else:
             inact = 0
 
     node.get_gate('inact').gate_function(inact)
+
+
+def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
+    pass
+
+
+def backpropagator(netapi, node=None, sheaf='default', **params):
+    """
+        Assumptions:
+        - Only one feed-forward classificator in this node space
+        - Layers are fully feed-forward linked
+        - Output layer neuron names are prefixed OLN_
+        - Target value neuron names are prefixed TVN_
+        - Input layer neuron names are prefixed ILN_
+    """
+
+    learning_constant = 0.6
+
+    all_nodes = []
+
+    # find the output layer neurons
+    ol_neurons = netapi.get_nodes(node.parent_nodespace, "OLN_")
+    tv_neurons = netapi.get_nodes(node.parent_nodespace, "TVN_")
+
+    # calculate the errors for the output layer
+    for ol_node in ol_neurons:
+        all_nodes.append(ol_node)
+        tv_node = None
+        for candidate in tv_neurons:
+            if candidate.name[4:] == ol_node.name[4:]:
+                tv_node = candidate
+                break
+        if tv_node is None:
+            netapi.logger.warn("Backpropagator: output node "+ol_node+" has no corresponding target value node")
+            tv_node = ol_node
+
+        is_value = ol_node.get_gate("gen").activation
+        target_value = tv_node.get_gate("gen").activation
+        delta = is_value * (1-is_value) * target_value
+
+        ol_node.parameters['error'] = delta
+
+    # calculate the errors for hidden layers
+    layer = netapi.get_nodes_feed(ol_neurons[0], "gen", None, node.parent_nodespace)
+    while layer is not None and len(layer) > 0:
+        for layer_node in layer:
+            all_nodes.append(layer_node)
+            layer_node_value = layer_node.get_gate("gen").activation
+            higher_layer_error_sum = 0
+            for forwardlink in layer_node.get_gate("gen").outgoing:
+                higher_layer_error_sum += forwardlink.target_node.parameters['error'] * forwardlink.weight
+
+            delta = layer_node_value * (1-layer_node_value) * higher_layer_error_sum
+            layer_node.parameters['error'] = delta
+
+        if len(layer[0].get_slot("gen").incoming) > 0 and \
+                layer[0].get_slot("gen").incoming[0].source_node.name.startwith("ILN_"):
+            next_layer = netapi.get_nodes_feed(next_layer[0], "gen", None, node.parent_nodespace)
+
+    # adjust link weights and thetas (apply delta rule)
+    for node in all_nodes:
+        error = node.parameters['error']
+        del node.parameters['error']
+
+        # adjust theta (=threshold)
+        node.get_gate("gen").parameters['threshold'] -= (learning_constant * error)
+
+        # adjust link weights
+        for link in node.get_slot("gen").incoming:
+            new_weight = link.weight + (learning_constant * error * link.sorce_gate.activation)
+            netapi.link(link.source_node, "gen", link.target_node, "gen", new_weight)

@@ -39,5 +39,21 @@
                 "threshold": 0
             }
         }
+    },
+    "StructureAbstractionBuilder": {
+        "name": "StructureAbstractionBuilder",
+        "slottypes": [],
+        "nodefunction_name": "structure_abstraction_builder",
+        "gatetypes": [],
+        "gate_defaults": {
+        }
+    },
+    "Backpropagator": {
+        "name": "Backpropagator",
+        "slottypes": [],
+        "nodefunction_name": "backpropagator",
+        "gatetypes": [],
+        "gate_defaults": {
+        }
     }
 }
