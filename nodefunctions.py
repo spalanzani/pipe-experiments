@@ -286,7 +286,7 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
             layer = None
 
     node.activation = 0
-    node.get_gate("sepp").gate_function(global_error)
+    node.get_gate("error").gate_function(global_error)
 
     # adjust link weights and thetas (apply delta rule)
     for node in all_nodes:

@@ -50,10 +50,36 @@
     },
     "Backpropagator": {
         "name": "Backpropagator",
-        "slottypes": [],
+        "slottypes": ["trigger"],
         "nodefunction_name": "backpropagator",
+        "gatetypes": ["error"],
+        "gate_defaults": {
+            "error": {
+                "minimum": 0,
+                "maximum": 10000,
+                "threshold": 0
+            }
+        }
+    },
+    "FeedforwardGenerator": {
+        "name": "FeedforwardGenerator",
+        "slottypes": ["trigger"],
+        "nodefunction_name": "feedforward_generator",
         "gatetypes": [],
         "gate_defaults": {
+        }
+    },
+    "SignalSource": {
+        "name": "SignalSource",
+        "slottypes": [],
+        "nodefunction_name": "signalsource",
+        "gatetypes": ["linear"],
+        "gate_defaults": {
+            "linear": {
+                "minimum": -1,
+                "maximum": 1,
+                "threshold": -1
+            }
         }
     }
 }
