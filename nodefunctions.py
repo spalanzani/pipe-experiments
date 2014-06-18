@@ -339,6 +339,18 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
 
 
 
+def signalsource(netapi, node=None, sheaf='default', **params):
+    step = node.get_parameter('step')
+    if step is None:
+        step = -1
+    step += 1
+    node.set_parameter('step', step)
+
+    step %= 100
+    step -= 50
+    step *= 2
+    linear = (1 / 100) * step
+    node.get_gate('linear').activation = linear
 
 
 
