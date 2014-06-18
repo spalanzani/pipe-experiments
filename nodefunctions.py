@@ -173,11 +173,11 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
 
         # finally some fovea randomisation for the next round if no schema is accessing the fovea right now
         if not netapi.is_locked('fovea'):
-            fovea_position_candidate = (randint(-2, 2), randint(-2, 2))
+            fovea_position_candidate = (random.randint(-2, 2), random.randint(-2, 2))
             i = 10
             while fovea_position_candidate not in fovea_positions and i < 10:
                 i += 1
-                fovea_position_candidate = (randint(-2, 2), randint(-2, 2))
+                fovea_position_candidate = (random.randint(-2, 2), random.randint(-2, 2))
 
             if fovea_position_candidate not in fovea_positions:
 
