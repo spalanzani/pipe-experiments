@@ -337,6 +337,7 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
         else:
             up_layer = None
 
+    netapi.set_gatefunction(node.parent_nodespace, "Register", "gen", "return 1/(1+math.exp(-10*x))")
 
 
 def signalsource(netapi, node=None, sheaf='default', **params):
