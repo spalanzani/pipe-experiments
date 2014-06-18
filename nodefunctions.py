@@ -243,6 +243,7 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
     tv_neurons = netapi.get_nodes(node.parent_nodespace, "TVN_")
 
     if len(ol_neurons) == 0 or len(tv_neurons) == 0:
+        netapi.logger.warn("Backpropagator: no output node or no target value node found")
         return
 
     # calculate the errors for the output layer
@@ -257,12 +258,12 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
             netapi.logger.warn("Backpropagator: output node "+ol_node+" has no corresponding target value node")
             tv_node = ol_node
 
-        is_value = ol_node.get_gate("gen").activation
-        target_value = tv_node.get_gate("gen").activation
-        delta = is_value * (1-is_value) * target_value
+        is_value = float(ol_node.get_gate("gen").activation)
+        target_value = float(tv_node.get_gate("gen").activation)
+        delta = float(is_value * (1-is_value) * (target_value-is_value))
 
         ol_node.parameters['error'] = delta
-        global_error += delta
+        global_error += target_value-is_value
 
     # calculate the errors for hidden layers
     layer = netapi.get_nodes_feed(ol_neurons[0], "gen", None, node.parent_nodespace)
@@ -276,7 +277,6 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
 
             delta = layer_node_value * (1-layer_node_value) * higher_layer_error_sum
             layer_node.parameters['error'] = delta
-            global_error += delta
 
         layer_node = layer[0]
         first_link = list(layer_node.get_slot("gen").incoming.values())[0]
@@ -293,8 +293,8 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
         error = node.parameters['error']
         del node.parameters['error']
 
-        # adjust theta (=threshold)
-        node.get_gate("gen").parameters['threshold'] -= (learning_constant * error)
+        # adjust theta
+        node.get_gate("gen").parameters['theta'] -= (learning_constant * error)
 
         # adjust link weights
         for linkid, link in node.get_slot("gen").incoming.items():
