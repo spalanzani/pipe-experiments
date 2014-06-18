@@ -229,10 +229,9 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
         - Target value neuron names are prefixed TVN_
         - Input layer neuron names are prefixed ILN_
     """
-
     learning_constant = 0.6
 
-    if node.get_slot("trigger").activation < 1:
+    if node.get_slot("trigger").activation < 0:
         return
 
     global_error = 0
@@ -242,6 +241,9 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
     # find the output layer neurons
     ol_neurons = netapi.get_nodes(node.parent_nodespace, "OLN_")
     tv_neurons = netapi.get_nodes(node.parent_nodespace, "TVN_")
+
+    if len(ol_neurons) == 0 or len(tv_neurons) == 0:
+        return
 
     # calculate the errors for the output layer
     for ol_node in ol_neurons:
@@ -269,18 +271,22 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
             all_nodes.append(layer_node)
             layer_node_value = layer_node.get_gate("gen").activation
             higher_layer_error_sum = 0
-            for forwardlink in layer_node.get_gate("gen").outgoing:
+            for linkid, forwardlink in layer_node.get_gate("gen").outgoing.items():
                 higher_layer_error_sum += forwardlink.target_node.parameters['error'] * forwardlink.weight
 
             delta = layer_node_value * (1-layer_node_value) * higher_layer_error_sum
             layer_node.parameters['error'] = delta
             global_error += delta
 
-        if len(layer[0].get_slot("gen").incoming) > 0 and \
-                layer[0].get_slot("gen").incoming[0].source_node.name.startwith("ILN_"):
-            next_layer = netapi.get_nodes_feed(next_layer[0], "gen", None, node.parent_nodespace)
+        layer_node = layer[0]
+        first_link = list(layer_node.get_slot("gen").incoming.values())[0]
+        if len(layer_node.get_slot("gen").incoming) > 0 and not first_link.source_node.type == "Sensor":
+            layer = netapi.get_nodes_feed(layer_node, "gen", None, node.parent_nodespace)
+        else:
+            layer = None
 
-    node.get_gate("error").activation = global_error
+    node.activation = 0
+    node.get_gate("sepp").gate_function(global_error)
 
     # adjust link weights and thetas (apply delta rule)
     for node in all_nodes:
@@ -294,6 +300,7 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
         for linkid, link in node.get_slot("gen").incoming.items():
             new_weight = link.weight + (learning_constant * error * link.source_gate.activation)
             netapi.link(link.source_node, "gen", link.target_node, "gen", new_weight)
+
 
 
 def feedforward_generator(netapi, node=None, sheaf='default', **params):
