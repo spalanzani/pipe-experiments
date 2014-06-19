@@ -294,11 +294,11 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
         del node.parameters['error']
 
         # adjust theta
-        node.get_gate("gen").parameters['theta'] -= (learning_constant * error)
+        node.get_gate("gen").parameters['theta'] += (learning_constant * error)
 
         # adjust link weights
         for linkid, link in node.get_slot("gen").incoming.items():
-            new_weight = link.weight + (learning_constant * error * link.source_gate.activation)
+            new_weight = link.weight - (learning_constant * error * link.source_gate.activation)
             netapi.link(link.source_node, "gen", link.target_node, "gen", new_weight)
 
 
@@ -311,6 +311,8 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
 
     # input layer
     sensor_layer = netapi.import_sensors(node.parent_nodespace, "pxl")
+    for sensor in sensor_layer:
+        sensor.get_gate('gen').parameters['theta'] = random.random() * 5 * (-1 if random.random() > 0.5 else 1)
 
     # hidden layers
     hidden_layers = []
@@ -318,12 +320,14 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
         hidden_layers.append([])
         for j in range(0, NODES_PER_LAYER):
             register = netapi.create_node("Register", node.parent_nodespace)
+            register.get_gate('gen').parameters['theta'] = random.random() * 5 * (-1 if random.random() > 0.5 else 1)
             hidden_layers[i].append(register)
 
     # output layer
     output_layer = []
     for i in range(0, OUTPUT_NODES):
         register = netapi.create_node("Register", node.parent_nodespace, "OLN_"+str(i))
+        register.get_gate('gen').parameters['theta'] = random.random() * 5 * (-1 if random.random() > 0.5 else 1)
         output_layer.append(register)
 
     # wire it all up
@@ -344,7 +348,7 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
         else:
             up_layer = None
 
-    netapi.set_gatefunction(node.parent_nodespace, "Register", "gen", "return 1/(1+math.exp(-10*x))")
+    netapi.set_gatefunction(node.parent_nodespace, "Register", "gen", "return 1/(1+math.exp(t*x))")
 
 
 def signalsource(netapi, node=None, sheaf='default', **params):
