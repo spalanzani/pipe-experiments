@@ -362,7 +362,7 @@ def signalsource(netapi, node=None, sheaf='default', **params):
     step -= 50
     step *= 2
     linear = (1 / 100) * step
-    node.get_gate('linear').activation = linear
+    node.get_gate('linear').gate_function(linear)
 
 
 
