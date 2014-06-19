@@ -56,9 +56,17 @@
         "gate_defaults": {
             "error": {
                 "minimum": 0,
-                "maximum": 10000,
+                "maximum": 1000,
                 "threshold": 0
             }
+        }
+    },
+    "PatternChanger": {
+        "name": "PatternChanger",
+        "slottypes": ["trigger"],
+        "nodefunction_name": "patternchanger",
+        "gatetypes": ["fire"],
+        "gate_defaults": {
         }
     },
     "FeedforwardGenerator": {

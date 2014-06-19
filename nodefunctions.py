@@ -351,6 +351,34 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
     netapi.set_gatefunction(node.parent_nodespace, "Register", "gen", "return 1/(1+math.exp(t*x))")
 
 
+def patternchanger(netapi, node=None, sheaf='default', **params):
+    """
+     Assumptions:
+     - Pattern change actor names are prefixed ILN_
+    """
+
+    minimum_pattern_exposure = 20
+
+    netapi.unlink(node, "fire")
+
+    # if we're not triggered yet, we don't do anything
+    if node.get_slot("trigger").activation <= 0:
+        return
+
+    # if we haven't shown the pattern for long enough, we're also not creating a new one
+    lastchange = node.get_parameter("lastchange")
+    if lastchange is not None and lastchange + minimum_pattern_exposure < netapi.step:
+        return
+
+    # ok, so we're being triggered, and the old pattern was up for long enough
+    pattern_activators = netapi.get_nodes(node.parent_nodespace, "PAT_")
+    random_pattern = pattern_activators[random.randint(0, len(pattern_activators)-1)]
+
+    netapi.link(node, "fire", random_pattern, "gen")
+    node.get_gate("fire").gate_function(1)
+    node.set_parameter("lastchange", netapi.step)
+
+
 def signalsource(netapi, node=None, sheaf='default', **params):
     step = node.get_parameter('step')
     if step is None:
