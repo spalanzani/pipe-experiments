@@ -230,8 +230,9 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
         - Input layer neuron names are prefixed ILN_
     """
     learning_constant = 0.6
+    tolerable_error = 0.15
 
-    if node.get_slot("trigger").activation < 0:
+    if node.get_slot("trigger").activation <= 0:
         return
 
     global_error = 0
@@ -265,6 +266,15 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
         ol_node.parameters['error'] = delta
         global_error += target_value-is_value
 
+    node.activation = 0
+    node.get_gate("error").gate_function(global_error)
+
+    if global_error <= tolerable_error:
+        node.get_gate("idle").gate_function(1)
+        return
+    else:
+        node.get_gate("idle").gate_function(0)
+
     # calculate the errors for hidden layers
     layer = netapi.get_nodes_feed(ol_neurons[0], "gen", None, node.parent_nodespace)
     while layer is not None and len(layer) > 0:
@@ -285,22 +295,18 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
         else:
             layer = None
 
-    node.activation = 0
-    node.get_gate("error").gate_function(global_error)
-
     # adjust link weights and thetas (apply delta rule)
     for node in all_nodes:
         error = node.parameters['error']
         del node.parameters['error']
 
         # adjust theta
-        node.get_gate("gen").parameters['theta'] += (learning_constant * error)
+        node.get_gate("gen").parameters['theta'] -= (learning_constant * error)
 
         # adjust link weights
         for linkid, link in node.get_slot("gen").incoming.items():
-            new_weight = link.weight - (learning_constant * error * link.source_gate.activation)
+            new_weight = link.weight + (learning_constant * error * link.source_gate.activation)
             netapi.link(link.source_node, "gen", link.target_node, "gen", new_weight)
-
 
 
 def feedforward_generator(netapi, node=None, sheaf='default', **params):
@@ -391,7 +397,6 @@ def signalsource(netapi, node=None, sheaf='default', **params):
     step *= 2
     linear = (1 / 100) * step
     node.get_gate('linear').gate_function(linear)
-
 
 
 
