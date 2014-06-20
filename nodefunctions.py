@@ -229,8 +229,20 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
         - Target value neuron names are prefixed TVN_
         - Input layer neuron names are prefixed ILN_
     """
-    learning_constant = 0.6
-    tolerable_error = 0.15
+
+    learning_constant = node.get_parameter("learning_constant")
+    if learning_constant is None:
+        learning_constant = 0.6
+        node.set_parameter("learning_constant", str(learning_constant))
+    else:
+        learning_constant = float(learning_constant)
+
+    tolerable_error = node.get_parameter("tolerable_error")
+    if tolerable_error is None:
+        tolerable_error = 0.15
+        node.set_parameter("tolerable_error", str(tolerable_error))
+    else:
+        tolerable_error = float(tolerable_error)
 
     if node.get_slot("trigger").activation <= 0:
         return
@@ -311,9 +323,20 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
 
 def feedforward_generator(netapi, node=None, sheaf='default', **params):
 
-    LAYERS = 2
-    NODES_PER_LAYER = 10
-    OUTPUT_NODES = 1
+    output_nodes = node.get_parameter("output_nodes")
+    if output_nodes is None:
+        output_nodes = 1
+        node.set_parameter("output_nodes", output_nodes)
+
+    hidden_layers = node.get_parameter("hidden_layers")
+    if hidden_layers is None:
+        hidden_layers = 2
+        node.set_parameter("hidden_layers", hidden_layers)
+
+    nodes_per_layer = node.get_parameter("nodes_per_layer")
+    if nodes_per_layer is None:
+        nodes_per_layer = 10
+        node.set_parameter("nodes_per_layer", nodes_per_layer)
 
     # input layer
     sensor_layer = netapi.import_sensors(node.parent_nodespace, "pxl")
@@ -322,16 +345,16 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
 
     # hidden layers
     hidden_layers = []
-    for i in range(0, LAYERS):
+    for i in range(0, hidden_layers):
         hidden_layers.append([])
-        for j in range(0, NODES_PER_LAYER):
+        for j in range(0, nodes_per_layer):
             register = netapi.create_node("Register", node.parent_nodespace)
             register.get_gate('gen').parameters['theta'] = random.random() * 5 * (-1 if random.random() > 0.5 else 1)
             hidden_layers[i].append(register)
 
     # output layer
     output_layer = []
-    for i in range(0, OUTPUT_NODES):
+    for i in range(0, output_nodes):
         register = netapi.create_node("Register", node.parent_nodespace, "OLN_"+str(i))
         register.get_gate('gen').parameters['theta'] = random.random() * 5 * (-1 if random.random() > 0.5 else 1)
         output_layer.append(register)
@@ -346,7 +369,7 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
                 netapi.link(down, "gen", up, "gen", random.random())
         down_layer = up_layer
         if up_layer is not output_layer:
-            if layer_counter < LAYERS-1:
+            if layer_counter < hidden_layers-1:
                 layer_counter += 1
                 up_layer = hidden_layers[layer_counter]
             else:
@@ -363,7 +386,10 @@ def patternchanger(netapi, node=None, sheaf='default', **params):
      - Pattern change actor names are prefixed ILN_
     """
 
-    minimum_pattern_exposure = 20
+    minimum_pattern_exposure = node.get_parameter("minimum_pattern_exposure")
+    if minimum_pattern_exposure is None:
+        minimum_pattern_exposure = 20
+        node.set_parameter("minimum_pattern_exposure", minimum_pattern_exposure)
 
     netapi.unlink(node, "fire")
 

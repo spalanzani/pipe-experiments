@@ -52,14 +52,15 @@
         "name": "Backpropagator",
         "slottypes": ["trigger"],
         "nodefunction_name": "backpropagator",
-        "gatetypes": ["error"],
+        "gatetypes": ["error", "idle"],
         "gate_defaults": {
             "error": {
                 "minimum": 0,
                 "maximum": 1000,
                 "threshold": 0
             }
-        }
+        },
+        "parameters": ["learning_constant", "tolerable_error"]
     },
     "PatternChanger": {
         "name": "PatternChanger",
@@ -67,7 +68,8 @@
         "nodefunction_name": "patternchanger",
         "gatetypes": ["fire"],
         "gate_defaults": {
-        }
+        },
+        "parameters": ["minimum_pattern_exposure"]
     },
     "FeedforwardGenerator": {
         "name": "FeedforwardGenerator",
@@ -75,7 +77,8 @@
         "nodefunction_name": "feedforward_generator",
         "gatetypes": [],
         "gate_defaults": {
-        }
+        },
+        "parameters": ["output_nodes","hidden_layers", "nodes_per_layer"]
     },
     "SignalSource": {
         "name": "SignalSource",
