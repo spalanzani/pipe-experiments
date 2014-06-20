@@ -373,7 +373,7 @@ def patternchanger(netapi, node=None, sheaf='default', **params):
 
     # if we haven't shown the pattern for long enough, we're also not creating a new one
     lastchange = node.get_parameter("lastchange")
-    if lastchange is not None and lastchange + minimum_pattern_exposure < netapi.step:
+    if lastchange is not None and lastchange + minimum_pattern_exposure > netapi.step:
         return
 
     # ok, so we're being triggered, and the old pattern was up for long enough
