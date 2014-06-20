@@ -391,22 +391,59 @@ def patternchanger(netapi, node=None, sheaf='default', **params):
         minimum_pattern_exposure = 20
         node.set_parameter("minimum_pattern_exposure", minimum_pattern_exposure)
 
-    netapi.unlink(node, "fire")
 
     # if we're not triggered yet, we don't do anything
     if node.get_slot("trigger").activation <= 0:
+        netapi.unlink(node, "fire")
+        node.get_gate("fire").gate_function(0)
         return
 
     # if we haven't shown the pattern for long enough, we're also not creating a new one
     lastchange = node.get_parameter("lastchange")
-    if lastchange is not None and lastchange + minimum_pattern_exposure > netapi.step:
+    if lastchange is None:
+        lastchange = netapi.step
+        node.set_parameter("lastchange", netapi.step)
+
+    if lastchange + 1 > netapi.step:
+        netapi.unlink(node, "fire")
+        node.get_gate("fire").gate_function(0)
+        return
+
+    if (lastchange + minimum_pattern_exposure) > netapi.step:
         return
 
     # ok, so we're being triggered, and the old pattern was up for long enough
     pattern_activators = netapi.get_nodes(node.parent_nodespace, "PAT_")
-    random_pattern = pattern_activators[random.randint(0, len(pattern_activators)-1)]
+    number_of_patterns = len(pattern_activators)
 
-    netapi.link(node, "fire", random_pattern, "gen")
+    #random_pattern = pattern_activators[random.randint(0, number_of_patterns-1)]
+
+    batch_counter = node.get_parameter("batch_counter")
+    batch_index = node.get_parameter("batch_index")
+    if batch_counter is None:
+        batch_counter = 0
+    if batch_index is None:
+        batch_index = 0
+
+    batch_counter += 1
+    if batch_counter == 5:
+        batch_index += 1
+        batch_counter = 0
+
+    if batch_index > number_of_patterns-1:
+        batch_index = 0
+
+    node.set_parameter("batch_counter", batch_counter)
+    node.set_parameter("batch_index", batch_index)
+
+    stretch_pattern = pattern_activators[batch_index]
+
+    print("selecting pattern "+str(batch_counter)+": "+stretch_pattern.name)
+
+    chosen_pattern = stretch_pattern
+
+    netapi.unlink(node, "fire")
+    netapi.link(node, "fire", chosen_pattern, "gen")
     node.get_gate("fire").gate_function(1)
     node.set_parameter("lastchange", netapi.step)
 
