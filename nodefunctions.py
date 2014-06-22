@@ -273,7 +273,7 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
 
         is_value = float(ol_node.get_gate("gen").activation)
         target_value = float(tv_node.get_gate("gen").activation)
-        delta = float(is_value * (1-is_value) * (target_value-is_value))
+        delta = float(is_value * (1.0-is_value) * (target_value-is_value))
 
         ol_node.parameters['error'] = delta
         global_error += target_value-is_value
@@ -323,20 +323,26 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
 
 def feedforward_generator(netapi, node=None, sheaf='default', **params):
 
-    output_nodes = node.get_parameter("output_nodes")
-    if output_nodes is None:
-        output_nodes = 1
-        node.set_parameter("output_nodes", output_nodes)
+    number_of_output_nodes = node.get_parameter("output_nodes")
+    if number_of_output_nodes is None:
+        number_of_output_nodes = 1
+        node.set_parameter("output_nodes", number_of_output_nodes)
+    else:
+        number_of_output_nodes = int(number_of_output_nodes)
 
-    hidden_layers = node.get_parameter("hidden_layers")
-    if hidden_layers is None:
-        hidden_layers = 2
-        node.set_parameter("hidden_layers", hidden_layers)
+    number_of_hidden_layers = node.get_parameter("hidden_layers")
+    if number_of_hidden_layers is None:
+        number_of_hidden_layers = 1
+        node.set_parameter("hidden_layers", number_of_hidden_layers)
+    else:
+        number_of_hidden_layers = int(number_of_hidden_layers)
 
-    nodes_per_layer = node.get_parameter("nodes_per_layer")
-    if nodes_per_layer is None:
-        nodes_per_layer = 10
-        node.set_parameter("nodes_per_layer", nodes_per_layer)
+    number_of_nodes_per_layer = node.get_parameter("nodes_per_layer")
+    if number_of_nodes_per_layer is None:
+        number_of_nodes_per_layer = 3
+        node.set_parameter("nodes_per_layer", number_of_nodes_per_layer)
+    else:
+        number_of_nodes_per_layer = int(number_of_nodes_per_layer)
 
     # input layer
     sensor_layer = netapi.import_sensors(node.parent_nodespace, "pxl")
@@ -345,16 +351,16 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
 
     # hidden layers
     hidden_layers = []
-    for i in range(0, hidden_layers):
+    for i in range(0, number_of_hidden_layers):
         hidden_layers.append([])
-        for j in range(0, nodes_per_layer):
+        for j in range(0, number_of_nodes_per_layer):
             register = netapi.create_node("Register", node.parent_nodespace)
             register.get_gate('gen').parameters['theta'] = random.random() * 5 * (-1 if random.random() > 0.5 else 1)
             hidden_layers[i].append(register)
 
     # output layer
     output_layer = []
-    for i in range(0, output_nodes):
+    for i in range(0, number_of_output_nodes):
         register = netapi.create_node("Register", node.parent_nodespace, "OLN_"+str(i))
         register.get_gate('gen').parameters['theta'] = random.random() * 5 * (-1 if random.random() > 0.5 else 1)
         output_layer.append(register)
@@ -369,7 +375,7 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
                 netapi.link(down, "gen", up, "gen", random.random())
         down_layer = up_layer
         if up_layer is not output_layer:
-            if layer_counter < hidden_layers-1:
+            if layer_counter < number_of_hidden_layers-1:
                 layer_counter += 1
                 up_layer = hidden_layers[layer_counter]
             else:
@@ -390,7 +396,8 @@ def patternchanger(netapi, node=None, sheaf='default', **params):
     if minimum_pattern_exposure is None:
         minimum_pattern_exposure = 20
         node.set_parameter("minimum_pattern_exposure", minimum_pattern_exposure)
-
+    else:
+        minimum_pattern_exposure = int(minimum_pattern_exposure)
 
     # if we're not triggered yet, we don't do anything
     if node.get_slot("trigger").activation <= 0:
