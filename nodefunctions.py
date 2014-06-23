@@ -385,7 +385,7 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
             up_layer = None
 
     netapi.set_gatefunction(node.parent_nodespace, "Register", "gen", "return 1/(1+math.exp(t*x))")
-
+    netapi.set_gatefunction(node.parent_nodespace, "Sensor", "gen", "if r > 0: return x\nreturn 1/(1+math.exp(t*x))")
 
 def patternchanger(netapi, node=None, sheaf='default', **params):
     """
