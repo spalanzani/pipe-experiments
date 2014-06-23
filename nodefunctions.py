@@ -302,8 +302,7 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
             layer_node.parameters['error'] = delta
 
         layer_node = layer[0]
-        first_link = list(layer_node.get_slot("gen").incoming.values())[0]
-        if len(layer_node.get_slot("gen").incoming) > 0 and not first_link.source_node.type == "Sensor":
+        if "gen" in layer_node.slots and len(layer_node.get_slot("gen").incoming):
             layer = netapi.get_nodes_feed(layer_node, "gen", None, node.parent_nodespace)
         else:
             layer = None
