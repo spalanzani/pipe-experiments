@@ -281,11 +281,12 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
     node.activation = 0
     node.get_gate("error").gate_function(global_error)
 
-    if global_error <= tolerable_error:
-        node.get_gate("idle").gate_function(1)
-        return
-    else:
-        node.get_gate("idle").gate_function(0)
+    node.get_gate("idle").gate_function(1)
+    #if abs(global_error) <= tolerable_error:
+    #    node.get_gate("idle").gate_function(1)
+    #    return
+    #else:
+    #    node.get_gate("idle").gate_function(0)
 
     # calculate the errors for hidden layers
     layer = netapi.get_nodes_feed(ol_neurons[0], "gen", None, node.parent_nodespace)
