@@ -373,7 +373,7 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
     while not up_layer is None:
         for down in down_layer:
             for up in up_layer:
-                netapi.link(down, "gen", up, "gen", random.random())
+                netapi.link(down, "gen", up, "gen", (-1 if random.random() > 0.5 else 1) * (0.005 + (random.random() / (len(down_layer)/2))))
         down_layer = up_layer
         if up_layer is not output_layer:
             if layer_counter < number_of_hidden_layers-1:
