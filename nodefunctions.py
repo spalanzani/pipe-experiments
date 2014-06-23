@@ -390,7 +390,7 @@ def feedforward_generator(netapi, node=None, sheaf='default', **params):
 def patternchanger(netapi, node=None, sheaf='default', **params):
     """
      Assumptions:
-     - Pattern change actor names are prefixed ILN_
+     - Pattern change actor names are prefixed PAT_
     """
 
     minimum_pattern_exposure = node.get_parameter("minimum_pattern_exposure")
