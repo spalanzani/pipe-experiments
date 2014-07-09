@@ -59,7 +59,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
         return
 
     # check if the scene has been fully recognized, build a list of fovea positions that are taken care of
-    sub_field = netapi.get_nodes_field(scene, 'sub')
+    sub_field = netapi.get_nodes_in_gate_field(scene, 'sub')
     all_subs_active = True
     fovea_positions = []
     for sub_node in sub_field:
@@ -97,7 +97,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
             # and build the schema for them
             if len(fovea_sensors_for_new_feature) > 0:
 
-                previousfeature = netapi.get_nodes_field(scene, 'sub', ['por'])
+                previousfeature = netapi.get_nodes_in_gate_field(scene, 'sub', ['por'])
 
                 feature = netapi.create_node("Pipe", node.parent_nodespace, featurename)
                 feature.set_state('x', x)
@@ -165,7 +165,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                     netapi.link_sensor(senseproxy, sensor.name)
                 netapi.link_full(sense_features)
 
-                sub_field = netapi.get_nodes_field(scene, 'sub')
+                sub_field = netapi.get_nodes_in_gate_field(scene, 'sub')
                 if len(sub_field) > 1:
                     netapi.link_full(sub_field)
 
@@ -289,7 +289,7 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
     #    node.get_gate("idle").gate_function(0)
 
     # calculate the errors for hidden layers
-    layer = netapi.get_nodes_feed(ol_neurons[0], "gen", None, node.parent_nodespace)
+    layer = netapi.get_nodes_in_slot_field(ol_neurons[0], "gen", None, node.parent_nodespace)
     while layer is not None and len(layer) > 0:
         for layer_node in layer:
             all_nodes.append(layer_node)
@@ -303,7 +303,7 @@ def backpropagator(netapi, node=None, sheaf='default', **params):
 
         layer_node = layer[0]
         if "gen" in layer_node.slots and len(layer_node.get_slot("gen").incoming):
-            layer = netapi.get_nodes_feed(layer_node, "gen", None, node.parent_nodespace)
+            layer = netapi.get_nodes_in_slot_field(layer_node, "gen", None, node.parent_nodespace)
         else:
             layer = None
 
