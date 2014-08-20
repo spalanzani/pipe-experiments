@@ -1,4 +1,15 @@
 {
+    "activatortypes": [
+        "Pipe",
+        "Nodespace",
+        "Concept",
+        "Sensor",
+        "Script",
+        "Register",
+        "Activator",
+        "Actor"
+    ],
+    "is_active": false,
     "links": {
         "06946281-cd3b-4832-97ce-300a712c4314": {
             "certainty": 1,
@@ -118,6 +129,7 @@
             "weight": 1
         }
     },
+    "monitors": {},
     "name": "TestSceneImport",
     "nodes": {
         "042693b9-35c6-4fc8-b12c-fa7071691fb0": {
@@ -151,6 +163,52 @@
                     }
                 }
             },
+            "gate_parameters": {
+                "fov_x": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 100,
+                    "minimum": -100,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": -100
+                },
+                "fov_y": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 100,
+                    "minimum": -100,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": -100
+                },
+                "import": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 100,
+                    "minimum": -100,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": -100
+                },
+                "reset": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 100,
+                    "minimum": -100,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": -100
+                }
+            },
             "index": 2,
             "name": "Importer",
             "parameters": {},
@@ -161,7 +219,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0.0,
+                    "activation": 0,
                     "name": "default",
                     "uid": "default"
                 }
@@ -177,6 +235,19 @@
                         "name": "default",
                         "uid": "default"
                     }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
                 }
             },
             "index": 3,
@@ -209,6 +280,19 @@
                     }
                 }
             },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
+                }
+            },
             "index": 4,
             "name": "fov_reset",
             "parameters": {
@@ -221,7 +305,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0.0,
+                    "activation": 0,
                     "name": "default",
                     "uid": "default"
                 }
@@ -237,6 +321,19 @@
                         "name": "default",
                         "uid": "default"
                     }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
                 }
             },
             "index": 5,
@@ -267,6 +364,19 @@
                         "name": "default",
                         "uid": "default"
                     }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
                 }
             },
             "index": 6,
@@ -301,12 +411,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 10,
-                    "minimum": -10,
-                    "threshold": -10
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 10.0,
+                    "minimum": -10.0,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": -10.0
                 }
             },
             "index": 7,
@@ -339,6 +452,19 @@
                     }
                 }
             },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
+                }
+            },
             "index": 8,
             "name": "major-newscene",
             "parameters": {
@@ -367,6 +493,19 @@
                         "name": "default",
                         "uid": "default"
                     }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
                 }
             },
             "index": 9,
@@ -399,6 +538,19 @@
                     }
                 }
             },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
+                }
+            },
             "index": 10,
             "name": "fovea-brown",
             "parameters": {
@@ -429,6 +581,19 @@
                     }
                 }
             },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
+                }
+            },
             "index": 11,
             "name": "presence-com",
             "parameters": {
@@ -457,6 +622,19 @@
                         "name": "default",
                         "uid": "default"
                     }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
                 }
             },
             "index": 12,
@@ -491,12 +669,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 10,
-                    "minimum": -10,
-                    "threshold": -10
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 10.0,
+                    "minimum": -10.0,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": -10.0
                 }
             },
             "index": 13,
@@ -529,6 +710,19 @@
                     }
                 }
             },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
+                }
+            },
             "index": 14,
             "name": "presence-ver",
             "parameters": {
@@ -559,6 +753,19 @@
                     }
                 }
             },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
+                }
+            },
             "index": 15,
             "name": "fovea-com",
             "parameters": {
@@ -580,13 +787,27 @@
             "uid": "075e2e6cd5f111e3b39c0023dfa615aa"
         },
         "075eb2ecd5f111e3beec0023dfa615aa": {
+            "activation": -1,
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 1,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
                 }
             },
             "index": 16,
@@ -601,7 +822,7 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 1,
+                    "activation": 0,
                     "name": "default",
                     "uid": "default"
                 }
@@ -617,6 +838,19 @@
                         "name": "default",
                         "uid": "default"
                     }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
                 }
             },
             "index": 18,
@@ -647,6 +881,19 @@
                     }
                 }
             },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": -1,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
+                }
+            },
             "index": 18,
             "name": "inhibit-scene-growth",
             "parameters": {},
@@ -666,14 +913,27 @@
             "uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae"
         },
         "a5c90b2e-666c-4320-aa57-423554d0cc59": {
-            "activation": 0,
+            "activation": -1,
             "gate_activations": {
                 "inact": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.05,
                         "name": "default",
                         "uid": "default"
                     }
+                }
+            },
+            "gate_parameters": {
+                "inact": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": 0,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
                 }
             },
             "index": 20,
@@ -713,6 +973,6 @@
     "step": 25,
     "uid": "851def94d5f011e382990023dfa615aa",
     "version": 1,
-    "world": "749bae36d5f011e3904e0023dfa615aa",
+    "world": "6df3bffaf95f11e38a330023dfa615aa",
     "worldadapter": "StructuredObjects"
 }
