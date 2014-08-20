@@ -2,6 +2,7 @@ __author__ = 'rvuine'
 
 import random
 
+
 def scene_importer(netapi, node=None, sheaf='default', **params):
 
     netapi.import_actors(node.parent_nodespace)
@@ -216,243 +217,16 @@ def inactivity_monitor(netapi, node=None, sheaf='default', **params):
     node.get_gate('inact').gate_function(inact)
 
 
+def protocol_builder(netapi, node=None, sheaf='default', **params):
+
+    if node.get_gate("trigger").activation < 1:
+        return
+
+    netapi.get_nodes(node.parent_nodespace, "Protocol")
+
+
 def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
     pass
-
-
-def backpropagator(netapi, node=None, sheaf='default', **params):
-    """
-        Assumptions:
-        - Only one feed-forward classificator in this node space
-        - Layers are fully feed-forward linked
-        - Output layer neuron names are prefixed OLN_
-        - Target value neuron names are prefixed TVN_
-        - Input layer neuron names are prefixed ILN_
-    """
-
-    learning_constant = node.get_parameter("learning_constant")
-    if learning_constant is None:
-        learning_constant = 0.6
-        node.set_parameter("learning_constant", str(learning_constant))
-    else:
-        learning_constant = float(learning_constant)
-
-    tolerable_error = node.get_parameter("tolerable_error")
-    if tolerable_error is None:
-        tolerable_error = 0.15
-        node.set_parameter("tolerable_error", str(tolerable_error))
-    else:
-        tolerable_error = float(tolerable_error)
-
-    if node.get_slot("trigger").activation <= 0:
-        return
-
-    global_error = 0
-
-    all_nodes = []
-
-    # find the output layer neurons
-    ol_neurons = netapi.get_nodes(node.parent_nodespace, "OLN_")
-    tv_neurons = netapi.get_nodes(node.parent_nodespace, "TVN_")
-
-    if len(ol_neurons) == 0 or len(tv_neurons) == 0:
-        netapi.logger.warn("Backpropagator: no output node or no target value node found")
-        return
-
-    # calculate the errors for the output layer
-    for ol_node in ol_neurons:
-        all_nodes.append(ol_node)
-        tv_node = None
-        for candidate in tv_neurons:
-            if candidate.name[4:] == ol_node.name[4:]:
-                tv_node = candidate
-                break
-        if tv_node is None:
-            netapi.logger.warn("Backpropagator: output node "+ol_node+" has no corresponding target value node")
-            tv_node = ol_node
-
-        is_value = float(ol_node.get_gate("gen").activation)
-        target_value = float(tv_node.get_gate("gen").activation)
-        delta = float(is_value * (1.0-is_value) * (target_value-is_value))
-
-        ol_node.parameters['error'] = delta
-        global_error += target_value-is_value
-
-    node.activation = 0
-    node.get_gate("error").gate_function(global_error)
-
-    node.get_gate("idle").gate_function(1)
-    #if abs(global_error) <= tolerable_error:
-    #    node.get_gate("idle").gate_function(1)
-    #    return
-    #else:
-    #    node.get_gate("idle").gate_function(0)
-
-    # calculate the errors for hidden layers
-    layer = netapi.get_nodes_in_slot_field(ol_neurons[0], "gen", None, node.parent_nodespace)
-    while layer is not None and len(layer) > 0:
-        for layer_node in layer:
-            all_nodes.append(layer_node)
-            layer_node_value = layer_node.get_gate("gen").activation
-            higher_layer_error_sum = 0
-            for linkid, forwardlink in layer_node.get_gate("gen").outgoing.items():
-                higher_layer_error_sum += forwardlink.target_node.parameters['error'] * forwardlink.weight
-
-            delta = layer_node_value * (1-layer_node_value) * higher_layer_error_sum
-            layer_node.parameters['error'] = delta
-
-        layer_node = layer[0]
-        if "gen" in layer_node.slots and len(layer_node.get_slot("gen").incoming):
-            layer = netapi.get_nodes_in_slot_field(layer_node, "gen", None, node.parent_nodespace)
-        else:
-            layer = None
-
-    # adjust link weights and thetas (apply delta rule)
-    for node in all_nodes:
-        error = node.parameters['error']
-        del node.parameters['error']
-
-        # adjust theta
-        node.get_gate("gen").parameters['theta'] -= (learning_constant * error)
-
-        # adjust link weights
-        for linkid, link in node.get_slot("gen").incoming.items():
-            new_weight = link.weight + (learning_constant * error * link.source_gate.activation)
-            netapi.link(link.source_node, "gen", link.target_node, "gen", new_weight)
-
-
-def feedforward_generator(netapi, node=None, sheaf='default', **params):
-
-    number_of_output_nodes = node.get_parameter("output_nodes")
-    if number_of_output_nodes is None:
-        number_of_output_nodes = 1
-        node.set_parameter("output_nodes", number_of_output_nodes)
-    else:
-        number_of_output_nodes = int(number_of_output_nodes)
-
-    number_of_hidden_layers = node.get_parameter("hidden_layers")
-    if number_of_hidden_layers is None:
-        number_of_hidden_layers = 1
-        node.set_parameter("hidden_layers", number_of_hidden_layers)
-    else:
-        number_of_hidden_layers = int(number_of_hidden_layers)
-
-    number_of_nodes_per_layer = node.get_parameter("nodes_per_layer")
-    if number_of_nodes_per_layer is None:
-        number_of_nodes_per_layer = 3
-        node.set_parameter("nodes_per_layer", number_of_nodes_per_layer)
-    else:
-        number_of_nodes_per_layer = int(number_of_nodes_per_layer)
-
-    # input layer
-    sensor_layer = netapi.import_sensors(node.parent_nodespace, "pxl")
-    for sensor in sensor_layer:
-        sensor.get_gate('gen').parameters['theta'] = random.random() * 5 * (-1 if random.random() > 0.5 else 1)
-
-    # hidden layers
-    hidden_layers = []
-    for i in range(0, number_of_hidden_layers):
-        hidden_layers.append([])
-        for j in range(0, number_of_nodes_per_layer):
-            register = netapi.create_node("Register", node.parent_nodespace)
-            register.get_gate('gen').parameters['theta'] = random.random() * 5 * (-1 if random.random() > 0.5 else 1)
-            hidden_layers[i].append(register)
-
-    # output layer
-    output_layer = []
-    for i in range(0, number_of_output_nodes):
-        register = netapi.create_node("Register", node.parent_nodespace, "OLN_"+str(i))
-        register.get_gate('gen').parameters['theta'] = random.random() * 5 * (-1 if random.random() > 0.5 else 1)
-        output_layer.append(register)
-
-    # wire it all up
-    layer_counter = 0
-    down_layer = sensor_layer
-    up_layer = hidden_layers[layer_counter]
-    while not up_layer is None:
-        for down in down_layer:
-            for up in up_layer:
-                netapi.link(down, "gen", up, "gen", (-1 if random.random() > 0.5 else 1) * (0.005 + (random.random() / (len(down_layer)/2))))
-        down_layer = up_layer
-        if up_layer is not output_layer:
-            if layer_counter < number_of_hidden_layers-1:
-                layer_counter += 1
-                up_layer = hidden_layers[layer_counter]
-            else:
-                up_layer = output_layer
-        else:
-            up_layer = None
-
-    netapi.set_gatefunction(node.parent_nodespace, "Register", "gen", "return 1/(1+math.exp(t*x))")
-    netapi.set_gatefunction(node.parent_nodespace, "Sensor", "gen", "if r > 0: return x\nreturn 1/(1+math.exp(t*x))")
-
-def patternchanger(netapi, node=None, sheaf='default', **params):
-    """
-     Assumptions:
-     - Pattern change actor names are prefixed PAT_
-    """
-
-    minimum_pattern_exposure = node.get_parameter("minimum_pattern_exposure")
-    if minimum_pattern_exposure is None:
-        minimum_pattern_exposure = 20
-        node.set_parameter("minimum_pattern_exposure", minimum_pattern_exposure)
-    else:
-        minimum_pattern_exposure = int(minimum_pattern_exposure)
-
-    # if we're not triggered yet, we don't do anything
-    if node.get_slot("trigger").activation <= 0:
-        netapi.unlink(node, "fire")
-        node.get_gate("fire").gate_function(0)
-        return
-
-    # if we haven't shown the pattern for long enough, we're also not creating a new one
-    lastchange = node.get_parameter("lastchange")
-    if lastchange is None:
-        lastchange = netapi.step
-        node.set_parameter("lastchange", netapi.step)
-
-    if lastchange + 1 > netapi.step:
-        netapi.unlink(node, "fire")
-        node.get_gate("fire").gate_function(0)
-        return
-
-    if (lastchange + minimum_pattern_exposure) > netapi.step:
-        return
-
-    # ok, so we're being triggered, and the old pattern was up for long enough
-    pattern_activators = netapi.get_nodes(node.parent_nodespace, "PAT_")
-    number_of_patterns = len(pattern_activators)
-
-    #random_pattern = pattern_activators[random.randint(0, number_of_patterns-1)]
-
-    batch_counter = node.get_parameter("batch_counter")
-    batch_index = node.get_parameter("batch_index")
-    if batch_counter is None:
-        batch_counter = 0
-    if batch_index is None:
-        batch_index = 0
-
-    batch_counter += 1
-    if batch_counter == 5:
-        batch_index += 1
-        batch_counter = 0
-
-    if batch_index > number_of_patterns-1:
-        batch_index = 0
-
-    node.set_parameter("batch_counter", batch_counter)
-    node.set_parameter("batch_index", batch_index)
-
-    stretch_pattern = pattern_activators[batch_index]
-
-    print("selecting pattern "+str(batch_counter)+": "+stretch_pattern.name)
-
-    chosen_pattern = stretch_pattern
-
-    netapi.unlink(node, "fire")
-    netapi.link(node, "fire", chosen_pattern, "gen")
-    node.get_gate("fire").gate_function(1)
-    node.set_parameter("lastchange", netapi.step)
 
 
 def signalsource(netapi, node=None, sheaf='default', **params):
@@ -467,6 +241,3 @@ def signalsource(netapi, node=None, sheaf='default', **params):
     step *= 2
     linear = (1 / 100) * step
     node.get_gate('linear').gate_function(linear)
-
-
-
