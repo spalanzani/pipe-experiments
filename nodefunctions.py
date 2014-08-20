@@ -219,11 +219,39 @@ def inactivity_monitor(netapi, node=None, sheaf='default', **params):
 
 def protocol_builder(netapi, node=None, sheaf='default', **params):
 
-    if node.get_gate("trigger").activation < 1:
+    # only do something if triggered
+    if node.get_slot("trigger").activation < 1:
         return
 
-    netapi.get_nodes(node.parent_nodespace, "Protocol")
+    # find the protocol chain in the node space
+    protocol_super_nodes = netapi.get_nodes(node.parent_nodespace, "Chain")
 
+    # no protocol chain found, create one
+    if len(protocol_super_nodes) < 1:
+        protocol_super_node = netapi.create_node("Pipe", node.parent_nodespace, "Chain")
+        initial_protocol_head = netapi.create_node("Pipe", node.parent_nodespace, "proto-0")
+        initial_protocol_head.set_state("index", "0")
+        netapi.link_with_reciprocal(protocol_super_node, initial_protocol_head, "subsur")
+        protocol_super_nodes.extend(protocol_super_node)
+
+    # pick a protocol to extend
+    protocol_super_node = protocol_super_nodes[0]   # todo: Handle cases with multiple protocols
+
+    # get the current head of the protocol, the pormost node
+    protocol_head = netapi.get_nodes_in_gate_field(protocol_super_node, "sub", ["por"])[0]
+
+    # if the head is already referring to something, we need to extend the protocol and move the head
+    if len(protocol_head.get_gate("sub").outgoing) > 0:
+        head_index = int(protocol_head.get_state("index"))
+        new_head_index = head_index + 1
+        new_protocol_head = netapi.create_node("Pipe", node.parent_nodespace, "proto-"+str(new_head_index))
+        new_protocol_head.set_state("index", str(new_head_index))
+        netapi.link_with_reciprocal(protocol_super_node, new_protocol_head, "subsur")
+        netapi.link_with_reciprocal(protocol_head, new_protocol_head, "porret")
+        protocol_head = new_protocol_head
+
+    # now we have a protocol head, ready to be used for protocolling something
+    # todo: append a scene to the protocol
 
 def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
     pass
