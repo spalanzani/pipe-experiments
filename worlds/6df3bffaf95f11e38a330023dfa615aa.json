@@ -1,0 +1,208 @@
+{
+    "agents": {
+        "851def94d5f011e382990023dfa615aa": {
+            "name": "TestSceneImport",
+            "position": [
+                700,
+                400
+            ],
+            "scene": {
+                "fovea_x": 0,
+                "fovea_y": 0,
+                "shape_grid": [
+                    [
+                        null,
+                        null,
+                        {
+                            "color": "green",
+                            "type": "com"
+                        },
+                        null,
+                        null
+                    ],
+                    [
+                        null,
+                        {
+                            "color": "green",
+                            "type": "com"
+                        },
+                        {
+                            "color": "brown",
+                            "type": "ver"
+                        },
+                        {
+                            "color": "green",
+                            "type": "com"
+                        },
+                        null
+                    ],
+                    [
+                        null,
+                        null,
+                        {
+                            "color": "brown",
+                            "type": "ver"
+                        },
+                        null,
+                        null
+                    ],
+                    [
+                        null,
+                        null,
+                        {
+                            "color": "brown",
+                            "type": "ver"
+                        },
+                        null,
+                        null
+                    ],
+                    [
+                        null,
+                        null,
+                        {
+                            "color": "brown",
+                            "type": "ver"
+                        },
+                        null,
+                        null
+                    ]
+                ],
+                "shape_name": "PalmTree",
+                "type": "structured_object"
+            },
+            "type": "StructuredObjects",
+            "uid": "851def94d5f011e382990023dfa615aa"
+        }
+    },
+    "assets": {
+        "background": "island/psi_1.png",
+        "icons": {
+            "Boulder": "island/boulder.png",
+            "Braintree": "island/braintree.png",
+            "Braitenberg": "island/braitenberg.png",
+            "Champignon": "island/boletus-edulis.png",
+            "FlyAgaric": "island/fly-agaris.png",
+            "Juniper": "island/juniper-berries.png",
+            "Lightsource": "island/lamp.png",
+            "Maple": "island/maple.png",
+            "Menhir": "island/menhir.png",
+            "PalmTree": "island/palm-tree.png",
+            "Stone": "island/rock.png",
+            "Survivor": "island/Micropsi.png",
+            "Thornbush": "island/unknownbox.png",
+            "Waterhole": "island/well.png",
+            "Wirselkraut": "island/wirselkraut.png"
+        },
+        "js": "island/island.js",
+        "template": "island/island.tpl",
+        "x": 2048,
+        "y": 2048
+    },
+    "available_worldadapters": [
+        "Survivor",
+        "Braitenberg",
+        "StructuredObjects",
+        "Pixels",
+        "PixelsTraining"
+    ],
+    "available_worldobjects": [
+        "Wirselkraut",
+        "Juniper",
+        "Maple",
+        "Stone",
+        "Champignon",
+        "Boulder",
+        "Default",
+        "Waterhole",
+        "Menhir",
+        "Lightsource",
+        "FlyAgaric",
+        "Braintree",
+        "PalmTree",
+        "Thornbush"
+    ],
+    "filename": "/Users/rvuine/micropsi2_data/worlds/6df3bffaf95f11e38a330023dfa615aa.json",
+    "name": "TestStructuredObjects",
+    "objects": {
+        "7f44769ef95f11e3a2c80023dfa615aa": {
+            "name": "",
+            "orientation": 0.0,
+            "parameters": null,
+            "position": [
+                924,
+                663
+            ],
+            "type": "PalmTree",
+            "uid": "7f44769ef95f11e3a2c80023dfa615aa"
+        },
+        "91f57edef95f11e3abb20023dfa615aa": {
+            "name": "",
+            "orientation": 0.0,
+            "parameters": null,
+            "position": [
+                1043,
+                774
+            ],
+            "type": "Maple",
+            "uid": "91f57edef95f11e3abb20023dfa615aa"
+        }
+    },
+    "owner": "admin",
+    "step": 0,
+    "uid": "6df3bffaf95f11e38a330023dfa615aa",
+    "version": 1,
+    "world_type": "Island",
+    "worldadapters": {
+        "Braitenberg": {
+            "datasources": [
+                "brightness_r",
+                "brightness_l"
+            ],
+            "datatargets": [
+                "engine_l",
+                "engine_r"
+            ]
+        },
+        "Pixels": {
+            "datasources": [
+                "major-newscene"
+            ],
+            "datatargets": [
+                "fov_x",
+                "fov_y",
+                "fov_reset"
+            ]
+        },
+        "PixelsTraining": {
+            "datasources": [
+                "is_vertical",
+                "is_black",
+                "is_empty"
+            ],
+            "datatargets": [
+                "new_black",
+                "new_empty",
+                "new_vertical"
+            ]
+        },
+        "StructuredObjects": {
+            "datasources": [],
+            "datatargets": [
+                "fov_x",
+                "fov_y",
+                "fov_reset"
+            ]
+        },
+        "Survivor": {
+            "datasources": [],
+            "datatargets": [
+                "action_eat",
+                "action_drink",
+                "loco_north",
+                "loco_south",
+                "loco_west",
+                "loco_east"
+            ]
+        }
+    }
+}
