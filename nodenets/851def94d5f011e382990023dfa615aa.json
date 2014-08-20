@@ -29,6 +29,24 @@
             "uid": "0ab4b370-e36c-40cd-901d-b5af4964e08f",
             "weight": 1
         },
+        "118a4451-13fc-4b27-8749-ce4444a51dd4": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "075b1ad4d5f111e3b8210023dfa615aa",
+            "target_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_slot_name": "trigger",
+            "uid": "118a4451-13fc-4b27-8749-ce4444a51dd4",
+            "weight": 1
+        },
+        "16225351-0128-4c3a-89db-ec6e6db673e2": {
+            "certainty": 1,
+            "source_gate_name": "repeat",
+            "source_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_slot_name": "trigger",
+            "uid": "16225351-0128-4c3a-89db-ec6e6db673e2",
+            "weight": 1
+        },
         "1bdfb811-9b63-425a-96af-b607e2f70866": {
             "certainty": 1,
             "source_gate_name": "gen",
@@ -72,6 +90,15 @@
             "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
             "target_slot_name": "inh-grow",
             "uid": "4a2a596b-6a7a-413a-b3e3-6a01e644cd0c",
+            "weight": 1
+        },
+        "677ad4f2-6337-4633-a1f4-5508576a5e62": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "075b1ad4d5f111e3b8210023dfa615aa",
+            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_slot_name": "newscene",
+            "uid": "677ad4f2-6337-4633-a1f4-5508576a5e62",
             "weight": 1
         },
         "81d9697f-8b3f-4fe6-9399-f2b3447a1089": {
@@ -165,48 +192,48 @@
             },
             "gate_parameters": {
                 "fov_x": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 100,
-                    "minimum": -100,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": -100
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 100.0,
+                    "minimum": -100.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": -100.0
                 },
                 "fov_y": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 100,
-                    "minimum": -100,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": -100
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 100.0,
+                    "minimum": -100.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": -100.0
                 },
                 "import": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 100,
-                    "minimum": -100,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": -100
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 100.0,
+                    "minimum": -100.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": -100.0
                 },
                 "reset": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 100,
-                    "minimum": -100,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": -100
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 100.0,
+                    "minimum": -100.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": -100.0
                 }
             },
             "index": 2,
@@ -239,15 +266,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 3,
@@ -282,15 +309,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 4,
@@ -325,15 +352,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 5,
@@ -368,15 +395,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 6,
@@ -416,9 +443,9 @@
                     "decay": 0.0,
                     "maximum": 10.0,
                     "minimum": -10.0,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
                     "threshold": -10.0
                 }
             },
@@ -454,15 +481,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 8,
@@ -497,15 +524,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 9,
@@ -540,15 +567,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 10,
@@ -583,15 +610,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 11,
@@ -626,15 +653,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 12,
@@ -674,9 +701,9 @@
                     "decay": 0.0,
                     "maximum": 10.0,
                     "minimum": -10.0,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
                     "threshold": -10.0
                 }
             },
@@ -712,15 +739,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 14,
@@ -755,15 +782,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 15,
@@ -799,15 +826,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 16,
@@ -842,15 +869,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 18,
@@ -871,6 +898,40 @@
             "type": "Register",
             "uid": "38825638d5fb11e3aae60023dfa615aa"
         },
+        "6202b0ec-9658-43a5-bee6-d592ccb7b12f": {
+            "gate_activations": {
+                "repeat": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "repeat": {
+                    "amplification": 1,
+                    "certainty": 1,
+                    "decay": 0,
+                    "maximum": 1,
+                    "minimum": 0,
+                    "rho": 0,
+                    "spreadsheaves": false,
+                    "theta": 0,
+                    "threshold": 0
+                }
+            },
+            "index": 20,
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                467.9999999999999,
+                141.9999999999999
+            ],
+            "type": "ProtocolBuilder",
+            "uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f"
+        },
         "6986fa5c-d6f9-4573-8441-9063de4a6dae": {
             "gate_activations": {
                 "gen": {
@@ -883,15 +944,15 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": -1,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": -1.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 18,
@@ -925,15 +986,15 @@
             },
             "gate_parameters": {
                 "inact": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": 0,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": 0.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
                 }
             },
             "index": 20,

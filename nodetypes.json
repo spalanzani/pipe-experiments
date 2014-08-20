@@ -1,7 +1,7 @@
 {
     "SceneImporter": {
         "name": "SceneImporter",
-        "slottypes": ["fov-x", "fov-y", "inh-grow", "scene-inact"],
+        "slottypes": ["fov-x", "fov-y", "inh-grow", "scene-inact", "newscene"],
         "nodefunction_name": "scene_importer",
         "gatetypes": ["reset", "fov_x", "fov_y", "import"],
         "gate_defaults": {
@@ -44,8 +44,13 @@
         "name": "ProtocolBuilder",
         "slottypes": ["trigger"],
         "nodefunction_name": "protocol_builder",
-        "gatetypes": [],
+        "gatetypes": ["repeat"],
         "gate_defaults": {
+            "repeat": {
+                "minimum": 0,
+                "maximum": 1,
+                "threshold": 0
+            }
         }
     },
     "StructureAbstractionBuilder": {

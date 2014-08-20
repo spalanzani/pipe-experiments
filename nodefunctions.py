@@ -1,6 +1,7 @@
 __author__ = 'rvuine'
 
 import random
+import time
 
 
 def scene_importer(netapi, node=None, sheaf='default', **params):
@@ -32,10 +33,11 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
             scene = link.target_node
             break
 
-    # if we do not have a current scene node and haven't had a major scene change in a while, we're
-    # in a new situation and should create a new scene node
-    if scene is None and node.get_slot("inh-grow").activation < 0.1 and node.get_slot('scene-inact').activation > 0.95:
-        scene = netapi.create_node("Pipe", node.parent_nodespace, "Scene-"+"XXX") #TODO: create ID
+    ## if we do not have a current scene node and haven't had a major scene change in a while, we're
+    ## in a new situation and should create a new scene node
+    #if scene is None and node.get_slot("inh-grow").activation < 0.1 and node.get_slot('scene-inact').activation > 0.95:
+    if node.get_slot("newscene").activation >= 1:
+        scene = netapi.create_node("Pipe", node.parent_nodespace, "Scene-"+str(time.time()))
         netapi.link(current_scene_register, 'gen', scene, 'sub')
         # signal we have been importing
         node.get_gate("import").gate_function(1)
@@ -232,7 +234,7 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
         initial_protocol_head = netapi.create_node("Pipe", node.parent_nodespace, "proto-0")
         initial_protocol_head.set_state("index", "0")
         netapi.link_with_reciprocal(protocol_super_node, initial_protocol_head, "subsur")
-        protocol_super_nodes.extend(protocol_super_node)
+        protocol_super_nodes.append(protocol_super_node)
 
     # pick a protocol to extend
     protocol_super_node = protocol_super_nodes[0]   # todo: Handle cases with multiple protocols
@@ -251,7 +253,20 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
         protocol_head = new_protocol_head
 
     # now we have a protocol head, ready to be used for protocolling something
-    # todo: append a scene to the protocol
+
+    # make sure we have a current scene register
+    current_scene_registers = netapi.get_nodes(node.parent_nodespace, "CurrentScene")
+    if len(current_scene_registers) > 0:
+        current_scene_register = current_scene_registers[0]
+    scene = None
+    for linkid, link in current_scene_register.get_gate('gen').outgoing.items():
+        if link.target_node.name.startswith("Scene"):
+            scene = link.target_node
+            break
+    if scene is not None:
+        netapi.link_with_reciprocal(protocol_head, scene, "subsur")
+    else:
+        node.get_gate("repeat").gate_function(1)
 
 def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
     pass
