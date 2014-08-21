@@ -9,53 +9,28 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
     netapi.import_actors(node.parent_nodespace)
     netapi.import_sensors(node.parent_nodespace)
 
-    # make sure we have a current scene register
-    current_scene_registers = netapi.get_nodes(node.parent_nodespace, "CurrentScene")
-    if len(current_scene_registers) is 0:
-        current_scene_register = netapi.create_node("Register", node.parent_nodespace, "CurrentScene")
-        netapi.link(current_scene_register, 'gen', current_scene_register, 'gen')
-        #TODO: inject activation
+    # make sure we have an importer scene register
+    importer_scene_registers = netapi.get_nodes(node.parent_nodespace, "ImporterScene")
+    if len(importer_scene_registers) is 0:
+        importer_scene_register = netapi.create_node("Register", node.parent_nodespace, "ImporterScene")
     else:
-        current_scene_register = current_scene_registers[0]
+        importer_scene_register = importer_scene_registers[0]
 
-    # unlink scene nodes that aren't active any more, except for empty ones
-    for linkid, link in current_scene_register.get_gate('gen').outgoing.copy().items():
-        if link.target_node.name.startswith("Scene") and \
-                link.target_node.activation < 0.5 and \
-                len(link.target_node.get_gate('sub').outgoing) > 0:
-            netapi.logger.debug("SceneImporter dropping current scene %s.", link.target_node.name)
-            netapi.unlink(current_scene_register, 'gen', link.target_node, 'sub')
-
-    # make sure we have a scene node
+    # make sure we have an importer scene node
     scene = None
-    for linkid, link in current_scene_register.get_gate('gen').outgoing.items():
+    for linkid, link in importer_scene_register.get_gate('gen').outgoing.items():
         if link.target_node.name.startswith("Scene"):
             scene = link.target_node
             break
 
-    ## if we do not have a current scene node and haven't had a major scene change in a while, we're
-    ## in a new situation and should create a new scene node
-    #if scene is None and node.get_slot("inh-grow").activation < 0.1 and node.get_slot('scene-inact').activation > 0.95:
+    # when triggered, we create a new scene to add features to
     if node.get_slot("newscene").activation >= 1:
         scene = netapi.create_node("Pipe", node.parent_nodespace, "Scene-"+str(time.time()))
-        netapi.link(current_scene_register, 'gen', scene, 'sub')
+        netapi.unlink(importer_scene_register, 'gen')
+        netapi.link(importer_scene_register, 'gen', scene, 'sub')
         # signal we have been importing
         node.get_gate("import").gate_function(1)
         netapi.logger.debug("SceneImporter created new scene node %s.", scene.name)
-
-    # if we do not have a current scene node now, we should find the most active scene
-    if scene is None:
-        bestcandidate = None
-        bestactivation = 0
-        candidates = netapi.get_nodes_active(node.parent_nodespace, "Pipe", 0.8)
-        for candidate in candidates:
-            if candidate.name.startswith("Scene") and candidate.activation > bestactivation:
-                bestactivation = candidate.activation
-                bestcandidate = candidate
-        scene = bestcandidate
-        if scene is not None:
-            netapi.logger.debug("SceneImporter selecting new current scene %s.", scene.name)
-            netapi.link(current_scene_register, 'gen', scene, 'sub')
 
     # if the current scene is still none, we will have to wait for activation to reach a scene node
     if scene is None:
@@ -71,7 +46,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
         fovea_positions.append((sub_node.get_state('x'), sub_node.get_state('y')))
 
     # if the scene is fully recognized, check if there's something we can add to it in the world
-    if all_subs_active and node.get_slot("inh-grow").activation < 0.1:
+    if all_subs_active and node.get_slot("dontgrow").activation < 1:
         # what we're looking for: a feature that is active but hasn't been linked
         # for this, we move the fovea to a position we haven't looked at yet
 
@@ -225,6 +200,16 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
     if node.get_slot("trigger").activation < 1:
         return
 
+    # collect new things to add to the previous protocol node
+    importer_scene_registers = netapi.get_nodes(node.parent_nodespace, "ImporterScene")
+    if len(importer_scene_registers) > 0:
+        importer_scene_register = importer_scene_registers[0]
+    new_elements_scene = None
+    for linkid, link in importer_scene_register.get_gate('gen').outgoing.items():
+        if link.target_node.name.startswith("Scene"):
+            new_elements_scene = link.target_node
+            break
+
     # find the protocol chain in the node space
     protocol_super_nodes = netapi.get_nodes(node.parent_nodespace, "Chain")
 
@@ -242,8 +227,18 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
     # get the current head of the protocol, the pormost node
     protocol_head = netapi.get_nodes_in_gate_field(protocol_super_node, "sub", ["por"])[0]
 
-    # if the head is already referring to something, we need to extend the protocol and move the head
+    # if the head is already referring to something, we need to record new_elements_scene,
+    # extend the protocol and move the head
     if len(protocol_head.get_gate("sub").outgoing) > 0:
+
+        # if new elements have been found since the last protocol action, add them to the protocol head
+        # before moving forward and creating a new protocol head
+        if new_elements_scene is not None:
+            old_protocolled_scene = netapi.get_nodes_in_gate_field(protocol_head, "sub")[0]
+            netapi.link_with_reciprocal(old_protocolled_scene, new_elements_scene, "subsur")
+            old_protocolled_elements = netapi.get_nodes_in_gate_field(old_protocolled_scene, "sub")
+            netapi.link_full(old_protocolled_elements, "porret")
+
         head_index = int(protocol_head.get_state("index"))
         new_head_index = head_index + 1
         new_protocol_head = netapi.create_node("Pipe", node.parent_nodespace, "proto-"+str(new_head_index))
@@ -252,21 +247,53 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
         netapi.link_with_reciprocal(protocol_head, new_protocol_head, "porret")
         protocol_head = new_protocol_head
 
-    # now we have a protocol head, ready to be used for protocolling something
+    # now we have a clean protocol head, ready to be used for protocolling something
+
+    # create a new scene as registered in the protocol
+    protocolled_scene = netapi.create_node("Pipe", node.parent_nodespace, "ProtScene-"+str(time.time()))
+    netapi.link_with_reciprocal(protocol_head, protocolled_scene, "subsur")
+
+    # link all occurrences of things we already know
+    candidates = netapi.get_nodes_active(node.parent_nodespace, "Pipe", 0.8)
+    scenes = []
+    for candidate in candidates:
+        if candidate.name.startswith("Scene"):
+            occurrence = netapi.create_node("Pipe", node.parent_nodespace, "Occurrence")
+            netapi.link_with_reciprocal(protocolled_scene, occurrence, "subsur")
+            netapi.link_with_reciprocal(occurrence, candidate, "catexp")
+            scenes.append(candidate)
+    netapi.link_full(scenes, "porret")
+
+    # todo: link new things
 
     # make sure we have a current scene register
-    current_scene_registers = netapi.get_nodes(node.parent_nodespace, "CurrentScene")
-    if len(current_scene_registers) > 0:
-        current_scene_register = current_scene_registers[0]
-    scene = None
-    for linkid, link in current_scene_register.get_gate('gen').outgoing.items():
-        if link.target_node.name.startswith("Scene"):
-            scene = link.target_node
-            break
-    if scene is not None:
-        netapi.link_with_reciprocal(protocol_head, scene, "subsur")
-    else:
-        node.get_gate("repeat").gate_function(1)
+    #current_scene_registers = netapi.get_nodes(node.parent_nodespace, "Sepp")
+    #if len(current_scene_registers) > 0:
+    #    current_scene_register = current_scene_registers[0]
+    #scene = None
+    #for linkid, link in current_scene_register.get_gate('gen').outgoing.items():
+    #    if link.target_node.name.startswith("Scene"):
+    #        scene = link.target_node
+    #        break
+    #if scene is not None:
+    #    netapi.link_with_reciprocal(protocol_head, scene, "subsur")
+
+    # if we do not have a current scene node now, we should find the most active scene
+    #if scene is None:
+    #    bestcandidate = None
+    #    bestactivation = 0
+    #    candidates = netapi.get_nodes_active(node.parent_nodespace, "Pipe", 0.8)
+    #    for candidate in candidates:
+    #        if candidate.name.startswith("Scene") and candidate.activation > bestactivation:
+    #            bestactivation = candidate.activation
+    #            bestcandidate = candidate
+    #    scene = bestcandidate
+    #    if scene is not None:
+    #        netapi.logger.debug("SceneImporter selecting new current scene %s.", scene.name)
+    #        netapi.link(importer_scene_register, 'gen', scene, 'sub')
+
+    node.get_gate("done").gate_function(1)
+
 
 def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
     pass

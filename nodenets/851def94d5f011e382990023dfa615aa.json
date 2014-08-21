@@ -11,33 +11,6 @@
     ],
     "is_active": false,
     "links": {
-        "06946281-cd3b-4832-97ce-300a712c4314": {
-            "certainty": 1,
-            "source_gate_name": "gen",
-            "source_node_uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae",
-            "target_node_uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae",
-            "target_slot_name": "gen",
-            "uid": "06946281-cd3b-4832-97ce-300a712c4314",
-            "weight": 0.95
-        },
-        "0ab4b370-e36c-40cd-901d-b5af4964e08f": {
-            "certainty": 1,
-            "source_gate_name": "inact",
-            "source_node_uid": "a5c90b2e-666c-4320-aa57-423554d0cc59",
-            "target_node_uid": "a5c90b2e-666c-4320-aa57-423554d0cc59",
-            "target_slot_name": "inact",
-            "uid": "0ab4b370-e36c-40cd-901d-b5af4964e08f",
-            "weight": 1
-        },
-        "118a4451-13fc-4b27-8749-ce4444a51dd4": {
-            "certainty": 1,
-            "source_gate_name": "gen",
-            "source_node_uid": "075b1ad4d5f111e3b8210023dfa615aa",
-            "target_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
-            "target_slot_name": "trigger",
-            "uid": "118a4451-13fc-4b27-8749-ce4444a51dd4",
-            "weight": 1
-        },
         "16225351-0128-4c3a-89db-ec6e6db673e2": {
             "certainty": 1,
             "source_gate_name": "repeat",
@@ -47,41 +20,14 @@
             "uid": "16225351-0128-4c3a-89db-ec6e6db673e2",
             "weight": 1
         },
-        "1bdfb811-9b63-425a-96af-b607e2f70866": {
+        "31b9bd8a-ccc2-40fa-b6f5-6723b5c556c4": {
             "certainty": 1,
             "source_gate_name": "gen",
-            "source_node_uid": "075b1ad4d5f111e3b8210023dfa615aa",
-            "target_node_uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae",
+            "source_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
+            "target_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
             "target_slot_name": "gen",
-            "uid": "1bdfb811-9b63-425a-96af-b607e2f70866",
-            "weight": 1
-        },
-        "38859dded5fb11e39b9c0023dfa615aa": {
-            "certainty": 1,
-            "source_gate_name": "gen",
-            "source_node_uid": "38825638d5fb11e3aae60023dfa615aa",
-            "target_node_uid": "38825638d5fb11e3aae60023dfa615aa",
-            "target_slot_name": "gen",
-            "uid": "38859dded5fb11e39b9c0023dfa615aa",
-            "weight": 1
-        },
-        "3929de13-6707-4387-addb-94e2fa43e85d": {
-            "certainty": 1,
-            "source_gate_name": "gen",
-            "source_node_uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae",
-            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
-            "target_slot_name": "inh-grow",
-            "uid": "3929de13-6707-4387-addb-94e2fa43e85d",
-            "weight": 1
-        },
-        "3a0edb92-e698-41a5-91fd-bec4154b01ed": {
-            "certainty": 1,
-            "source_gate_name": "import",
-            "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
-            "target_node_uid": "a5c90b2e-666c-4320-aa57-423554d0cc59",
-            "target_slot_name": "reset",
-            "uid": "3a0edb92-e698-41a5-91fd-bec4154b01ed",
-            "weight": 1
+            "uid": "31b9bd8a-ccc2-40fa-b6f5-6723b5c556c4",
+            "weight": 1.05
         },
         "4a2a596b-6a7a-413a-b3e3-6a01e644cd0c": {
             "certainty": 1,
@@ -90,24 +36,6 @@
             "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
             "target_slot_name": "inh-grow",
             "uid": "4a2a596b-6a7a-413a-b3e3-6a01e644cd0c",
-            "weight": 1
-        },
-        "677ad4f2-6337-4633-a1f4-5508576a5e62": {
-            "certainty": 1,
-            "source_gate_name": "gen",
-            "source_node_uid": "075b1ad4d5f111e3b8210023dfa615aa",
-            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
-            "target_slot_name": "newscene",
-            "uid": "677ad4f2-6337-4633-a1f4-5508576a5e62",
-            "weight": 1
-        },
-        "81d9697f-8b3f-4fe6-9399-f2b3447a1089": {
-            "certainty": 1,
-            "source_gate_name": "inact",
-            "source_node_uid": "a5c90b2e-666c-4320-aa57-423554d0cc59",
-            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
-            "target_slot_name": "scene-inact",
-            "uid": "81d9697f-8b3f-4fe6-9399-f2b3447a1089",
             "weight": 1
         },
         "84269994-96ed-497d-abf3-5ff14e7d268f": {
@@ -119,6 +47,33 @@
             "uid": "84269994-96ed-497d-abf3-5ff14e7d268f",
             "weight": 1
         },
+        "a796cf34-8a40-41d4-9cb2-7df7a6777799": {
+            "certainty": 1,
+            "source_gate_name": "done",
+            "source_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
+            "target_slot_name": "gen",
+            "uid": "a796cf34-8a40-41d4-9cb2-7df7a6777799",
+            "weight": -1000
+        },
+        "b6d15e39-d251-4b5b-9a9e-9ffca1064b81": {
+            "certainty": 1,
+            "source_gate_name": "done",
+            "source_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_slot_name": "trigger",
+            "uid": "b6d15e39-d251-4b5b-9a9e-9ffca1064b81",
+            "weight": -1000
+        },
+        "b732dd1c-cf7a-47c7-ade8-6bc6da38e544": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
+            "target_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_slot_name": "trigger",
+            "uid": "b732dd1c-cf7a-47c7-ade8-6bc6da38e544",
+            "weight": 1
+        },
         "b846ded4-ed19-4c3e-ac82-d6923c60bdee": {
             "certainty": 1,
             "source_gate_name": "gen",
@@ -126,6 +81,24 @@
             "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
             "target_slot_name": "fov-y",
             "uid": "b846ded4-ed19-4c3e-ac82-d6923c60bdee",
+            "weight": 1
+        },
+        "bf1cfe98-78f8-4f1d-a53e-2964664cf641": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "075b1ad4d5f111e3b8210023dfa615aa",
+            "target_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
+            "target_slot_name": "gen",
+            "uid": "bf1cfe98-78f8-4f1d-a53e-2964664cf641",
+            "weight": 0.1
+        },
+        "bfb313d9-6652-491c-a3e1-6fa9e6d46f61": {
+            "certainty": 1,
+            "source_gate_name": "done",
+            "source_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_slot_name": "newscene",
+            "uid": "bfb313d9-6652-491c-a3e1-6fa9e6d46f61",
             "weight": 1
         },
         "cd741372-d592-4967-a461-cb77155af670": {
@@ -154,6 +127,15 @@
             "target_slot_name": "gen",
             "uid": "f7203b7d-3395-4d56-af34-dbaf602ec153",
             "weight": 1
+        },
+        "fd10343c-41c5-46bf-b24a-b26241c5ee30": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
+            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_slot_name": "dontgrow",
+            "uid": "fd10343c-41c5-46bf-b24a-b26241c5ee30",
+            "weight": 1000
         }
     },
     "monitors": {},
@@ -861,81 +843,6 @@
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 1,
-                        "name": "default",
-                        "uid": "default"
-                    }
-                }
-            },
-            "gate_parameters": {
-                "gen": {
-                    "amplification": 1.0,
-                    "certainty": 1.0,
-                    "decay": 0.0,
-                    "maximum": 1.0,
-                    "minimum": -1.0,
-                    "rho": 0.0,
-                    "spreadsheaves": 0.0,
-                    "theta": 0.0,
-                    "threshold": 0.0
-                }
-            },
-            "index": 18,
-            "name": "CurrentScene",
-            "parameters": {},
-            "parent_nodespace": "Root",
-            "position": [
-                135.0,
-                305.0
-            ],
-            "sheaves": {
-                "default": {
-                    "activation": 1.0,
-                    "name": "default",
-                    "uid": "default"
-                }
-            },
-            "type": "Register",
-            "uid": "38825638d5fb11e3aae60023dfa615aa"
-        },
-        "6202b0ec-9658-43a5-bee6-d592ccb7b12f": {
-            "gate_activations": {
-                "repeat": {
-                    "default": {
-                        "activation": 0,
-                        "name": "default",
-                        "uid": "default"
-                    }
-                }
-            },
-            "gate_parameters": {
-                "repeat": {
-                    "amplification": 1,
-                    "certainty": 1,
-                    "decay": 0,
-                    "maximum": 1,
-                    "minimum": 0,
-                    "rho": 0,
-                    "spreadsheaves": false,
-                    "theta": 0,
-                    "threshold": 0
-                }
-            },
-            "index": 20,
-            "name": "",
-            "parameters": {},
-            "parent_nodespace": "Root",
-            "position": [
-                467.9999999999999,
-                141.9999999999999
-            ],
-            "type": "ProtocolBuilder",
-            "uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f"
-        },
-        "6986fa5c-d6f9-4573-8441-9063de4a6dae": {
-            "gate_activations": {
-                "gen": {
-                    "default": {
                         "activation": 0.0,
                         "name": "default",
                         "uid": "default"
@@ -956,36 +863,44 @@
                 }
             },
             "index": 18,
-            "name": "inhibit-scene-growth",
-            "parameters": {},
+            "name": "ImporterScene",
+            "parameters": {
+                "comment": ""
+            },
             "parent_nodespace": "Root",
             "position": [
                 135.0,
-                475.0
+                305.0
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0.0,
+                    "activation": "0",
                     "name": "default",
                     "uid": "default"
                 }
             },
             "type": "Register",
-            "uid": "6986fa5c-d6f9-4573-8441-9063de4a6dae"
+            "uid": "38825638d5fb11e3aae60023dfa615aa"
         },
-        "a5c90b2e-666c-4320-aa57-423554d0cc59": {
-            "activation": -1,
+        "6202b0ec-9658-43a5-bee6-d592ccb7b12f": {
             "gate_activations": {
-                "inact": {
+                "done": {
                     "default": {
-                        "activation": 0.05,
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                },
+                "repeat": {
+                    "default": {
+                        "activation": 0,
                         "name": "default",
                         "uid": "default"
                     }
                 }
             },
             "gate_parameters": {
-                "inact": {
+                "done": {
                     "amplification": 1.0,
                     "certainty": 1.0,
                     "decay": 0.0,
@@ -998,24 +913,51 @@
                 }
             },
             "index": 20,
-            "name": "InactivityMonitor-Scenes",
+            "name": "",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                467.9999999999999,
+                141.9999999999999
+            ],
+            "type": "ProtocolBuilder",
+            "uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f"
+        },
+        "e3033344-4fc6-4f43-882b-5842736b83c0": {
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {
+                "gen": {
+                    "amplification": 1.0,
+                    "certainty": 1.0,
+                    "decay": 0.0,
+                    "maximum": 1.0,
+                    "minimum": 0.0,
+                    "rho": 0.0,
+                    "spreadsheaves": 0.0,
+                    "theta": 0.0,
+                    "threshold": 0.0
+                }
+            },
+            "index": 19,
+            "name": "ProtocolSignalAccumulator",
             "parameters": {
-                "name": "Scene"
+                "comment": ""
             },
             "parent_nodespace": "Root",
             "position": [
-                135.0,
-                645.0
+                461.9999999999999,
+                481.9999999999999
             ],
-            "sheaves": {
-                "default": {
-                    "activation": 0.0,
-                    "name": "default",
-                    "uid": "default"
-                }
-            },
-            "type": "InactivityMonitor",
-            "uid": "a5c90b2e-666c-4320-aa57-423554d0cc59"
+            "type": "Register",
+            "uid": "e3033344-4fc6-4f43-882b-5842736b83c0"
         }
     },
     "nodespaces": {
