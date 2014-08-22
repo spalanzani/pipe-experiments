@@ -258,9 +258,10 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
     scenes = []
     for candidate in candidates:
         if candidate.name.startswith("Scene"):
-            occurrence = netapi.create_node("Pipe", node.parent_nodespace, "Occurrence")
-            netapi.link_with_reciprocal(protocolled_scene, occurrence, "subsur")
-            netapi.link_with_reciprocal(occurrence, candidate, "catexp")
+            #occurrence = netapi.create_node("Pipe", node.parent_nodespace, "Occurrence")
+            #netapi.link_with_reciprocal(protocolled_scene, occurrence, "subsur")
+            #netapi.link_with_reciprocal(occurrence, candidate, "catexp")
+            netapi.link_with_reciprocal(protocolled_scene, candidate, "subsur")
             scenes.append(candidate)
     netapi.link_full(scenes, "porret")
 
@@ -296,6 +297,43 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
 
 
 def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
+
+    # build a list of schemas encountered
+    protocol_super_nodes = netapi.get_nodes(node.parent_nodespace, "Chain")
+    if len(protocol_super_nodes) < 1:
+        return
+    protocol_super_node = protocol_super_nodes[0]   # todo: Handle cases with multiple protocols
+    protocol_head = netapi.get_nodes_in_gate_field(protocol_super_node, "sub", ["por"])[0]
+
+    schemas = []
+    current_protocol_element = protocol_head
+    i = 0
+    while i < 50 and current_protocol_element is not None:
+        schemas.extend(netapi.get_nodes_in_gate_field(current_protocol_element, "sub"))
+        i += 1
+        if len(current_protocol_element.get_gate("ret").outgoing) > 0:
+            current_protocol_element = current_protocol_element.get_gate("ret").outgoing[0].target_node
+        else:
+            current_protocol_element = None
+
+    
+
+    # clean up:
+    # a scene is a bucket of stuff
+    # - remove double protocolling of features
+    # - remove all abstracts, keep the most specific recording
+    # - check if any of the concrete things are identical to...?
+
+
+    # identity check: bag of |F(x,y)-sensor-sensor| elements is identical
+
+    # - get new things
+    # - simplify: prune from new things what has already been seen as occurrence
+    # - Two schemas A and B are the same thing when
+    #   - subfield
+    #   - for every sub(A) there is a sub(B) that has the same cats as sub(A) or  # exactly?
+    #   - for every sub(A)
+
     pass
 
 
@@ -311,3 +349,21 @@ def signalsource(netapi, node=None, sheaf='default', **params):
     step *= 2
     linear = (1 / 100) * step
     node.get_gate('linear').gate_function(linear)
+
+
+def find_visual_features_in(node, netapi):
+    # finds visual feature structures
+    # right now, this is using node names, which should be changed to use states instead
+    # note that the reliance on strings is for convenience only, all the information in the strings is
+    # also in the linkage structure towards sensors and could be extracted from there
+    visual_features = []
+
+    # look for sensor proxy nodes
+    if node.name.endswith(".Prx"):
+        visual_features.append(node.name)
+
+    subs = netapi.get_nodes_in_gate_field(node, "sub")
+    for sub_node in subs:
+        visual_features.extend(find_visual_features_in(sub_node, netapi))
+
+    return visual_features
