@@ -101,23 +101,21 @@
     "available_worldadapters": [
         "Survivor",
         "Braitenberg",
-        "StructuredObjects",
-        "Pixels",
-        "PixelsTraining"
+        "StructuredObjects"
     ],
     "available_worldobjects": [
-        "Wirselkraut",
-        "Juniper",
-        "Maple",
-        "Stone",
-        "Champignon",
-        "Boulder",
-        "Default",
+        "Braintree",
         "Waterhole",
         "Menhir",
-        "Lightsource",
+        "Boulder",
+        "Default",
+        "Juniper",
         "FlyAgaric",
-        "Braintree",
+        "Stone",
+        "Wirselkraut",
+        "Lightsource",
+        "Maple",
+        "Champignon",
         "PalmTree",
         "Thornbush"
     ],
@@ -145,6 +143,17 @@
             ],
             "type": "Maple",
             "uid": "91f57edef95f11e3abb20023dfa615aa"
+        },
+        "bdda3d7029fa11e4bc360023dfa615aa": {
+            "name": "",
+            "orientation": 0.0,
+            "parameters": null,
+            "position": [
+                961,
+                862
+            ],
+            "type": "Boulder",
+            "uid": "bdda3d7029fa11e4bc360023dfa615aa"
         }
     },
     "owner": "admin",
@@ -155,38 +164,40 @@
     "worldadapters": {
         "Braitenberg": {
             "datasources": [
-                "brightness_r",
-                "brightness_l"
+                "brightness_l",
+                "brightness_r"
             ],
             "datatargets": [
-                "engine_l",
-                "engine_r"
-            ]
-        },
-        "Pixels": {
-            "datasources": [
-                "major-newscene"
-            ],
-            "datatargets": [
-                "fov_x",
-                "fov_y",
-                "fov_reset"
-            ]
-        },
-        "PixelsTraining": {
-            "datasources": [
-                "is_vertical",
-                "is_black",
-                "is_empty"
-            ],
-            "datatargets": [
-                "new_black",
-                "new_empty",
-                "new_vertical"
+                "engine_r",
+                "engine_l"
             ]
         },
         "StructuredObjects": {
-            "datasources": [],
+            "datasources": [
+                "presence-white",
+                "major-newscene",
+                "fov-y",
+                "fovea-com",
+                "presence-charcoal",
+                "presence-brown",
+                "fovea-red",
+                "presence-navy",
+                "presence-com",
+                "presence-ver",
+                "fovea-navy",
+                "fovea-ver",
+                "presence-cir",
+                "fovea-green",
+                "fovea-charcoal",
+                "fovea-brown",
+                "presence-red",
+                "fovea-cir",
+                "fov-x",
+                "presence-purple",
+                "fovea-white",
+                "presence-green",
+                "fovea-purple"
+            ],
             "datatargets": [
                 "fov_x",
                 "fov_y",
@@ -196,12 +207,12 @@
         "Survivor": {
             "datasources": [],
             "datatargets": [
-                "action_eat",
-                "action_drink",
-                "loco_north",
+                "loco_east",
                 "loco_south",
                 "loco_west",
-                "loco_east"
+                "loco_north",
+                "action_eat",
+                "action_drink"
             ]
         }
     }
