@@ -312,30 +312,47 @@ def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
         schemas.extend(netapi.get_nodes_in_gate_field(current_protocol_element, "sub"))
         i += 1
         if len(current_protocol_element.get_gate("ret").outgoing) > 0:
-            current_protocol_element = current_protocol_element.get_gate("ret").outgoing[0].target_node
+            current_protocol_element = netapi.get_nodes_in_gate_field(current_protocol_element, "ret")[0]
         else:
             current_protocol_element = None
 
-    
+    for schema in schemas:  # level of ProtocolScene nodes
+        #todo: get rid of the assumptions about structure
+        netapi.logger.info("Examining protocol schema: "+schema.name)
+        schema_elements = netapi.get_nodes_in_gate_field(schema, "sub")
 
-    # clean up:
-    # a scene is a bucket of stuff
-    # - remove double protocolling of features
-    # - remove all abstracts, keep the most specific recording
-    # - check if any of the concrete things are identical to...?
+        visual_features_in_imported_schema_element = set()
+        visual_features_in_recognized_schema_element = set()
 
+        for schema_element in schema_elements:  # level of occurrence node / fresh schema heads
+            if len(schema_element.get_gate("sub").outgoing) > 0:
+                newly_imported_schema_element = schema_element
+                visual_features_in_imported_schema_element = find_visual_features_in(newly_imported_schema_element, netapi)
+            if len(schema_element.get_gate("cat").outgoing) > 0:
+                recognized_schema_element = netapi.get_nodes_in_gate_field(schema_element, "cat")[0]
+                visual_features_in_recognized_schema_element = find_visual_features_in(recognized_schema_element, netapi)
 
-    # identity check: bag of |F(x,y)-sensor-sensor| elements is identical
+        if visual_features_in_recognized_schema_element > visual_features_in_imported_schema_element:
+            netapi.logger.info("Recognition sufficient")
+            # delete all the new elements, there is no new information
+        else:
+            netapi.logger.info("New elements present:")
+            # merge the new elements in?
+            # or create new schema with the merge?
+            # then test both?
+            # in cases with more than one recognized schema: merge with all of them?
+            # then test all of them?
 
-    # - get new things
-    # - simplify: prune from new things what has already been seen as occurrence
-    # - Two schemas A and B are the same thing when
-    #   - subfield
-    #   - for every sub(A) there is a sub(B) that has the same cats as sub(A) or  # exactly?
-    #   - for every sub(A)
+        # for every schema, check if there is sufficient overlap (what is sufficient?)
+        # with any other existing schema (the most useful ones?)
+        # if there is, introduce an abstraction
 
-    pass
+        # during testing of categories: keep the old specifics around?
+        # probably yes, have it cleaned up by cleanup...
 
+        # cleanup mechanism ex-protocol:
+        # - remove schemas that never get touched
+        # - remove schemas that always get active together and contain the same visual features
 
 def signalsource(netapi, node=None, sheaf='default', **params):
     step = node.get_parameter('step')
@@ -356,14 +373,16 @@ def find_visual_features_in(node, netapi):
     # right now, this is using node names, which should be changed to use states instead
     # note that the reliance on strings is for convenience only, all the information in the strings is
     # also in the linkage structure towards sensors and could be extracted from there
-    visual_features = []
+    visual_features = set()
 
     # look for sensor proxy nodes
     if node.name.endswith(".Prx"):
-        visual_features.append(node.name)
+        visual_features.add(node.name)
 
-    subs = netapi.get_nodes_in_gate_field(node, "sub")
-    for sub_node in subs:
-        visual_features.extend(find_visual_features_in(sub_node, netapi))
+    if "sub" in node.gates.keys():
+        subs = netapi.get_nodes_in_gate_field(node, "sub")
+        for sub_node in subs:
+            if sub_node is not node:    # avoid infinite recursion on looping proxies
+                visual_features |= find_visual_features_in(sub_node, netapi)
 
     return visual_features
