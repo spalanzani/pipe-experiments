@@ -324,6 +324,9 @@ def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
         visual_features_in_imported_schema_element = set()
         visual_features_in_recognized_schema_element = set()
 
+        newly_imported_schema_element = None
+        recognized_schema_element = None
+
         for schema_element in schema_elements:  # level of occurrence node / fresh schema heads
             if len(schema_element.get_gate("sub").outgoing) > 0:
                 newly_imported_schema_element = schema_element
@@ -333,10 +336,15 @@ def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
                 visual_features_in_recognized_schema_element = find_visual_features_in(recognized_schema_element, netapi)
 
         if visual_features_in_recognized_schema_element > visual_features_in_imported_schema_element:
-            netapi.logger.info("Recognition sufficient")
+            netapi.logger.debug("Recognition sufficient")
             # delete all the new elements, there is no new information
+            if newly_imported_schema_element is not None:
+                delete_schema(newly_imported_schema_element, netapi)
         else:
             netapi.logger.info("New elements present:")
+            if newly_imported_schema_element is not None and recognized_schema_element is not None:
+                create_merged_schema([newly_imported_schema_element, recognized_schema_element], netapi)
+
             # merge the new elements in?
             # or create new schema with the merge?
             # then test both?
@@ -386,3 +394,109 @@ def find_visual_features_in(node, netapi):
                 visual_features |= find_visual_features_in(sub_node, netapi)
 
     return visual_features
+
+
+def delete_schema(node, netapi):
+    if "sub" in node.gates.keys():
+        subs = netapi.get_nodes_in_gate_field(node, "sub")
+        for sub_node in subs:
+            if sub_node is not node:    # avoid infinite recursion on looping proxies
+                delete_schema(sub_node, netapi)
+
+    netapi.delete_node(node)
+
+
+def create_merged_schema(schemas, netapi):
+    # Creates a merged schema out of the given schemas
+    # Original schemas will be unmodified
+
+    copied_schemas = []
+
+    for schema in schemas:
+        copied_schemas.append(copy_schema(schema, netapi))
+
+    merge_schemas(copied_schemas, netapi)
+
+
+def merge_schemas(schemas, netapi):
+    pass
+
+
+def copy_schema(node, netapi):
+    # copies a schema - a node and all its sub-nodes
+    # schema-internal links will be schema-internal in the copy
+    # external links will be present in the copy
+
+    original_schema_nodes = collect_schema_nodes(node, netapi)
+    copy_schema_nodes = {}
+
+    # copy all the nodes
+    for original in original_schema_nodes:
+        copy_schema_node = netapi.create_node(original.type, original.parent_nodespace, original.name)
+        copy_schema_nodes[original.uid] = copy_schema_node
+
+    # now link them up
+    # links to copied nodes go to the copy, links to other nodes go to the original other nodes
+    for original in original_schema_nodes:
+        for slot in original.slots.values():
+            for link in slot.incoming.values():
+                if link.source_node.uid in copy_schema_nodes:
+                    # link from copy
+                    if original.uid == node.uid and link.target_slot.type != "sur":
+                        break;  # don't por/ret or cat/exp link the copy of the head node
+                    netapi.link(
+                        copy_schema_nodes[link.source_node.uid],
+                        link.source_gate.type,
+                        copy_schema_nodes[original.uid],
+                        link.target_slot.type,
+                        link.weight,
+                        link.certainty)
+                else:
+                    # link from original
+                    if original.uid == node.uid and link.target_slot.type != "sur":
+                        break;  # don't por/ret or cat/exp link the copy of the head node
+                    netapi.link(
+                        link.source_node,
+                        link.source_gate.type,
+                        copy_schema_nodes[original.uid],
+                        link.target_slot.type,
+                        link.weight,
+                        link.certainty)
+        for gate in original.gates.values():
+            for link in gate.outgoing.values():
+                if link.target_node.uid in copy_schema_nodes:
+                    # link to copy
+                    if original.uid == node.uid and link.source_gate.type != "sub":
+                        break;  # don't por/ret or cat/exp link the copy of the head node
+                    netapi.link(
+                        copy_schema_nodes[original.uid],
+                        link.source_gate.type,
+                        copy_schema_nodes[link.target_node.uid],
+                        link.target_slot.type,
+                        link.weight,
+                        link.certainty)
+                else:
+                    # link to original
+                    if original.uid == node.uid and link.source_gate.type != "sub":
+                        break;  # don't por/ret or cat/exp link the copy of the head node
+                    netapi.link(
+                        copy_schema_nodes[original.uid],
+                        link.source_gate.type,
+                        link.target_node,
+                        link.target_slot.type,
+                        link.weight,
+                        link.certainty)
+
+    return copy_schema_nodes[node.uid]
+
+
+def collect_schema_nodes(node, netapi):
+    # collects all sub nodes (the whole schema)
+    sub_nodes = set()
+    sub_nodes.add(node)
+    if "sub" in node.gates.keys():
+        subs = netapi.get_nodes_in_gate_field(node, "sub")
+        for sub_node in subs:
+            if sub_node is not node and sub_node.type == node.type:    # avoid infinite recursion on looping proxies
+                sub_nodes |= collect_schema_nodes(sub_node, netapi)
+    return sub_nodes
