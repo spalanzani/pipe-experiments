@@ -345,12 +345,6 @@ def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
             if newly_imported_schema_element is not None and recognized_schema_element is not None:
                 create_merged_schema([newly_imported_schema_element, recognized_schema_element], netapi)
 
-            # merge the new elements in?
-            # or create new schema with the merge?
-            # then test both?
-            # in cases with more than one recognized schema: merge with all of them?
-            # then test all of them?
-
         # for every schema, check if there is sufficient overlap (what is sufficient?)
         # with any other existing schema (the most useful ones?)
         # if there is, introduce an abstraction
@@ -419,8 +413,37 @@ def create_merged_schema(schemas, netapi):
 
 
 def merge_schemas(schemas, netapi):
-    pass
+    first_schema = schemas[0]
+    merged_head = netapi.create_node(first_schema.type, first_schema.parent_nodespace, first_schema.name)
+    merged_classifier_list = []
 
+    for schema in schemas:
+        sub_schemas = netapi.get_nodes_in_gate_field(schema, "sub")
+        # todo: don't merge in features that are already there, i.e. structurally identical
+        if len(sub_schemas) > 0:
+            first_sub_schema = sub_schemas[0]
+            if len(first_sub_schema.get_gate("por").outgoing) == len(sub_schemas):  # this is a classifier
+                merged_classifier_list.extend(sub_schemas)
+                netapi.delete_node(schema)
+            else:                                                                   # script or alternative
+                merged_classifier_list.append(schema)
+                netapi.unlink(schema, "gen")
+                netapi.unlink(schema, "por")
+                netapi.unlink(schema, "ret")
+                netapi.unlink(schema, "cat")
+                netapi.unlink(schema, "exp")
+
+    for schema in merged_classifier_list:
+        netapi.link_with_reciprocal(merged_head, schema, "subsur")
+    netapi.link_full(merged_classifier_list, "porret")
+
+    # what we do here is offer a schema that assumes that newly observed properties are part of something
+    # we have seen before
+
+    # types of theories:
+    # - newly observed properties are part of what has been seen before
+    # - newly observed properties are part of something new (should be created as a new incomplete schema)
+    # - two schemas are structurally similar, an abstraction should be offered
 
 def copy_schema(node, netapi):
     # copies a schema - a node and all its sub-nodes
