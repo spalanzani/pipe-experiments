@@ -330,20 +330,21 @@ def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
         for schema_element in schema_elements:  # level of occurrence node / fresh schema heads
             if len(schema_element.get_gate("sub").outgoing) > 0:
                 newly_imported_schema_element = schema_element
-                visual_features_in_imported_schema_element = find_visual_features_in(newly_imported_schema_element, netapi)
+                visual_features_in_imported_schema_element = collect_visual_feature_names(newly_imported_schema_element, netapi)
             if len(schema_element.get_gate("cat").outgoing) > 0:
                 recognized_schema_element = netapi.get_nodes_in_gate_field(schema_element, "cat")[0]
-                visual_features_in_recognized_schema_element = find_visual_features_in(recognized_schema_element, netapi)
+                visual_features_in_recognized_schema_element = collect_visual_feature_names(recognized_schema_element, netapi)
 
-        if visual_features_in_recognized_schema_element > visual_features_in_imported_schema_element:
-            netapi.logger.debug("Recognition sufficient")
-            # delete all the new elements, there is no new information
-            if newly_imported_schema_element is not None:
-                delete_schema(newly_imported_schema_element, netapi)
-        else:
-            netapi.logger.info("New elements present:")
-            if newly_imported_schema_element is not None and recognized_schema_element is not None:
-                create_merged_schema([newly_imported_schema_element, recognized_schema_element], netapi)
+        netapi.logger.info(str(collect_feature_names(schema, netapi)))
+        #if visual_features_in_recognized_schema_element > visual_features_in_imported_schema_element:
+        #    netapi.logger.debug("Recognition sufficient")
+        #    # delete all the new elements, there is no new information
+        #    if newly_imported_schema_element is not None:
+        #        delete_schema(newly_imported_schema_element, netapi)
+        #else:
+        #    netapi.logger.info("New elements present:")
+        #    if newly_imported_schema_element is not None and recognized_schema_element is not None:
+        #        create_merged_schema([newly_imported_schema_element, recognized_schema_element], netapi)
 
         # for every schema, check if there is sufficient overlap (what is sufficient?)
         # with any other existing schema (the most useful ones?)
@@ -368,26 +369,6 @@ def signalsource(netapi, node=None, sheaf='default', **params):
     step *= 2
     linear = (1 / 100) * step
     node.get_gate('linear').gate_function(linear)
-
-
-def find_visual_features_in(node, netapi):
-    # finds visual feature structures
-    # right now, this is using node names, which should be changed to use states instead
-    # note that the reliance on strings is for convenience only, all the information in the strings is
-    # also in the linkage structure towards sensors and could be extracted from there
-    visual_features = set()
-
-    # look for sensor proxy nodes
-    if node.name.endswith(".Prx"):
-        visual_features.add(node.name)
-
-    if "sub" in node.gates.keys():
-        subs = netapi.get_nodes_in_gate_field(node, "sub")
-        for sub_node in subs:
-            if sub_node is not node:    # avoid infinite recursion on looping proxies
-                visual_features |= find_visual_features_in(sub_node, netapi)
-
-    return visual_features
 
 
 def delete_schema(node, netapi):
@@ -427,11 +408,11 @@ def merge_schemas(schemas, netapi):
                 netapi.delete_node(schema)
             else:                                                                   # script or alternative
                 merged_classifier_list.append(schema)
-                netapi.unlink(schema, "gen")
-                netapi.unlink(schema, "por")
-                netapi.unlink(schema, "ret")
-                netapi.unlink(schema, "cat")
-                netapi.unlink(schema, "exp")
+                netapi.unlink_direction(schema, "gen")
+                netapi.unlink_direction(schema, "por")
+                netapi.unlink_direction(schema, "ret")
+                netapi.unlink_direction(schema, "cat")
+                netapi.unlink_direction(schema, "exp")
 
     for schema in merged_classifier_list:
         netapi.link_with_reciprocal(merged_head, schema, "subsur")
@@ -523,3 +504,118 @@ def collect_schema_nodes(node, netapi):
             if sub_node is not node and sub_node.type == node.type:    # avoid infinite recursion on looping proxies
                 sub_nodes |= collect_schema_nodes(sub_node, netapi)
     return sub_nodes
+
+
+def collect_visual_feature_names(node, netapi):
+    # finds visual feature structures
+    # right now, this is using node names, which should be changed to use states instead
+    # note that the reliance on strings is for convenience only, all the information in the strings is
+    # also in the linkage structure towards sensors and could be extracted from there
+    visual_features = set()
+
+    # look for sensor proxy nodes
+    if node.name.endswith(".Prx"):
+        visual_features.add(node.name)
+
+    if "sub" in node.gates.keys():
+        subs = netapi.get_nodes_in_gate_field(node, "sub")
+        for sub_node in subs:
+            if sub_node is not node:    # avoid infinite recursion on looping proxies
+                visual_features |= collect_visual_feature_names(sub_node, netapi)
+
+    return visual_features
+
+
+def collect_feature_names(node, netapi):
+
+    feature_names = set()
+    feature_nodes = {}
+
+    sub_field = netapi.get_nodes_in_gate_field(node, "sub")
+
+    isAFeature = False
+
+    # a feature can be an exp of a single cat, read "inherit all features of this category"
+    if len(sub_field) == 0:
+        cat_field = netapi.get_nodes_in_gate_field(node, "cat")
+        if len(cat_field) == 1:
+            name = "exp-"+cat_field[0].uid
+            feature_names.add(name)
+            feature_nodes[name] = node
+            isAFeature = True
+
+    # a feature can be a direct sensor standin/proxy
+    if len(sub_field) == 1:
+        if sub_field[0].type == "Sensor":
+            name = "sns-"+sub_field[0].get_parameter["datasource"]
+            feature_names.add(name)
+            feature_nodes[name] = node
+            isAFeature = True
+
+    # a feature can be a script
+    if len(sub_field) > 1:
+        leftmost = netapi.get_nodes_in_gate_field(node, "sub", ["ret"])
+        if len(leftmost) == 1:
+
+            # todo: check for real script equivalence instead of using this signature cheat
+            visual_feature_names = collect_visual_feature_names(node, netapi)
+            name = "scp-"
+            for vf_name in visual_feature_names:
+                name += vf_name
+
+            feature_names.add(name)
+            feature_nodes[name] = node
+            isAFeature = True
+
+    if not isAFeature and "sub" in node.gates.keys():
+        for sub_node in sub_field:
+            if sub_node is not node:    # avoid infinite recursion on looping proxies
+                feature_names |= collect_feature_names(sub_node, netapi)
+
+    return feature_names, feature_nodes
+
+
+def create_common_feature_abstraction(schema1, schema2, netapi):
+
+    feature_names_in_schema1, features_in_schema1 = collect_feature_names(schema1, netapi)
+    feature_names_in_schema2, features_in_schema2 = collect_feature_names(schema2, netapi)
+
+    common_feature_names = feature_names_in_schema1 & feature_names_in_schema2      # that's intersection for you
+    features = {}
+    features.update(features_in_schema1)
+    features.update(features_in_schema2)
+
+    # now build the new category
+    abstraction = netapi.create_node(schema1.type, schema1.parent_nodespace, "Common-"+schema1.name+"-and-"+schema2.name)
+    for common_feature_name in common_feature_names:
+        feature = features[common_feature_name]
+        feature_clone = copy_schema(feature)
+        netapi.link_with_reciprocal(abstraction, feature_clone, "subsur")
+
+    # por-ret the sub-field of the newly created abstraction
+    feature_clones = netapi.get_nodes_in_gate_field(abstraction, "sub")
+    netapi.link_full(feature_clones, "porret")
+
+    # start to modify schema1
+    # first, remove the common features
+    for common_feature_name in common_feature_names:
+        feature = features[common_feature_name]
+        netapi.unlink(schema1, "sub", feature)
+        netapi.unlink(feature, "sur", schema1)
+    # second, install the new abstraction
+    nature = netapi.create_node(schema1.type, schema1.parent_nodespace, "Nature-"+abstraction.name)
+    netapi.link_with_reciprocal(schema1, nature, "subsur")
+    netapi.link_with_reciprocal(nature, abstraction, "catexp")
+
+    # start to modify schema2
+    # first, remove the common features
+    for common_feature_name in common_feature_names:
+        feature = features[common_feature_name]
+        netapi.unlink(schema2, "sub", feature)
+        netapi.unlink(feature, "sur", schema2)
+    # second, install the new abstraction
+    nature = netapi.create_node(schema2.type, schema2.parent_nodespace, "Nature-"+abstraction.name)
+    netapi.link_with_reciprocal(schema2, nature, "subsur")
+    netapi.link_with_reciprocal(nature, abstraction, "catexp")
+
+    return abstraction
