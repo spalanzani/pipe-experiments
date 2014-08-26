@@ -258,14 +258,12 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
     scenes = []
     for candidate in candidates:
         if candidate.name.startswith("Scene"):
-            #occurrence = netapi.create_node("Pipe", node.parent_nodespace, "Occurrence")
-            #netapi.link_with_reciprocal(protocolled_scene, occurrence, "subsur")
-            #netapi.link_with_reciprocal(occurrence, candidate, "catexp")
+            occurrence = netapi.create_node("Pipe", node.parent_nodespace, "Occurrence")
+            netapi.link_with_reciprocal(protocolled_scene, occurrence, "subsur")
+            netapi.link_with_reciprocal(occurrence, candidate, "catexp")
             netapi.link_with_reciprocal(protocolled_scene, candidate, "subsur")
             scenes.append(candidate)
     netapi.link_full(scenes, "porret")
-
-    # todo: link new things
 
     # make sure we have a current scene register
     #current_scene_registers = netapi.get_nodes(node.parent_nodespace, "Sepp")
@@ -331,11 +329,13 @@ def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
             if len(schema_element.get_gate("sub").outgoing) > 0:
                 newly_imported_schema_element = schema_element
                 visual_features_in_imported_schema_element = collect_visual_feature_names(newly_imported_schema_element, netapi)
+                netapi.logger.info("New: "+str(collect_feature_names(schema_element, netapi)[0]))
             if len(schema_element.get_gate("cat").outgoing) > 0:
                 recognized_schema_element = netapi.get_nodes_in_gate_field(schema_element, "cat")[0]
                 visual_features_in_recognized_schema_element = collect_visual_feature_names(recognized_schema_element, netapi)
+                netapi.logger.info("Rec: "+str(collect_feature_names(schema_element, netapi)[0]))
 
-        netapi.logger.info(str(collect_feature_names(schema, netapi)))
+
         #if visual_features_in_recognized_schema_element > visual_features_in_imported_schema_element:
         #    netapi.logger.debug("Recognition sufficient")
         #    # delete all the new elements, there is no new information
@@ -570,7 +570,9 @@ def collect_feature_names(node, netapi):
     if not isAFeature and "sub" in node.gates.keys():
         for sub_node in sub_field:
             if sub_node is not node:    # avoid infinite recursion on looping proxies
-                feature_names |= collect_feature_names(sub_node, netapi)
+                sub_names, sub_nodes = collect_feature_names(sub_node, netapi)
+                feature_names |= sub_names
+                feature_nodes.update(sub_nodes)
 
     return feature_names, feature_nodes
 
