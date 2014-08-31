@@ -2,6 +2,7 @@ __author__ = 'rvuine'
 
 import random
 import time
+from schematools import *
 
 
 def scene_importer(netapi, node=None, sheaf='default', **params):
@@ -314,6 +315,8 @@ def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
         else:
             current_protocol_element = None
 
+    abstraction_candidates = []
+
     for schema in schemas:  # level of ProtocolScene nodes
         #todo: get rid of the assumptions about structure
         netapi.logger.info("Examining protocol schema: "+schema.name)
@@ -329,22 +332,26 @@ def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
             if len(schema_element.get_gate("sub").outgoing) > 0:
                 newly_imported_schema_element = schema_element
                 visual_features_in_imported_schema_element = collect_visual_feature_names(newly_imported_schema_element, netapi)
-                netapi.logger.info("New: "+str(collect_feature_names(schema_element, netapi)[0]))
+
             if len(schema_element.get_gate("cat").outgoing) > 0:
                 recognized_schema_element = netapi.get_nodes_in_gate_field(schema_element, "cat")[0]
                 visual_features_in_recognized_schema_element = collect_visual_feature_names(recognized_schema_element, netapi)
-                netapi.logger.info("Rec: "+str(collect_feature_names(schema_element, netapi)[0]))
+                abstraction_candidates.append(recognized_schema_element)
 
-
-        #if visual_features_in_recognized_schema_element > visual_features_in_imported_schema_element:
-        #    netapi.logger.debug("Recognition sufficient")
-        #    # delete all the new elements, there is no new information
-        #    if newly_imported_schema_element is not None:
-        #        delete_schema(newly_imported_schema_element, netapi)
-        #else:
-        #    netapi.logger.info("New elements present:")
+        if visual_features_in_recognized_schema_element > visual_features_in_imported_schema_element:
+            # delete all the new elements, there is no new information
+            if newly_imported_schema_element is not None:
+                delete_schema(newly_imported_schema_element, netapi)
+        else:
+            abstraction_candidates.append(newly_imported_schema_element)
+        #    netapi.logger.info("New elements present, merging")
         #    if newly_imported_schema_element is not None and recognized_schema_element is not None:
         #        create_merged_schema([newly_imported_schema_element, recognized_schema_element], netapi)
+
+    for candidate1 in abstraction_candidates:
+        for candidate2 in abstraction_candidates:
+            if candidate1 is not candidate2:
+                create_common_feature_abstraction(candidate1, candidate2, netapi)
 
         # for every schema, check if there is sufficient overlap (what is sufficient?)
         # with any other existing schema (the most useful ones?)
@@ -356,6 +363,16 @@ def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
         # cleanup mechanism ex-protocol:
         # - remove schemas that never get touched
         # - remove schemas that always get active together and contain the same visual features
+
+
+    # what we do here is offer a schema that assumes that newly observed properties are part of something
+    # we have seen before
+
+    # types of theories:
+    # - newly observed properties are part of what has been seen before
+    # - newly observed properties are part of something new (should be created as a new incomplete schema)
+    # - two schemas are structurally similar, an abstraction should be offered
+
 
 def signalsource(netapi, node=None, sheaf='default', **params):
     step = node.get_parameter('step')
