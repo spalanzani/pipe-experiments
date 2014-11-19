@@ -244,6 +244,9 @@ def create_common_feature_abstraction(schema1, schema2, netapi):
 
     common_feature_names = feature_names_in_schema1 & feature_names_in_schema2      # that's intersection for you
 
+    if len(common_feature_names) > 0:
+        netapi.logger.info("Common features of: "+str(schema1.name)+" and "+str(schema2.name)+": "+str(common_feature_names))
+
     if len(common_feature_names) < (len(features_in_schema1)+len(feature_names_in_schema2)) / 6:
         return None             # do not do anything if less than a third of the schemas matches
 
