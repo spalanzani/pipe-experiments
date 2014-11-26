@@ -7,7 +7,7 @@ def delete_schema(node, netapi):
     :param node: the head node of a schema to be deleted
     :param netapi: natapi
     """
-    if "sub" in node.gates.keys():
+    if "sub" in node.get_gate_types():
         subs = netapi.get_nodes_in_gate_field(node, "sub")
         for sub_node in subs:
             if sub_node is not node:    # avoid infinite recursion on looping proxies
@@ -47,7 +47,7 @@ def merge_schemas(schemas, netapi):
         # todo: don't merge in features that are already there, i.e. structurally identical
         if len(sub_schemas) > 0:
             first_sub_schema = sub_schemas[0]
-            if len(first_sub_schema.get_gate("por").outgoing) == len(sub_schemas):  # this is a classifier
+            if len(first_sub_schema.get_gate("por").get_links()) == len(sub_schemas):  # this is a classifier
                 merged_classifier_list.extend(sub_schemas)
                 netapi.delete_node(schema)
             else:                                                                   # script or alternative
@@ -84,8 +84,8 @@ def copy_schema(node, netapi):
     # now link them up
     # links to copied nodes go to the copy, links to other nodes go to the original other nodes
     for original in original_schema_nodes:
-        for slot in original.slots.values():
-            for link in slot.incoming.values():
+        for slot_type in original.get_slot_types():
+            for link in original.get_slot(slot_type).get_links():
                 if link.source_node.uid in copy_schema_nodes:
                     # link from copy
                     if original.uid == node.uid and link.target_slot.type != "sur":
@@ -108,8 +108,8 @@ def copy_schema(node, netapi):
                         link.target_slot.type,
                         link.weight,
                         link.certainty)
-        for gate in original.gates.values():
-            for link in gate.outgoing.values():
+        for gate_type in original.get_gate_types():
+            for link in original.get_gate(gate_type).get_links():
                 if link.target_node.uid in copy_schema_nodes:
                     # link to copy
                     if original.uid == node.uid and link.source_gate.type != "sub":
@@ -140,7 +140,7 @@ def collect_schema_nodes(node, netapi):
     # collects all sub nodes (the whole schema)
     sub_nodes = set()
     sub_nodes.add(node)
-    if "sub" in node.gates.keys():
+    if "sub" in node.get_gate_types():
         subs = netapi.get_nodes_in_gate_field(node, "sub")
         for sub_node in subs:
             if sub_node is not node and sub_node.type == node.type:    # avoid infinite recursion on looping proxies
@@ -159,7 +159,7 @@ def collect_visual_feature_names(node, netapi):
     if node.name.endswith(".Prx"):
         visual_features.add(node.name)
 
-    if "sub" in node.gates.keys():
+    if "sub" in node.get_gate_types():
         subs = netapi.get_nodes_in_gate_field(node, "sub")
         for sub_node in subs:
             if sub_node is not node:    # avoid infinite recursion on looping proxies
@@ -220,7 +220,7 @@ def collect_features(node, netapi):
             feature_nodes[name] = node
             is_a_feature = True
 
-    if not is_a_feature and "sub" in node.gates.keys():
+    if not is_a_feature and "sub" in node.get_gate_types():
         for sub_node in sub_field:
             if sub_node is not node:    # avoid infinite recursion on looping proxies
                 sub_names, sub_nodes = collect_features(sub_node, netapi)

@@ -19,7 +19,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
 
     # make sure we have an importer scene node
     scene = None
-    for linkid, link in importer_scene_register.get_gate('gen').outgoing.items():
+    for link in importer_scene_register.get_gate('gen').get_links():
         if link.target_node.name.startswith("Scene"):
             scene = link.target_node
             break
@@ -87,27 +87,27 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 if len(previousfeature) == 1:
                     netapi.link_with_reciprocal(previousfeature[0], feature, "porret")
 
-                precondition = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prec")
-                netapi.link_with_reciprocal(feature, precondition, "subsur")
+                #precondition = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prec")
+                #netapi.link_with_reciprocal(feature, precondition, "subsur")
 
                 recognition = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Rec")
                 netapi.link_with_reciprocal(feature, recognition, "subsur")
 
-                netapi.link_full([precondition, recognition])
+                #netapi.link_full([precondition, recognition])
 
                 #create precondition classificator
-                prec_features = []
-                for sensor in presence_sensors_for_new_feature:
-                    prec_feature = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name)
-                    prec_features.append(prec_feature)
-                    netapi.link_with_reciprocal(precondition, prec_feature, "subsur")
+                #prec_features = []
+                #for sensor in presence_sensors_for_new_feature:
+                #    prec_feature = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name)
+                #    prec_features.append(prec_feature)
+                #    netapi.link_with_reciprocal(precondition, prec_feature, "subsur")
 
-                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name+".Prx")
-                    netapi.link_with_reciprocal(prec_feature, senseproxy, "subsur")
+                #    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name+".Prx")
+                #    netapi.link_with_reciprocal(prec_feature, senseproxy, "subsur")
 
-                    netapi.link_sensor(senseproxy, sensor.name)
+                #    netapi.link_sensor(senseproxy, sensor.name)
 
-                netapi.link_full(prec_features)
+                #netapi.link_full(prec_features)
 
                 # create recognition script
                 act = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Act")
@@ -206,7 +206,7 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
     if len(importer_scene_registers) > 0:
         importer_scene_register = importer_scene_registers[0]
     new_elements_scene = None
-    for linkid, link in importer_scene_register.get_gate('gen').outgoing.items():
+    for link in importer_scene_register.get_gate('gen').get_links():
         if link.target_node.name.startswith("Scene"):
             new_elements_scene = link.target_node
             break
@@ -230,7 +230,7 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
 
     # if the head is already referring to something, we need to record new_elements_scene,
     # extend the protocol and move the head
-    if len(protocol_head.get_gate("sub").outgoing) > 0:
+    if len(protocol_head.get_gate("sub").get_links()) > 0:
 
         # if new elements have been found since the last protocol action, add them to the protocol head
         # before moving forward and creating a new protocol head
@@ -271,7 +271,7 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
     #if len(current_scene_registers) > 0:
     #    current_scene_register = current_scene_registers[0]
     #scene = None
-    #for linkid, link in current_scene_register.get_gate('gen').outgoing.items():
+    #for link in current_scene_register.get_gate('gen').get_links():
     #    if link.target_node.name.startswith("Scene"):
     #        scene = link.target_node
     #        break
@@ -310,7 +310,7 @@ def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
     while i < 50 and current_protocol_element is not None:
         schemas.extend(netapi.get_nodes_in_gate_field(current_protocol_element, "sub"))
         i += 1
-        if len(current_protocol_element.get_gate("ret").outgoing) > 0:
+        if len(current_protocol_element.get_gate("ret").get_links()) > 0:
             current_protocol_element = netapi.get_nodes_in_gate_field(current_protocol_element, "ret")[0]
         else:
             current_protocol_element = None
@@ -329,19 +329,23 @@ def structure_abstraction_builder(netapi, node=None, sheaf='default', **params):
         recognized_schema_element = None
 
         for schema_element in schema_elements:  # level of occurrence node / fresh schema heads
-            if len(schema_element.get_gate("sub").outgoing) > 0:
+            if len(schema_element.get_gate("sub").get_links()) > 0:
+                # it's sub-connected, so it has been imported to the schema
                 newly_imported_schema_element = schema_element
                 visual_features_in_imported_schema_element = collect_visual_feature_names(newly_imported_schema_element, netapi)
 
-            if len(schema_element.get_gate("cat").outgoing) > 0:
+            if len(schema_element.get_gate("cat").get_links()) > 0:
+                # it's cat-connected, so it has been recognized as something already known
                 recognized_schema_element = netapi.get_nodes_in_gate_field(schema_element, "cat")[0]
                 visual_features_in_recognized_schema_element = collect_visual_feature_names(recognized_schema_element, netapi)
                 abstraction_candidates.append(recognized_schema_element)
+
 
         if visual_features_in_recognized_schema_element > visual_features_in_imported_schema_element:
             # delete all the new elements, there is no new information
             if newly_imported_schema_element is not None:
                 delete_schema(newly_imported_schema_element, netapi)
+                netapi.logger.info("Redundant schema: "+newly_imported_schema_element.name)
         else:
             abstraction_candidates.append(newly_imported_schema_element)
         #    netapi.logger.info("New elements present, merging")
@@ -386,3 +390,6 @@ def signalsource(netapi, node=None, sheaf='default', **params):
     step *= 2
     linear = (1 / 100) * step
     node.get_gate('linear').gate_function(linear)
+
+#    if step == 0:
+#        raise "ohjemine"
