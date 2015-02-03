@@ -93,8 +93,6 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 recognition = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Rec")
                 netapi.link_with_reciprocal(feature, recognition, "subsur")
 
-                #netapi.link_full([precondition, recognition])
-
                 #create precondition classificator
                 #prec_features = []
                 #for sensor in presence_sensors_for_new_feature:
@@ -106,8 +104,6 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 #    netapi.link_with_reciprocal(prec_feature, senseproxy, "subsur")
 
                 #    netapi.link_sensor(senseproxy, sensor.name)
-
-                #netapi.link_full(prec_features)
 
                 # create recognition script
                 act = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Act")
@@ -142,11 +138,8 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
 
                     netapi.link(senseproxy, 'gen', senseproxy, 'gen', 0.95)
                     netapi.link_sensor(senseproxy, sensor.name)
-                netapi.link_full(sense_features)
 
                 sub_field = netapi.get_nodes_in_gate_field(scene, 'sub')
-                if len(sub_field) > 1:
-                    netapi.link_full(sub_field)
 
                 netapi.logger.debug("SceneImporter imported %s.", featurename)
 
@@ -238,7 +231,6 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
             old_protocolled_scene = netapi.get_nodes_in_gate_field(protocol_head, "sub")[0]
             netapi.link_with_reciprocal(old_protocolled_scene, new_elements_scene, "subsur")
             old_protocolled_elements = netapi.get_nodes_in_gate_field(old_protocolled_scene, "sub")
-            netapi.link_full(old_protocolled_elements, "porret")
 
         head_index = int(protocol_head.get_state("index"))
         new_head_index = head_index + 1
@@ -264,7 +256,6 @@ def protocol_builder(netapi, node=None, sheaf='default', **params):
             netapi.link_with_reciprocal(occurrence, candidate, "catexp")
             netapi.link_with_reciprocal(protocolled_scene, candidate, "subsur")
             scenes.append(candidate)
-    netapi.link_full(scenes, "porret")
 
     # make sure we have a current scene register
     #current_scene_registers = netapi.get_nodes(node.parent_nodespace, "Sepp")
