@@ -1,147 +1,144 @@
 {
-    "activatortypes": [
-        "Pipe",
-        "Nodespace",
-        "Concept",
-        "Sensor",
-        "Script",
-        "Register",
-        "Activator",
-        "Actor"
-    ],
+    "current_step": 0,
+    "engine": "dict_engine",
     "is_active": false,
     "links": {
-        "16225351-0128-4c3a-89db-ec6e6db673e2": {
-            "certainty": 1,
-            "source_gate_name": "repeat",
-            "source_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
-            "target_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
-            "target_slot_name": "trigger",
-            "uid": "16225351-0128-4c3a-89db-ec6e6db673e2",
-            "weight": 1
-        },
-        "31b9bd8a-ccc2-40fa-b6f5-6723b5c556c4": {
-            "certainty": 1,
-            "source_gate_name": "gen",
-            "source_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
-            "target_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
-            "target_slot_name": "gen",
-            "uid": "31b9bd8a-ccc2-40fa-b6f5-6723b5c556c4",
-            "weight": 1.05
-        },
-        "4a2a596b-6a7a-413a-b3e3-6a01e644cd0c": {
-            "certainty": 1,
-            "source_gate_name": "import",
-            "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
-            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
-            "target_slot_name": "inh-grow",
-            "uid": "4a2a596b-6a7a-413a-b3e3-6a01e644cd0c",
-            "weight": 1
-        },
-        "84269994-96ed-497d-abf3-5ff14e7d268f": {
-            "certainty": 1,
-            "source_gate_name": "fov_y",
-            "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
-            "target_node_uid": "075a0b6ed5f111e39ff70023dfa615aa",
-            "target_slot_name": "gen",
-            "uid": "84269994-96ed-497d-abf3-5ff14e7d268f",
-            "weight": 1
-        },
-        "a796cf34-8a40-41d4-9cb2-7df7a6777799": {
-            "certainty": 1,
-            "source_gate_name": "done",
-            "source_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
-            "target_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
-            "target_slot_name": "gen",
-            "uid": "a796cf34-8a40-41d4-9cb2-7df7a6777799",
-            "weight": -1000
-        },
-        "b6d15e39-d251-4b5b-9a9e-9ffca1064b81": {
-            "certainty": 1,
-            "source_gate_name": "done",
-            "source_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
-            "target_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
-            "target_slot_name": "trigger",
-            "uid": "b6d15e39-d251-4b5b-9a9e-9ffca1064b81",
-            "weight": -1000
-        },
-        "b732dd1c-cf7a-47c7-ade8-6bc6da38e544": {
-            "certainty": 1,
-            "source_gate_name": "gen",
-            "source_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
-            "target_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
-            "target_slot_name": "trigger",
-            "uid": "b732dd1c-cf7a-47c7-ade8-6bc6da38e544",
-            "weight": 1
-        },
-        "b846ded4-ed19-4c3e-ac82-d6923c60bdee": {
-            "certainty": 1,
-            "source_gate_name": "gen",
-            "source_node_uid": "075abe12d5f111e3a7900023dfa615aa",
-            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
-            "target_slot_name": "fov-y",
-            "uid": "b846ded4-ed19-4c3e-ac82-d6923c60bdee",
-            "weight": 1
-        },
-        "bf1cfe98-78f8-4f1d-a53e-2964664cf641": {
-            "certainty": 1,
-            "source_gate_name": "gen",
-            "source_node_uid": "075b1ad4d5f111e3b8210023dfa615aa",
-            "target_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
-            "target_slot_name": "gen",
-            "uid": "bf1cfe98-78f8-4f1d-a53e-2964664cf641",
-            "weight": 0.1
-        },
-        "bfb313d9-6652-491c-a3e1-6fa9e6d46f61": {
-            "certainty": 1,
-            "source_gate_name": "done",
-            "source_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
-            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
-            "target_slot_name": "newscene",
-            "uid": "bfb313d9-6652-491c-a3e1-6fa9e6d46f61",
-            "weight": 1
-        },
-        "cd741372-d592-4967-a461-cb77155af670": {
-            "certainty": 1,
-            "source_gate_name": "gen",
-            "source_node_uid": "075d3492d5f111e3bae80023dfa615aa",
-            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
-            "target_slot_name": "fov-x",
-            "uid": "cd741372-d592-4967-a461-cb77155af670",
-            "weight": 1
-        },
-        "f172be2c-0138-4721-a2c3-7efaceea6706": {
-            "certainty": 1,
-            "source_gate_name": "reset",
-            "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
-            "target_node_uid": "0759b71ad5f111e3ad850023dfa615aa",
-            "target_slot_name": "gen",
-            "uid": "f172be2c-0138-4721-a2c3-7efaceea6706",
-            "weight": 1
-        },
-        "f7203b7d-3395-4d56-af34-dbaf602ec153": {
+        "042693b9-35c6-4fc8-b12c-fa7071691fb0:fov_x:gen:07596664d5f111e3a1db0023dfa615aa": {
             "certainty": 1,
             "source_gate_name": "fov_x",
             "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
             "target_node_uid": "07596664d5f111e3a1db0023dfa615aa",
             "target_slot_name": "gen",
-            "uid": "f7203b7d-3395-4d56-af34-dbaf602ec153",
+            "uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0:fov_x:gen:07596664d5f111e3a1db0023dfa615aa",
             "weight": 1
         },
-        "fd10343c-41c5-46bf-b24a-b26241c5ee30": {
+        "042693b9-35c6-4fc8-b12c-fa7071691fb0:fov_y:gen:075a0b6ed5f111e39ff70023dfa615aa": {
+            "certainty": 1,
+            "source_gate_name": "fov_y",
+            "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_node_uid": "075a0b6ed5f111e39ff70023dfa615aa",
+            "target_slot_name": "gen",
+            "uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0:fov_y:gen:075a0b6ed5f111e39ff70023dfa615aa",
+            "weight": 1
+        },
+        "042693b9-35c6-4fc8-b12c-fa7071691fb0:reset:gen:0759b71ad5f111e3ad850023dfa615aa": {
+            "certainty": 1,
+            "source_gate_name": "reset",
+            "source_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_node_uid": "0759b71ad5f111e3ad850023dfa615aa",
+            "target_slot_name": "gen",
+            "uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0:reset:gen:0759b71ad5f111e3ad850023dfa615aa",
+            "weight": 1
+        },
+        "075abe12d5f111e3a7900023dfa615aa:gen:fov-y:042693b9-35c6-4fc8-b12c-fa7071691fb0": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "075abe12d5f111e3a7900023dfa615aa",
+            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_slot_name": "fov-y",
+            "uid": "075abe12d5f111e3a7900023dfa615aa:gen:fov-y:042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "weight": 1
+        },
+        "075b1ad4d5f111e3b8210023dfa615aa:gen:gen:e3033344-4fc6-4f43-882b-5842736b83c0": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "075b1ad4d5f111e3b8210023dfa615aa",
+            "target_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
+            "target_slot_name": "gen",
+            "uid": "075b1ad4d5f111e3b8210023dfa615aa:gen:gen:e3033344-4fc6-4f43-882b-5842736b83c0",
+            "weight": 0.1
+        },
+        "075d3492d5f111e3bae80023dfa615aa:gen:fov-x:042693b9-35c6-4fc8-b12c-fa7071691fb0": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "075d3492d5f111e3bae80023dfa615aa",
+            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_slot_name": "fov-x",
+            "uid": "075d3492d5f111e3bae80023dfa615aa:gen:fov-x:042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "weight": 1
+        },
+        "6202b0ec-9658-43a5-bee6-d592ccb7b12f:done:gen:e3033344-4fc6-4f43-882b-5842736b83c0": {
+            "certainty": 1,
+            "source_gate_name": "done",
+            "source_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
+            "target_slot_name": "gen",
+            "uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f:done:gen:e3033344-4fc6-4f43-882b-5842736b83c0",
+            "weight": -1000
+        },
+        "6202b0ec-9658-43a5-bee6-d592ccb7b12f:done:newscene:042693b9-35c6-4fc8-b12c-fa7071691fb0": {
+            "certainty": 1,
+            "source_gate_name": "done",
+            "source_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "target_slot_name": "newscene",
+            "uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f:done:newscene:042693b9-35c6-4fc8-b12c-fa7071691fb0",
+            "weight": 1
+        },
+        "6202b0ec-9658-43a5-bee6-d592ccb7b12f:done:trigger:6202b0ec-9658-43a5-bee6-d592ccb7b12f": {
+            "certainty": 1,
+            "source_gate_name": "done",
+            "source_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_slot_name": "trigger",
+            "uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f:done:trigger:6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "weight": -1000
+        },
+        "e3033344-4fc6-4f43-882b-5842736b83c0:gen:dontgrow:042693b9-35c6-4fc8-b12c-fa7071691fb0": {
             "certainty": 1,
             "source_gate_name": "gen",
             "source_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
             "target_node_uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0",
             "target_slot_name": "dontgrow",
-            "uid": "fd10343c-41c5-46bf-b24a-b26241c5ee30",
+            "uid": "e3033344-4fc6-4f43-882b-5842736b83c0:gen:dontgrow:042693b9-35c6-4fc8-b12c-fa7071691fb0",
             "weight": 1000
+        },
+        "e3033344-4fc6-4f43-882b-5842736b83c0:gen:gen:e3033344-4fc6-4f43-882b-5842736b83c0": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
+            "target_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
+            "target_slot_name": "gen",
+            "uid": "e3033344-4fc6-4f43-882b-5842736b83c0:gen:gen:e3033344-4fc6-4f43-882b-5842736b83c0",
+            "weight": 1.05
+        },
+        "e3033344-4fc6-4f43-882b-5842736b83c0:gen:trigger:6202b0ec-9658-43a5-bee6-d592ccb7b12f": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "e3033344-4fc6-4f43-882b-5842736b83c0",
+            "target_node_uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "target_slot_name": "trigger",
+            "uid": "e3033344-4fc6-4f43-882b-5842736b83c0:gen:trigger:6202b0ec-9658-43a5-bee6-d592ccb7b12f",
+            "weight": 1
+        },
+        "fb639f92-b672-4993-ac84-9239acfebd9f:gen:gen:38825638d5fb11e3aae60023dfa615aa": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "fb639f92-b672-4993-ac84-9239acfebd9f",
+            "target_node_uid": "38825638d5fb11e3aae60023dfa615aa",
+            "target_slot_name": "gen",
+            "uid": "fb639f92-b672-4993-ac84-9239acfebd9f:gen:gen:38825638d5fb11e3aae60023dfa615aa",
+            "weight": 1
+        },
+        "fb639f92-b672-4993-ac84-9239acfebd9f:gen:gen:fb639f92-b672-4993-ac84-9239acfebd9f": {
+            "certainty": 1,
+            "source_gate_name": "gen",
+            "source_node_uid": "fb639f92-b672-4993-ac84-9239acfebd9f",
+            "target_node_uid": "fb639f92-b672-4993-ac84-9239acfebd9f",
+            "target_slot_name": "gen",
+            "uid": "fb639f92-b672-4993-ac84-9239acfebd9f:gen:gen:fb639f92-b672-4993-ac84-9239acfebd9f",
+            "weight": 1
         }
+    },
+    "max_coords": {
+        "x": 2300,
+        "y": 800
     },
     "monitors": {},
     "name": "TestSceneImport",
     "nodes": {
         "042693b9-35c6-4fc8-b12c-fa7071691fb0": {
+            "activation": 0.0,
             "gate_activations": {
                 "fov_x": {
                     "default": {
@@ -228,15 +225,17 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "SceneImporter",
             "uid": "042693b9-35c6-4fc8-b12c-fa7071691fb0"
         },
         "07596664d5f111e3a1db0023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
@@ -276,10 +275,12 @@
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Actor",
             "uid": "07596664d5f111e3a1db0023dfa615aa"
         },
         "0759b71ad5f111e3ad850023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
@@ -314,15 +315,17 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Actor",
             "uid": "0759b71ad5f111e3ad850023dfa615aa"
         },
         "075a0b6ed5f111e39ff70023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
@@ -362,14 +365,16 @@
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Actor",
             "uid": "075a0b6ed5f111e39ff70023dfa615aa"
         },
         "075a662ed5f111e3a5e50023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 1,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -400,15 +405,17 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 1,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Sensor",
             "uid": "075a662ed5f111e3a5e50023dfa615aa"
         },
         "075abe12d5f111e3a7900023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
@@ -420,15 +427,10 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1.0,
-                    "certainty": 1.0,
-                    "decay": 0.0,
-                    "maximum": 10.0,
-                    "minimum": -10.0,
-                    "rho": 0.0,
+                    "maximum": 2.0,
+                    "minimum": -2.0,
                     "spreadsheaves": 0.0,
-                    "theta": 0.0,
-                    "threshold": -10.0
+                    "threshold": -2.0
                 }
             },
             "index": 7,
@@ -443,15 +445,17 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Sensor",
             "uid": "075abe12d5f111e3a7900023dfa615aa"
         },
         "075b1ad4d5f111e3b8210023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
@@ -486,19 +490,21 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Sensor",
             "uid": "075b1ad4d5f111e3b8210023dfa615aa"
         },
         "075b7c54d5f111e3aa5e0023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 1,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -529,15 +535,17 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 1,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Sensor",
             "uid": "075b7c54d5f111e3aa5e0023dfa615aa"
         },
         "075be35ad5f111e39ebe0023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
@@ -572,19 +580,21 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Sensor",
             "uid": "075be35ad5f111e39ebe0023dfa615aa"
         },
         "075c4eecd5f111e3a26b0023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 1,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -615,15 +625,17 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 1,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Sensor",
             "uid": "075c4eecd5f111e3a26b0023dfa615aa"
         },
         "075cbf9cd5f111e3906a0023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
@@ -658,15 +670,17 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Sensor",
             "uid": "075cbf9cd5f111e3906a0023dfa615aa"
         },
         "075d3492d5f111e3bae80023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
@@ -678,15 +692,10 @@
             },
             "gate_parameters": {
                 "gen": {
-                    "amplification": 1.0,
-                    "certainty": 1.0,
-                    "decay": 0.0,
-                    "maximum": 10.0,
-                    "minimum": -10.0,
-                    "rho": 0.0,
+                    "maximum": 2.0,
+                    "minimum": -2.0,
                     "spreadsheaves": 0.0,
-                    "theta": 0.0,
-                    "threshold": -10.0
+                    "threshold": -2.0
                 }
             },
             "index": 13,
@@ -701,19 +710,21 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Sensor",
             "uid": "075d3492d5f111e3bae80023dfa615aa"
         },
         "075daf8ad5f111e391790023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 1,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -744,19 +755,21 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 1,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Sensor",
             "uid": "075daf8ad5f111e391790023dfa615aa"
         },
         "075e2e6cd5f111e3b39c0023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 1,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -787,20 +800,21 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 1,
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Sensor",
             "uid": "075e2e6cd5f111e3b39c0023dfa615aa"
         },
         "075eb2ecd5f111e3beec0023dfa615aa": {
-            "activation": -1,
+            "activation": -1.0,
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0.0,
+                        "activation": -1.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -831,15 +845,17 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": 0,
+                    "activation": -1.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Sensor",
             "uid": "075eb2ecd5f111e3beec0023dfa615aa"
         },
         "38825638d5fb11e3aae60023dfa615aa": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
@@ -874,26 +890,21 @@
             ],
             "sheaves": {
                 "default": {
-                    "activation": "0",
+                    "activation": 0.0,
                     "name": "default",
                     "uid": "default"
                 }
             },
+            "state": {},
             "type": "Register",
             "uid": "38825638d5fb11e3aae60023dfa615aa"
         },
         "6202b0ec-9658-43a5-bee6-d592ccb7b12f": {
+            "activation": 0.0,
             "gate_activations": {
                 "done": {
                     "default": {
-                        "activation": 0,
-                        "name": "default",
-                        "uid": "default"
-                    }
-                },
-                "repeat": {
-                    "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -913,21 +924,30 @@
                 }
             },
             "index": 20,
-            "name": "",
+            "name": "ProtocolBuilder",
             "parameters": {},
             "parent_nodespace": "Root",
             "position": [
                 467.9999999999999,
                 141.9999999999999
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0.0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
+            "state": {},
             "type": "ProtocolBuilder",
             "uid": "6202b0ec-9658-43a5-bee6-d592ccb7b12f"
         },
         "e3033344-4fc6-4f43-882b-5842736b83c0": {
+            "activation": 0.0,
             "gate_activations": {
                 "gen": {
                     "default": {
-                        "activation": 0,
+                        "activation": 0.0,
                         "name": "default",
                         "uid": "default"
                     }
@@ -956,13 +976,53 @@
                 461.9999999999999,
                 481.9999999999999
             ],
+            "sheaves": {
+                "default": {
+                    "activation": 0.0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
+            "state": {},
             "type": "Register",
             "uid": "e3033344-4fc6-4f43-882b-5842736b83c0"
+        },
+        "fb639f92-b672-4993-ac84-9239acfebd9f": {
+            "activation": 1.0,
+            "gate_activations": {
+                "gen": {
+                    "default": {
+                        "activation": 1.0,
+                        "name": "default",
+                        "uid": "default"
+                    }
+                }
+            },
+            "gate_parameters": {},
+            "index": 19,
+            "name": "ActivationSource",
+            "parameters": {},
+            "parent_nodespace": "Root",
+            "position": [
+                120,
+                440
+            ],
+            "sheaves": {
+                "default": {
+                    "activation": 1.0,
+                    "name": "default",
+                    "uid": "default"
+                }
+            },
+            "state": {},
+            "type": "Register",
+            "uid": "fb639f92-b672-4993-ac84-9239acfebd9f"
         }
     },
     "nodespaces": {
         "Root": {
-            "index": 1,
+            "gatefunctions": {},
+            "index": 0,
             "name": "Root",
             "parent_nodespace": null,
             "position": [
@@ -973,7 +1033,7 @@
         }
     },
     "owner": "admin",
-    "step": 25,
+    "settings": {},
     "uid": "851def94d5f011e382990023dfa615aa",
     "version": 1,
     "world": "6df3bffaf95f11e38a330023dfa615aa",

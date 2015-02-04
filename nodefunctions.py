@@ -11,8 +11,9 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
     netapi.import_sensors(node.parent_nodespace)
 
     node.get_gate("reset").gate_function(0)
-    node.get_gate("fov_x").gate_function(0)
-    node.get_gate("fov_y").gate_function(0)
+    #node.get_gate("fov_x").gate_function(node.get_slot("fov-x").activation)
+    #node.get_gate("fov_y").gate_function(node.get_slot("fov-y").activation)
+
     #node.get_gate("fov_x").gate_function(node.get_slot("fov-x").activation)
     #node.get_gate("fov_y").gate_function(node.get_slot("fov-y").activation)
 
@@ -127,7 +128,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 actproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prx.fovea")
                 netapi.link_with_reciprocal(act, actproxy, "subsur")
 
-                netapi.link(actproxy, 'gen', actproxy, 'gen', 0.95)     # gen loop
+                netapi.link(actproxy, 'gen', actproxy, 'gen', 0.98)     # gen loop
                 netapi.link(actproxy, 'sub', actproxy, 'sur')           # fovea act proxies confirm themselves
 
                 netapi.link_actor(actproxy, 'fov_reset')
@@ -146,7 +147,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                     senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name+".Prx")
                     netapi.link_with_reciprocal(sense_feature, senseproxy, "subsur")
 
-                    netapi.link(senseproxy, 'gen', senseproxy, 'gen', 0.95)
+                    netapi.link(senseproxy, 'gen', senseproxy, 'gen', 0.98)
                     netapi.link_sensor(senseproxy, sensor.name)
 
                 sub_field = netapi.get_nodes_in_gate_field(scene, 'sub')
