@@ -10,6 +10,12 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
     netapi.import_actors(node.parent_nodespace)
     netapi.import_sensors(node.parent_nodespace)
 
+    node.get_gate("reset").gate_function(0)
+    node.get_gate("fov_x").gate_function(0)
+    node.get_gate("fov_y").gate_function(0)
+    #node.get_gate("fov_x").gate_function(node.get_slot("fov-x").activation)
+    #node.get_gate("fov_y").gate_function(node.get_slot("fov-y").activation)
+
     # make sure we have an importer scene register
     importer_scene_registers = netapi.get_nodes(node.parent_nodespace, "ImporterScene")
     if len(importer_scene_registers) is 0:
@@ -46,6 +52,8 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
             all_subs_active = False
         fovea_positions.append((sub_node.get_state('x'), sub_node.get_state('y')))
 
+    randomize = True
+
     # if the scene is fully recognized, check if there's something we can add to it in the world
     if all_subs_active and node.get_slot("dontgrow").activation < 1:
         # what we're looking for: a feature that is active but hasn't been linked
@@ -57,6 +65,8 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
         featurename = "F(" + str(x) + "/" + str(y)+")"
 
         netapi.logger.debug("SceneImporter has stable scene, checking if current feature %s is imported.", featurename)
+
+        randomize = False
 
         # now, do we have a feature for the current sensor situation?
         if (x, y) not in fovea_positions:
@@ -140,11 +150,12 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                     netapi.link_sensor(senseproxy, sensor.name)
 
                 sub_field = netapi.get_nodes_in_gate_field(scene, 'sub')
-
                 netapi.logger.debug("SceneImporter imported %s.", featurename)
+        else:
+            randomize = True
 
         # finally some fovea randomisation for the next round if no schema is accessing the fovea right now
-        if not netapi.is_locked('fovea'):
+        if not netapi.is_locked('fovea') and randomize:
             fovea_position_candidate = (random.randint(-2, 2), random.randint(-2, 2))
             i = 10
             while fovea_position_candidate not in fovea_positions and i < 10:
