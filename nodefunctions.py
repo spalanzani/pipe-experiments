@@ -44,21 +44,18 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
     if scene is None:
         return
 
-    # check if the scene has been fully recognized, build a list of fovea positions that are taken care of
-    sub_field = netapi.get_nodes_in_gate_field(scene, 'sub')
-    all_subs_active = True
-    fovea_positions = []
-    for sub_node in sub_field:
-        if sub_node.activation <= 0.75:
-            all_subs_active = False
-        fovea_positions.append((sub_node.get_state('x'), sub_node.get_state('y')))
-
     randomize = True
 
     # if the scene is fully recognized, check if there's something we can add to it in the world
-    if all_subs_active and node.get_slot("dontgrow").activation < 1:
+    if (scene.activation > 0.8 or scene.get_slot('sur').empty) and node.get_slot("dontgrow").activation < 1:
         # what we're looking for: a feature that is active but hasn't been linked
         # for this, we move the fovea to a position we haven't looked at yet
+
+        # build a list of fovea positions that are taken care of
+        sub_field = netapi.get_nodes_in_gate_field(scene, 'sub')
+        fovea_positions = []
+        for sub_node in sub_field:
+            fovea_positions.append((sub_node.get_state('x'), sub_node.get_state('y')))
 
         # current fovea position and resulting feature name
         x = int(node.get_slot("fov-x").activation)
@@ -72,7 +69,7 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
         # now, do we have a feature for the current sensor situation?
         if (x, y) not in fovea_positions:
 
-            netapi.logger.debug("SceneImporter attempting to import %s.", featurename)
+            netapi.logger.debug("SceneImporter: %s is not imported, importing.", featurename)
 
             # find the sensors to link
             active_sensors = netapi.get_nodes_active(node.parent_nodespace, 'Sensor', 1, 'gen')
@@ -84,58 +81,52 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                 if sensor.name.startswith("presence"):
                     presence_sensors_for_new_feature.append(sensor)
 
+            if len(fovea_sensors_for_new_feature) == 0:
+                netapi.logger.debug("SceneImporter: Aborting import of %s, no sensors", featurename)
+                randomize = True
+
             # and build the schema for them
             if len(fovea_sensors_for_new_feature) > 0:
-
-                previousfeature = netapi.get_nodes_in_gate_field(scene, 'sub', ['por'])
 
                 feature = netapi.create_node("Pipe", node.parent_nodespace, featurename)
                 feature.set_state('x', x)
                 feature.set_state('y', y)
                 #feature.set_parameter('sublock', 'fovea')
+                netapi.link(feature, 'gen', feature, 'gen', 0.98)     # gen loop
+                #feature.set_gate_parameter('threshold', 0.1)
                 netapi.link_with_reciprocal(scene, feature, "subsur")
 
-                if len(previousfeature) == 1:
-                    netapi.link_with_reciprocal(previousfeature[0], feature, "porret")
-
-                #precondition = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prec")
-                #netapi.link_with_reciprocal(feature, precondition, "subsur")
-
-                recognition = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Rec")
-                netapi.link_with_reciprocal(feature, recognition, "subsur")
-
-                #create precondition classificator
-                #prec_features = []
-                #for sensor in presence_sensors_for_new_feature:
-                #    prec_feature = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name)
-                #    prec_features.append(prec_feature)
-                #    netapi.link_with_reciprocal(precondition, prec_feature, "subsur")
-
-                #    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name+".Prx")
-                #    netapi.link_with_reciprocal(prec_feature, senseproxy, "subsur")
-
-                #    netapi.link_sensor(senseproxy, sensor.name)
+                #recognition = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Rec")
+                #netapi.link_with_reciprocal(feature, recognition, "subsur")
 
                 # create recognition script
                 act = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Act")
-                netapi.link_with_reciprocal(recognition, act, "subsur")
+                netapi.link_with_reciprocal(feature, act, "subsur")
 
                 sense = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Sense")
-                netapi.link_with_reciprocal(recognition, sense, "subsur")
+                netapi.link_with_reciprocal(feature, sense, "subsur")
 
                 netapi.link_with_reciprocal(act, sense, "porret")
 
-                actproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+".Prx.fovea")
-                netapi.link_with_reciprocal(act, actproxy, "subsur")
+                mov_x = netapi.create_node("Trigger", node.parent_nodespace, featurename+".mov-x")
+                mov_y = netapi.create_node("Trigger", node.parent_nodespace, featurename+".mov-y")
+                mov_x.set_parameter('response', x)
+                mov_y.set_parameter('response', y)
+                mov_x.set_parameter('timeout', 3)
+                mov_y.set_parameter('timeout', 3)
+                netapi.link_with_reciprocal(act, mov_x, "subsur")
+                netapi.link_with_reciprocal(act, mov_y, "subsur")
+                netapi.link(mov_x, 'sur', act, 'sur', 0.5)
+                netapi.link(mov_y, 'sur', act, 'sur', 0.5)
 
-                netapi.link(actproxy, 'gen', actproxy, 'gen', 0.98)     # gen loop
-                netapi.link(actproxy, 'sub', actproxy, 'sur')           # fovea act proxies confirm themselves
-
-                netapi.link_actor(actproxy, 'fov_reset')
+                netapi.link_actor(mov_x, 'fov_reset')
                 if x != 0:
-                    netapi.link_actor(actproxy, 'fov_x', x)
+                    netapi.link_actor(mov_x, 'fov_x', x)
                 if y != 0:
-                    netapi.link_actor(actproxy, 'fov_y', y)
+                    netapi.link_actor(mov_y, 'fov_y', y)
+
+                netapi.link_sensor(mov_x, "fov-x")
+                netapi.link_sensor(mov_y, "fov-y")
 
                 # create conditional sensor classificator
                 sense_features = []
@@ -144,15 +135,16 @@ def scene_importer(netapi, node=None, sheaf='default', **params):
                     sense_features.append(sense_feature)
                     netapi.link_with_reciprocal(sense, sense_feature, "subsur")
 
-                    senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name+".Prx")
-                    netapi.link_with_reciprocal(sense_feature, senseproxy, "subsur")
+                    #senseproxy = netapi.create_node("Pipe", node.parent_nodespace, featurename+"."+sensor.name+".Prx")
+                    #netapi.link_with_reciprocal(sense_feature, senseproxy, "subsur")
 
-                    netapi.link(senseproxy, 'gen', senseproxy, 'gen', 0.98)
-                    netapi.link_sensor(senseproxy, sensor.name)
+                    #netapi.link(senseproxy, 'gen', senseproxy, 'gen', 0.98)
+                    netapi.link_sensor(sense_feature, sensor.name)
 
                 sub_field = netapi.get_nodes_in_gate_field(scene, 'sub')
                 netapi.logger.debug("SceneImporter imported %s.", featurename)
         else:
+            netapi.logger.debug("SceneImporter: %s already imported, aborting.", featurename)
             randomize = True
 
         # finally some fovea randomisation for the next round if no schema is accessing the fovea right now
